@@ -8,7 +8,8 @@ import { TEAM } from "@/lib/team-data";
 import PageHero from "@/components/PageHero";
 import ManagementHeroVector from "@/components/heroes/ManagementHeroVector";
 
-const mgmt = TEAM.filter((m) => m.category === "Management");
+const ceo = TEAM.filter((m) => m.role === "Chief Executive Officer");
+const mgmt = [...ceo, ...TEAM.filter((m) => m.category === "Management")];
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
 
 const OPEN_ROLES = [
@@ -117,158 +118,88 @@ export default function LeadershipManagementPage() {
         </div>
       </section>
 
-      {/* ── TEAM CARDS ── */}
+      {/* ── TEAM CARDS — One per row, alternating photo side ── */}
       <section className="bg-background py-20">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24 space-y-4">
+          {mgmt.map((m, i) => {
+            const isCEO   = i === 0;
+            const photoLeft = i % 2 === 0;
 
-          {/* Featured card (first member with photo, or first overall) */}
-          {(() => {
-            const featured = mgmt.find((m) => m.photo) ?? mgmt[0];
-            const others = mgmt.filter((m) => m.slug !== featured.slug);
-            return (
-              <>
-                {/* FEATURED */}
-                <motion.div
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.65, ease }}
-                  className="group grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-0 border border-border overflow-hidden mb-8 hover:border-primary/40 transition-colors duration-300"
-                >
-                  {/* Photo panel */}
-                  <Link
-                    href={`/leadership/${featured.slug}`}
-                    className="relative overflow-hidden block min-h-[320px] lg:min-h-full bg-muted"
-                    tabIndex={-1}
-                    aria-hidden="true"
-                  >
-                    {featured.photo ? (
-                      <img
-                        src={featured.photo}
-                        alt={featured.name}
-                        className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="font-display text-[8rem] font-bold text-primary/10 select-none leading-none">
-                          {featured.initials}
-                        </span>
-                      </div>
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/20" />
-                    <div className="absolute top-0 left-0 bottom-0 w-[4px] gold-gradient" />
-                  </Link>
+            const gridClass = isCEO
+              ? "grid grid-cols-1 md:grid-cols-[420px_1fr]"
+              : photoLeft
+                ? "grid grid-cols-1 md:grid-cols-[360px_1fr]"
+                : "grid grid-cols-1 md:grid-cols-[1fr_360px]";
 
-                  {/* Content panel */}
-                  <div className="flex flex-col justify-center px-10 py-12 bg-background">
-                    <p className="text-xs tracking-[0.22em] uppercase text-primary font-body font-semibold mb-6 inline-flex items-center gap-2">
-                      <span className="w-4 h-px bg-primary" />
-                      Management Team
-                    </p>
-                    <Link href={`/leadership/${featured.slug}`}>
-                      <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground leading-[1.05] mb-3 hover:text-primary transition-colors duration-300">
-                        {featured.name}
-                      </h2>
-                    </Link>
-                    <p className="text-sm tracking-[0.1em] uppercase text-primary font-body font-semibold mb-7">
-                      {featured.role}
-                    </p>
-                    <div className="h-[2px] w-12 gold-gradient mb-7" />
-                    <p className="font-body text-lg text-muted-foreground leading-[1.9] mb-8 max-w-lg">
-                      {featured.tagline}
-                    </p>
-                    {featured.credentials && featured.credentials.length > 0 && (
-                      <ul className="flex flex-wrap gap-2 mb-8">
-                        {featured.credentials.slice(0, 3).map((c) => (
-                          <li key={c} className="px-3 py-2 text-xs font-body text-muted-foreground border border-border bg-card leading-snug">
-                            {c}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                    <Link
-                      href={`/leadership/${featured.slug}`}
-                      className="group/btn inline-flex items-center gap-2 font-body font-semibold text-base text-foreground hover:text-primary transition-colors duration-300 w-fit"
-                    >
-                      <span className="relative">
-                        View Full Biography
-                        <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-primary group-hover/btn:w-full transition-all duration-300" />
-                      </span>
-                      <ArrowUpRight size={13} className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-                    </Link>
-                  </div>
-                </motion.div>
-
-                {/* OTHER MEMBERS — 2-up grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {others.map((member, i) => (
-                    <motion.div
-                      key={member.slug}
-                      initial={{ opacity: 0, y: 24 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: i * 0.1, ease }}
-                      className="group bg-background border border-border overflow-hidden hover:border-primary/40 transition-colors duration-300 flex flex-col"
-                    >
-                      {/* Top accent line */}
-                      <div className="h-[3px] gold-gradient scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-
-                      <div className="px-8 pt-9 pb-10 flex flex-col flex-1">
-                        {/* Initials circle */}
-                        <div className="w-14 h-14 bg-card border border-border flex items-center justify-center mb-7 group-hover:border-primary/40 transition-colors duration-300">
-                          {member.photo ? (
-                            <img
-                              src={member.photo}
-                              alt={member.name}
-                              className="w-full h-full object-cover object-top"
-                            />
-                          ) : (
-                            <span className="font-display text-xl font-bold text-primary/40">
-                              {member.initials}
-                            </span>
-                          )}
-                        </div>
-
-                        <Link href={`/leadership/${member.slug}`}>
-                          <h3 className="font-display text-2xl font-bold text-foreground leading-[1.1] mb-2 group-hover:text-primary transition-colors duration-300">
-                            {member.name}
-                          </h3>
-                        </Link>
-                        <p className="text-sm tracking-[0.1em] uppercase text-primary font-body font-semibold mb-5">
-                          {member.role}
-                        </p>
-                        <div className="h-px bg-border mb-6" />
-                        <p className="font-body text-base text-muted-foreground leading-[1.85] mb-8 flex-1">
-                          {member.tagline}
-                        </p>
-
-                        {member.credentials && member.credentials.length > 0 && (
-                          <ul className="flex flex-wrap gap-2 mb-8">
-                            {member.credentials.slice(0, 3).map((c) => (
-                              <li key={c} className="px-3 py-1.5 text-xs font-body text-muted-foreground border border-border bg-card leading-snug">
-                                {c}
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-
-                        <Link
-                          href={`/leadership/${member.slug}`}
-                          className="group/btn inline-flex items-center gap-2 text-sm font-body font-semibold text-foreground hover:text-primary transition-colors duration-300 w-fit"
-                        >
-                          <span className="relative">
-                            View Full Biography
-                            <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-primary group-hover/btn:w-full transition-all duration-300" />
-                          </span>
-                          <ArrowUpRight size={12} className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-                        </Link>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </>
+            const photo = (
+              <div className="relative overflow-hidden bg-muted min-h-[320px] md:min-h-full">
+                <Link href={`/leadership/${m.slug}`} className="absolute inset-0 block" tabIndex={-1} aria-hidden="true">
+                  {m.photo ? (
+                    <img
+                      src={m.photo}
+                      alt={m.name}
+                      className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <span className="font-display text-[7rem] font-bold text-primary/10 select-none leading-none">{m.initials}</span>
+                    </div>
+                  )}
+                </Link>
+                {isCEO   && <div className="absolute top-0 left-0 right-0 h-[3px] gold-gradient pointer-events-none" />}
+                {!isCEO  && <div className="absolute top-0 left-0 right-0 h-[3px] gold-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />}
+              </div>
             );
-          })()}
+
+            const content = (
+              <div className={`flex flex-col justify-center bg-background ${isCEO ? "px-10 md:px-14 py-14" : "px-8 md:px-12 py-10"}`}>
+                <p className="text-[10px] tracking-[0.25em] uppercase text-primary font-body font-semibold mb-4 inline-flex items-center gap-2">
+                  <span className="w-5 h-px bg-primary" />
+                  {isCEO ? "Chief Executive Officer" : "Management Team"}
+                </p>
+                <Link href={`/leadership/${m.slug}`}>
+                  <h2 className={`font-display font-bold text-foreground leading-[1.05] mb-2 group-hover:text-primary transition-colors duration-300 ${isCEO ? "text-3xl md:text-4xl" : "text-2xl md:text-3xl"}`}>
+                    {m.name}
+                  </h2>
+                </Link>
+                <p className="text-xs tracking-[0.12em] uppercase text-primary/80 font-body font-semibold mb-6">{m.role}</p>
+                <div className={`h-[2px] gold-gradient mb-6 ${isCEO ? "w-14" : "w-10"}`} />
+                <p className={`font-body text-muted-foreground leading-[1.9] mb-8 max-w-lg ${isCEO ? "text-base" : "text-sm"}`}>
+                  {m.tagline}
+                </p>
+                {m.credentials && m.credentials.length > 0 && (
+                  <ul className="flex flex-wrap gap-2 mb-8">
+                    {m.credentials.slice(0, isCEO ? 3 : 2).map((c) => (
+                      <li key={c} className="px-3 py-1.5 text-xs font-body text-muted-foreground border border-border bg-card leading-snug">{c}</li>
+                    ))}
+                  </ul>
+                )}
+                <Link
+                  href={`/leadership/${m.slug}`}
+                  className="group/btn inline-flex items-center gap-2 font-body font-semibold text-sm text-foreground hover:text-primary transition-colors duration-300 w-fit"
+                >
+                  <span className="relative">
+                    View Full Biography
+                    <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-primary group-hover/btn:w-full transition-all duration-300" />
+                  </span>
+                  <ArrowUpRight size={13} className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                </Link>
+              </div>
+            );
+
+            return (
+              <motion.div
+                key={m.slug}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.08, ease }}
+                className={`group ${gridClass} gap-0 border border-border overflow-hidden hover:border-primary/40 transition-colors duration-300`}
+              >
+                {photoLeft ? <>{photo}{content}</> : <>{content}{photo}</>}
+              </motion.div>
+            );
+          })}
         </div>
       </section>
 

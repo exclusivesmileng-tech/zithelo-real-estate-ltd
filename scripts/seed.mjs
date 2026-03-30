@@ -14,6 +14,22 @@
  */
 
 import { createClient } from "@sanity/client";
+import { readFileSync } from "fs";
+import { resolve, dirname } from "path";
+import { fileURLToPath } from "url";
+
+// Load .env.local if SANITY_API_TOKEN is not already set
+if (!process.env.SANITY_API_TOKEN) {
+  try {
+    const __dir = dirname(fileURLToPath(import.meta.url));
+    const envPath = resolve(__dir, "../.env.local");
+    const lines = readFileSync(envPath, "utf8").split("\n");
+    for (const line of lines) {
+      const [key, ...rest] = line.split("=");
+      if (key && rest.length) process.env[key.trim()] = rest.join("=").trim();
+    }
+  } catch { /* .env.local not found — rely on shell env */ }
+}
 
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? "16qij170",

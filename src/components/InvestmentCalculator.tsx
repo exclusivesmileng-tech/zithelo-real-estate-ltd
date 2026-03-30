@@ -6,6 +6,23 @@ import { Calculator, TrendingUp, Wallet, BarChart3 } from "lucide-react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
+const USD_TO_NGN = 1600;
+
+function fmt(n: number, currency: "NGN" | "USD") {
+  if (currency === "NGN") {
+    return new Intl.NumberFormat("en-NG", {
+      style: "currency",
+      currency: "NGN",
+      maximumFractionDigits: 0,
+    }).format(n * USD_TO_NGN);
+  }
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(n);
+}
+
 const PROJECTS = [
   {
     id: "andoyi",
@@ -31,18 +48,11 @@ const PROJECTS = [
   },
 ];
 
-function fmtUSD(n: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(n);
-}
-
 export default function InvestmentCalculator() {
   const [projectIdx, setProjectIdx] = useState(0);
   const [amount, setAmount] = useState(100000);
   const [years, setYears] = useState(5);
+  const [currency, setCurrency] = useState<"NGN" | "USD">("NGN");
 
   const p = PROJECTS[projectIdx];
   const annualIncome = amount * p.yield;
@@ -56,21 +66,21 @@ export default function InvestmentCalculator() {
     {
       icon: Wallet,
       label: "Monthly Passive Income",
-      value: fmtUSD(monthlyIncome),
-      sub: `${fmtUSD(annualIncome)} per year`,
+      value: fmt(monthlyIncome, currency),
+      sub: `${fmt(annualIncome, currency)} per year`,
       highlight: true,
     },
     {
       icon: BarChart3,
       label: `Projected Property Value (${years}yr)`,
-      value: fmtUSD(capitalValue),
-      sub: `Capital growth: +${fmtUSD(capitalValue - amount)}`,
+      value: fmt(capitalValue, currency),
+      sub: `Capital growth: +${fmt(capitalValue - amount, currency)}`,
       highlight: false,
     },
     {
       icon: TrendingUp,
       label: `Total Rental Income (${years}yr)`,
-      value: fmtUSD(totalRental),
+      value: fmt(totalRental, currency),
       sub: `At ${Math.round(p.yield * 100)}% gross yield`,
       highlight: false,
     },
@@ -143,13 +153,35 @@ export default function InvestmentCalculator() {
               </div>
             </div>
 
+            {/* Currency selector */}
+            <div>
+              <label className="block text-xs tracking-[0.15em] uppercase text-primary font-body font-semibold mb-3">
+                Currency
+              </label>
+              <div className="grid grid-cols-2 gap-2">
+                {(["NGN", "USD"] as const).map((c) => (
+                  <button
+                    key={c}
+                    onClick={() => setCurrency(c)}
+                    className={`py-2.5 rounded-xl border text-sm font-body font-semibold transition-all duration-200 ${
+                      currency === c
+                        ? "gold-gradient border-primary text-primary-foreground shadow-md shadow-primary/20"
+                        : "border-white/10 bg-white/[0.03] text-white/60 hover:border-primary/40 hover:text-white"
+                    }`}
+                  >
+                    {c === "NGN" ? "₦ NGN" : "$ USD"}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {/* Amount slider */}
             <div>
               <div className="flex items-center justify-between mb-3">
                 <label className="text-xs tracking-[0.15em] uppercase text-primary font-body font-semibold">
                   Investment Amount
                 </label>
-                <span className="text-white font-display font-bold text-lg">{fmtUSD(amount)}</span>
+                <span className="text-white font-display font-bold text-lg">{fmt(amount, currency)}</span>
               </div>
               <input
                 type="range"
@@ -162,8 +194,8 @@ export default function InvestmentCalculator() {
                 style={{ accentColor: "hsl(43 81% 61%)" }}
               />
               <div className="flex justify-between mt-1.5">
-                <span className="text-[11px] text-white/35 font-body">{fmtUSD(p.min)}</span>
-                <span className="text-[11px] text-white/35 font-body">{fmtUSD(p.max)}</span>
+                <span className="text-[11px] text-white/35 font-body">{fmt(p.min, currency)}</span>
+                <span className="text-[11px] text-white/35 font-body">{fmt(p.max, currency)}</span>
               </div>
             </div>
 
@@ -269,7 +301,7 @@ export default function InvestmentCalculator() {
                     transition={{ duration: 0.2 }}
                     className="font-display font-bold text-2xl text-white"
                   >
-                    {fmtUSD(totalReturn)}
+                    {fmt(totalReturn, currency)}
                   </motion.p>
                 </AnimatePresence>
                 <p className="text-[11px] text-white/40 font-body mt-0.5">Combined rental + capital growth</p>
