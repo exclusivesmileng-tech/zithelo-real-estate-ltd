@@ -34,7 +34,9 @@ export default async function LeadershipPage() {
   const data: SanityTeamMember[] | null = await client.fetch(ALL_TEAM_QUERY).catch(() => null);
   const allMembers = data?.length ? data : [...FALLBACK_BOARD, ...FALLBACK_TEAM];
   const board = allMembers.filter((m) => m.category === "Board");
-  const team  = allMembers.filter((m) => m.category === "Management");
+  const ceo = allMembers.find((m) => m.role === "Chief Executive Officer");
+  const managementRest = allMembers.filter((m) => m.category === "Management");
+  const team = ceo ? [ceo, ...managementRest.filter((m) => m._id !== ceo._id)] : managementRest;
 
   return (
     <>
