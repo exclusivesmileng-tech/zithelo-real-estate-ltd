@@ -21,8 +21,7 @@ const EMPTY: FormData = {
 /* ── Static options ── */
 const AGE_RANGES = ["Under 30", "30–39", "40–49", "50–59", "60+"];
 const BUDGETS = [
-  "Under $50,000", "$50,000 – $100,000", "$100,000 – $250,000",
-  "$250,000 – $500,000", "Above $500,000",
+  "Entry level", "Mid range", "Premium", "Luxury / High-end", "Prefer to discuss privately",
 ];
 const PROPERTY_TYPES = ["Residential apartment", "Townhouse / semi-detached", "Villa / standalone", "Off-plan / pre-construction", "Student accommodation"];
 const TIMELINES = ["Immediately (0–3 months)", "Within 6 months", "Within a year", "1–2 years", "Just exploring"];

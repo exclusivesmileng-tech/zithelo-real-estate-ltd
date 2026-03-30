@@ -7,8 +7,8 @@ import PageHero from "@/components/PageHero";
 import AnimatedSection from "@/components/AnimatedSection";
 
 const investorTypes = [
-  { id: "diaspora", label: "Diaspora Investor", icon: Globe, desc: "Invest from abroad in high-yield Nigerian real estate with full management support." },
-  { id: "individual", label: "Individual Investor", icon: TrendingUp, desc: "Direct investment in a specific Zithelo development with structured returns." },
+  { id: "diaspora", label: "Diaspora Investor", icon: Globe, desc: "Invest from abroad in premium Nigerian real estate with full management support." },
+  { id: "individual", label: "Individual Investor", icon: TrendingUp, desc: "Direct investment in a specific Zithelo development with long-term value creation." },
   { id: "institutional", label: "Institutional / Fund", icon: Shield, desc: "Bulk investment or fund allocation across our active and pipeline projects." },
   { id: "offplan", label: "Off-Plan Buyer", icon: DollarSign, desc: "Reserve a unit at pre-completion pricing for long-term capital appreciation." },
 ];
@@ -35,7 +35,7 @@ export default function BecomeAnInvestorPage() {
       <PageHero
         title="Become an Investor"
         titleAccent="Grow Your Wealth."
-        subtitle="Access structured, high-yield real estate investment opportunities in Africa's fastest-growing cities."
+        subtitle="Access structured real estate investment opportunities in Africa's fastest-growing cities."
         image="/images/hero-skyline.jpg"
         breadcrumb="Invest"
       />
@@ -144,24 +144,18 @@ export default function BecomeAnInvestorPage() {
                     ))}
                   </div>
 
-                  {/* Budget range */}
+                  {/* Budget — open text, no specific figures */}
                   <div>
                     <label className="block text-[10px] tracking-[0.2em] uppercase font-body font-semibold text-muted-foreground mb-2">
-                      Approximate Investment Budget
+                      Investment Interest
                     </label>
-                    <select
+                    <input
+                      type="text"
+                      placeholder="e.g. residential unit, land partnership, off-plan…"
                       value={form.budget}
                       onChange={(e) => setForm({ ...form, budget: e.target.value })}
-                      className="w-full bg-background border border-border rounded-sm px-4 py-3 text-sm font-body text-foreground focus:outline-none focus:border-primary transition-colors duration-200"
-                    >
-                      <option value="">Select a range</option>
-                      <option value="under-50k">Under $50,000</option>
-                      <option value="50k-100k">$50,000 – $100,000</option>
-                      <option value="100k-250k">$100,000 – $250,000</option>
-                      <option value="250k-500k">$250,000 – $500,000</option>
-                      <option value="500k-1m">$500,000 – $1,000,000</option>
-                      <option value="over-1m">Over $1,000,000</option>
-                    </select>
+                      className="w-full bg-background border border-border rounded-sm px-4 py-3 text-sm font-body text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary transition-colors duration-200"
+                    />
                   </div>
 
                   <div>

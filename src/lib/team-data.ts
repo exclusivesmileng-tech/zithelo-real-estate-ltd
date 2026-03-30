@@ -115,5 +115,6 @@ export const TEAM: TeamMember[] = [
   },
 ];
 
-// Dr. OA, Mrs. IA, Arc. OL, Gabriel Akintayo (slots 0,1,2,5)
-export const FEATURED_TEAM = [TEAM[0], TEAM[1], TEAM[2], TEAM[5]];
+// Featured order follows seniority/hierarchy — not photo availability
+// Dr. OA (Chairman), Mrs. IA (CEO), Mr. Ibikunle (HR Head), Builder Filusi (Projects Head)
+export const FEATURED_TEAM = [TEAM[0], TEAM[1], TEAM[3], TEAM[4]];
