@@ -11,6 +11,10 @@ import SavedDrawer from "@/components/SavedDrawer";
 export const metadata: Metadata = {
   title: "Zithelo Real Estate Limited | Premium Urban Development",
   description: "Zithelo is a pan-African urban development and real estate investment company building premium connected spaces for modern professionals and diaspora investors.",
+  icons: {
+    icon: "/images/favicon.png",
+    apple: "/images/favicon.png",
+  },
   openGraph: {
     title: "Zithelo Real Estate Limited",
     description: "Premium urban development across Africa's fastest-growing cities.",

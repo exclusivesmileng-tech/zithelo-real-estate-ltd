@@ -161,7 +161,7 @@ export default function ServicesPage() {
                 <div>
                   <p className="text-[10px] tracking-[0.25em] uppercase text-primary font-body font-semibold mb-8">What's Included</p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {current.points.map((point, i) => (
+                    {(current.points ?? []).map((point, i) => (
                       <motion.div
                         key={point}
                         initial={{ opacity: 0, x: 16 }}

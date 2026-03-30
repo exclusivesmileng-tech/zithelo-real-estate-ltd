@@ -1,4 +1,4 @@
-import { defineType, defineField } from "sanity";
+import { defineType, defineField, defineArrayMember } from "sanity";
 
 export const projectSchema = defineType({
   name: "project",
@@ -29,7 +29,7 @@ export const projectSchema = defineType({
       title: "Video Clips",
       type: "array",
       of: [
-        defineType({
+        defineArrayMember({
           name: "clip",
           title: "Clip",
           type: "object",
@@ -52,7 +52,7 @@ export const projectSchema = defineType({
       title: "Stats",
       type: "array",
       of: [
-        defineType({
+        defineArrayMember({
           name: "stat",
           title: "Stat",
           type: "object",

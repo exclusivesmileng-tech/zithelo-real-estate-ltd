@@ -112,7 +112,7 @@ export default async function AfricaVisionPage() {
                       <p className="text-[11px] tracking-[0.15em] uppercase text-primary font-body font-semibold">{region.countries}</p>
                     </div>
                   </div>
-                  <span className={`text-[9px] tracking-[0.15em] uppercase font-body font-bold px-3 py-1.5 rounded-sm shrink-0 ${statusStyle[region.status] ?? statusStyle.Research}`}>
+                  <span className={`text-[9px] tracking-[0.15em] uppercase font-body font-bold px-3 py-1.5 rounded-sm shrink-0 ${statusStyle[region.status ?? "Research"] ?? statusStyle.Research}`}>
                     {region.status}
                   </span>
                 </div>
