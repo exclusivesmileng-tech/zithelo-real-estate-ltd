@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 import SavedDrawer from "@/components/SavedDrawer";
+import DeveloperCredit from "@/components/DeveloperCredit";
 
 export const metadata: Metadata = {
   title: "Zithelo Real Estate Limited | Premium Urban Development",
@@ -52,6 +53,7 @@ export default function RootLayout({
             <FloatingActions />
             <ExitIntentPopup />
             <SavedDrawer />
+            <DeveloperCredit />
           </SavedPropertiesProvider>
         </ThemeProvider>
       </body>
