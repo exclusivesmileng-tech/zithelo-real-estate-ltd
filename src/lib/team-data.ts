@@ -71,6 +71,7 @@ export const TEAM: TeamMember[] = [
     initials: "II",
     role: "Group Head, Human Resources & Administration",
     category: "Management",
+    photo: "/images/team/Mr Ibikunle Iwalewa.png",
     tagline:
       "Human capital leader with over three decades of experience building institutional people frameworks across telecoms, banking, and real estate.",
     bio: "Mr. Ibikunle Iwalewa is a highly experienced human capital and corporate services leader with over three decades of professional experience across telecommunications, banking, real estate, and multinational organizations. He leads Human Resources and Administration at Zithelo, responsible for building strong institutional frameworks, aligning people strategy with business objectives, and driving operational efficiency across the Group. His career includes senior roles at Laplace Technologies, Pentagon Real Estate, City Express Bank, and SGS Inspection Services Nigeria. He holds an MBA in Human Resource Management and a Bachelor's degree in English Studies, and is a member of SHRM.",
@@ -87,6 +88,7 @@ export const TEAM: TeamMember[] = [
     initials: "FD",
     role: "Head, Projects",
     category: "Management",
+    photo: "/images/team/toyin-filusi.jpeg",
     tagline:
       "Construction professional and Quantity Surveyor leading project delivery with a focus on execution excellence and cost efficiency.",
     bio: "Builder Filusi Toyin Diya is an accomplished construction professional and Quantity Surveyor with over two decades of experience delivering high-value residential, commercial, and industrial developments across Nigeria. Trained in both Building Technology and Quantity Surveying, he brings technical delivery and cost engineering expertise across the full project lifecycle — from feasibility and cost planning to construction management and final delivery. At Zithelo, he leads the Projects function with a focus on execution excellence, cost efficiency, and risk-managed delivery. He is a member of the Nigerian Institute of Building (MNIOB).",
