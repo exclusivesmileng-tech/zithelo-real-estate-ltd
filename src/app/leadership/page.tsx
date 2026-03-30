@@ -18,9 +18,7 @@ const FALLBACK_TEAM: SanityTeamMember[] = [
   { _id: "m1", name: "Mrs. Ibitayo Akinbobola", role: "Chief Executive Officer", category: "Management", bio: "Mrs. Ibitayo Akinbobola is a healthcare entrepreneur and business leader responsible for driving execution across Zithelo Group's operations and development portfolio." },
   { _id: "m2", name: "Mr. Ibikunle Iwalewa", role: "Group Head, Human Resources & Administration", category: "Management", bio: "Mr. Ibikunle Iwalewa is a highly experienced human capital and corporate services leader with over three decades of professional experience across telecommunications, banking, real estate, and multinational organizations." },
   { _id: "m3", name: "Builder Filusi Toyin Diya", role: "Head, Projects", category: "Management", bio: "Builder Filusi Toyin Diya is an accomplished construction professional and Quantity Surveyor with over two decades of experience delivering high-value residential, commercial, and industrial developments across Nigeria." },
-  { _id: "m4", name: "TBA", role: "Head, Finance", category: "Management", bio: "This position is being recruited to lead the Group's financial strategy, reporting, and investment structuring functions." },
   { _id: "m5", name: "Mr. Gabriel Akintayo", role: "Head, Customer Experience", category: "Management", bio: "Gabriel Akintayo is a customer experience professional with an MBA and a strong track record in service delivery, client engagement, and operational excellence." },
-  { _id: "m6", name: "TBA", role: "Lead Sales Consultant", category: "Management", bio: "This position is being recruited to lead sales strategy and client acquisition across the Group's development portfolio." },
 ];
 
 function getInitials(name: string) {
