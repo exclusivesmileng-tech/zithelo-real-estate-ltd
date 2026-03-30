@@ -2,171 +2,191 @@
 
 import { motion } from "framer-motion";
 
-const G = "hsl(43,81%,61%)";
+const G   = "hsl(43,81%,61%)";
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
 
-// Departments
-const TRACKS = [
-  { label: "CEO",      y: 72,  delay: 1.2 },
-  { label: "HR",       y: 124, delay: 1.5 },
-  { label: "PROJECTS", y: 176, delay: 1.8 },
-  { label: "FINANCE",  y: 228, delay: 2.1 },
-  { label: "CX",       y: 280, delay: 2.4 },
+// Layout constants
+const CEO_X  = 170, CEO_Y  = 22, CEO_W  = 180, CEO_H  = 54;
+const CEO_CX = CEO_X + CEO_W / 2;   // 260
+const CEO_BOT = CEO_Y + CEO_H;       // 76
+
+const H_BAR_Y  = 118;                // y of horizontal connector bar
+const NODE_Y   = 150;                // top of second-row nodes
+const NODE_H   = 52;
+const NODE_W   = 130;
+
+const REPORTS = [
+  { label: "HR & ADMIN",   sub: "Mr. I. Iwalewa",  cx: 85  },
+  { label: "PROJECTS",     sub: "Bldr. F. Diya",   cx: 260 },
+  { label: "CUSTOMER EXP", sub: "Mr. G. Akintayo", cx: 435 },
 ];
 
-const TRACK_X0 = 118;
-const TRACK_X1 = 478;
-
-// Task blocks per track [x, width]
-const BLOCKS: [number, number][][] = [
-  [[130, 72], [215, 90], [320, 100]],
-  [[130, 68], [218, 80], [318, 88]],
-  [[130, 82], [228, 95], [342, 82]],
-  [[130, 60], [204, 78], [300, 95]],
-  [[130, 75], [220, 85], [330, 78]],
-];
-
-// Milestone diamond x positions per track
-const MILESTONES: number[][] = [
-  [270, 378, 460],
-  [260, 358, 452],
-  [272, 380, 470],
-  [254, 348, 452],
-  [265, 366, 458],
-];
+// small dot at a junction
+function Dot({ cx, cy, delay }: { cx: number; cy: number; delay: number }) {
+  return (
+    <motion.circle cx={cx} cy={cy} r="3"
+      fill={G} fillOpacity="0.75"
+      initial={{ scale: 0 }} animate={{ scale: 1 }}
+      style={{ transformOrigin: `${cx}px ${cy}px` }}
+      transition={{ duration: 0.18, delay, ease }}
+    />
+  );
+}
 
 export default function ManagementHeroVector() {
   return (
     <svg
-      viewBox="0 0 520 360"
+      viewBox="0 0 520 272"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className="w-full max-w-[520px]"
-      aria-label="Execution delivery matrix illustration"
+      aria-label="Management hierarchy illustration"
     >
-      {/* Grid */}
-      {[1, 2, 3, 4].map((i) => (
+      {/* ── faint background grid ── */}
+      {[1, 2, 3].map((i) => (
         <motion.line key={`hg${i}`}
-          x1="0" y1={i * 80} x2="520" y2={i * 80}
-          stroke="white" strokeOpacity="0.055" strokeWidth="0.7"
+          x1="0" y1={i * 90} x2="520" y2={i * 90}
+          stroke="white" strokeOpacity="0.045" strokeWidth="0.7"
           initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-          transition={{ duration: 1, delay: i * 0.07 }}
-        />
-      ))}
-      {[1, 2, 3, 4, 5].map((i) => (
-        <motion.line key={`vg${i}`}
-          x1={i * 104} y1="0" x2={i * 104} y2="360"
-          stroke="white" strokeOpacity="0.055" strokeWidth="0.7"
-          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-          transition={{ duration: 1, delay: i * 0.07 }}
+          transition={{ duration: 1.2, delay: i * 0.1 }}
         />
       ))}
 
-      {/* Vertical synergy line */}
-      <motion.line x1={TRACK_X0 - 8} y1="56" x2={TRACK_X0 - 8} y2="296"
-        stroke={G} strokeWidth="1.6" strokeOpacity="0.3"
-        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-        transition={{ duration: 0.8, delay: 1.0, ease }}
-      />
-
-      {TRACKS.map((t, ti) => (
-        <motion.g key={t.label}>
-          {/* Track rail */}
-          <motion.line x1={TRACK_X0} y1={t.y} x2={TRACK_X1} y2={t.y}
-            stroke={G} strokeWidth="0.7" strokeOpacity="0.15"
-            initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-            transition={{ duration: 0.6, delay: t.delay - 0.1, ease }}
-          />
-
-          {/* Department label */}
-          <motion.text
-            x={TRACK_X0 - 14} y={t.y + 4}
-            textAnchor="end"
-            fontSize="10" fontFamily="sans-serif" fontWeight="700"
-            letterSpacing="0.5" fill={G} fillOpacity="0.65"
-            initial={{ opacity: 0, x: TRACK_X0 - 5 }}
-            animate={{ opacity: 1, x: TRACK_X0 - 14 }}
-            transition={{ duration: 0.3, delay: t.delay, ease }}
-          >
-            {t.label}
-          </motion.text>
-
-          {/* Task blocks */}
-          {BLOCKS[ti].map(([bx, bw], bi) => (
-            <motion.rect key={`blk${bi}`}
-              x={bx} y={t.y - 10} width={bw} height="20" rx="2"
-              fill={G} fillOpacity={bi === 0 ? 0.22 : 0.1}
-              stroke={G} strokeWidth="0.9" strokeOpacity={bi === 0 ? 0.5 : 0.3}
-              initial={{ scaleX: 0, opacity: 0 }}
-              animate={{ scaleX: 1, opacity: 1 }}
-              style={{ transformOrigin: `${bx}px ${t.y}px` }}
-              transition={{ duration: 0.35, delay: t.delay + 0.2 + bi * 0.15, ease }}
-            />
-          ))}
-
-          {/* Milestone diamonds */}
-          {MILESTONES[ti].map((mx, mi) => (
-            <motion.path key={`ms${mi}`}
-              d={`M${mx},${t.y - 7} L${mx + 6},${t.y} L${mx},${t.y + 7} L${mx - 6},${t.y} Z`}
-              fill={mi === 2 ? G : "none"}
-              fillOpacity="0.75"
-              stroke={G} strokeWidth="1.1" strokeOpacity="0.6"
-              style={{ transformOrigin: `${mx}px ${t.y}px` }}
-              initial={{ scale: 0 }} animate={{ scale: 1 }}
-              transition={{ duration: 0.2, delay: t.delay + 0.55 + mi * 0.1, ease }}
-            />
-          ))}
-        </motion.g>
-      ))}
-
-      {/* Horizontal time axis */}
-      <motion.line x1={TRACK_X0} y1="308" x2={TRACK_X1} y2="308"
-        stroke={G} strokeOpacity="0.18" strokeWidth="0.8"
-        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-        transition={{ duration: 0.6, delay: 2.9 }}
-      />
-      {/* Time tick labels */}
-      {["Q1", "Q2", "Q3", "Q4"].map((q, i) => (
-        <motion.g key={q}>
-          <line
-            x1={TRACK_X0 + 10 + i * 90} y1="305"
-            x2={TRACK_X0 + 10 + i * 90} y2="312"
-            stroke={G} strokeOpacity="0.3" strokeWidth="0.8"
-          />
-          <motion.text
-            x={TRACK_X0 + 10 + i * 90}
-            y="322"
-            textAnchor="middle"
-            fontSize="9.5" fontFamily="sans-serif" fontWeight="700"
-            letterSpacing="1" fill={G} fillOpacity="0.45"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            transition={{ delay: 3.0 + i * 0.08 }}
-          >
-            {q}
-          </motion.text>
-        </motion.g>
-      ))}
-
-      {/* Corner brackets */}
+      {/* ── corner brackets ── */}
       <motion.path d="M 474,10 L 510,10 L 510,46"
-        stroke={G} strokeWidth="1.5" strokeOpacity="0.38" fill="none"
+        stroke={G} strokeWidth="1.5" strokeOpacity="0.35" fill="none"
         initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-        transition={{ duration: 0.4, delay: 0.7 }}
+        transition={{ duration: 0.4, delay: 0.3, ease }}
       />
-      <motion.path d="M 10,314 L 10,350 L 46,350"
-        stroke={G} strokeWidth="1.5" strokeOpacity="0.38" fill="none"
+      <motion.path d="M 10,226 L 10,262 L 46,262"
+        stroke={G} strokeWidth="1.5" strokeOpacity="0.35" fill="none"
         initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-        transition={{ duration: 0.4, delay: 0.85 }}
+        transition={{ duration: 0.4, delay: 0.45, ease }}
       />
 
-      {/* Footer */}
-      <motion.text x="58" y="351"
-        fontSize="9" fontFamily="sans-serif" fontWeight="700"
-        letterSpacing="3.8" fill={G} fillOpacity="0.45"
+      {/* ── CEO node — glow halo ── */}
+      <motion.rect
+        x={CEO_X - 5} y={CEO_Y - 5} width={CEO_W + 10} height={CEO_H + 10} rx="6"
+        fill={G} fillOpacity="0.05"
         initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-        transition={{ delay: 3.5 }}
+        transition={{ delay: 0.5 }}
+      />
+
+      {/* ── CEO node — border ── */}
+      <motion.rect
+        x={CEO_X} y={CEO_Y} width={CEO_W} height={CEO_H} rx="3"
+        fill={G} fillOpacity="0.1"
+        stroke={G} strokeWidth="1.6" strokeOpacity="0.85"
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={{ pathLength: 1, opacity: 1 }}
+        transition={{ duration: 0.55, delay: 0.6, ease }}
+      />
+
+      {/* ── CEO label ── */}
+      <motion.text
+        x={CEO_CX} y={CEO_Y + 21} textAnchor="middle"
+        fontSize="11" fontFamily="sans-serif" fontWeight="800"
+        letterSpacing="2.5" fill={G} fillOpacity="0.92"
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+        transition={{ delay: 0.95 }}
       >
-        EXECUTION MATRIX
+        CHIEF EXECUTIVE
+      </motion.text>
+      <motion.text
+        x={CEO_CX} y={CEO_Y + 38} textAnchor="middle"
+        fontSize="8.5" fontFamily="sans-serif" fontWeight="400"
+        letterSpacing="0.4" fill={G} fillOpacity="0.5"
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+        transition={{ delay: 1.05 }}
+      >
+        Mrs. Ibitayo Akinbobola
+      </motion.text>
+
+      {/* ── trunk line: CEO → horizontal bar ── */}
+      <motion.line
+        x1={CEO_CX} y1={CEO_BOT} x2={CEO_CX} y2={H_BAR_Y}
+        stroke={G} strokeWidth="1.4" strokeOpacity="0.55"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+        transition={{ duration: 0.3, delay: 1.25, ease }}
+      />
+
+      {/* ── horizontal connector bar ── */}
+      <motion.line
+        x1={REPORTS[0].cx} y1={H_BAR_Y} x2={REPORTS[2].cx} y2={H_BAR_Y}
+        stroke={G} strokeWidth="1.3" strokeOpacity="0.45"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+        transition={{ duration: 0.45, delay: 1.5, ease }}
+      />
+      <Dot cx={CEO_CX} cy={H_BAR_Y} delay={1.5} />
+
+      {/* ── report nodes ── */}
+      {REPORTS.map((n, i) => (
+        <motion.g key={n.label}>
+
+          {/* branch drop line */}
+          <motion.line
+            x1={n.cx} y1={H_BAR_Y} x2={n.cx} y2={NODE_Y}
+            stroke={G} strokeWidth="1.2" strokeOpacity="0.45"
+            initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+            transition={{ duration: 0.22, delay: 1.65 + i * 0.17, ease }}
+          />
+          <Dot cx={n.cx} cy={H_BAR_Y} delay={1.65 + i * 0.17} />
+
+          {/* node rect */}
+          <motion.rect
+            x={n.cx - NODE_W / 2} y={NODE_Y} width={NODE_W} height={NODE_H} rx="3"
+            fill={G} fillOpacity="0.065"
+            stroke={G} strokeWidth="1.1" strokeOpacity={i === 0 ? 0.55 : 0.4}
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ duration: 0.4, delay: 1.82 + i * 0.18, ease }}
+          />
+
+          {/* role label */}
+          <motion.text
+            x={n.cx} y={NODE_Y + 21} textAnchor="middle"
+            fontSize="9.5" fontFamily="sans-serif" fontWeight="700"
+            letterSpacing="1.8" fill={G} fillOpacity="0.82"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+            transition={{ delay: 2.0 + i * 0.18 }}
+          >
+            {n.label}
+          </motion.text>
+
+          {/* person sub-label */}
+          <motion.text
+            x={n.cx} y={NODE_Y + 37} textAnchor="middle"
+            fontSize="8" fontFamily="sans-serif" fontWeight="400"
+            letterSpacing="0.3" fill={G} fillOpacity="0.42"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+            transition={{ delay: 2.1 + i * 0.18 }}
+          >
+            {n.sub}
+          </motion.text>
+
+        </motion.g>
+      ))}
+
+      {/* ── "reports to" label on trunk ── */}
+      <motion.text
+        x={CEO_CX + 8} y={(CEO_BOT + H_BAR_Y) / 2 + 4}
+        fontSize="7.5" fontFamily="sans-serif" fontWeight="600"
+        letterSpacing="1.2" fill={G} fillOpacity="0.3"
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+        transition={{ delay: 1.9 }}
+      >
+        REPORTS TO
+      </motion.text>
+
+      {/* ── footer ── */}
+      <motion.text
+        x="58" y="266"
+        fontSize="9" fontFamily="sans-serif" fontWeight="700"
+        letterSpacing="3.8" fill={G} fillOpacity="0.38"
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+        transition={{ delay: 2.8 }}
+      >
+        MANAGEMENT STRUCTURE
       </motion.text>
     </svg>
   );
