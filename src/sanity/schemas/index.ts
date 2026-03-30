@@ -5,6 +5,9 @@ import { serviceSchema } from "./service";
 import { whyReasonSchema } from "./whyReason";
 import { regionSchema } from "./region";
 import { siteSettingsSchema } from "./siteSettings";
+import { homePageSchema } from "./homePage";
+import { aboutPageSchema } from "./aboutPage";
+import { partnershipPageSchema } from "./partnershipPage";
 
 export const schemaTypes = [
   projectSchema,
@@ -14,4 +17,7 @@ export const schemaTypes = [
   whyReasonSchema,
   regionSchema,
   siteSettingsSchema,
+  homePageSchema,
+  aboutPageSchema,
+  partnershipPageSchema,
 ];

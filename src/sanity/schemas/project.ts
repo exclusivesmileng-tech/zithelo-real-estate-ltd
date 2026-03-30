@@ -14,8 +14,16 @@ export const projectSchema = defineType({
     defineField({ name: "units", title: "Number of Units", type: "string" }),
     defineField({ name: "leaseTerm", title: "Lease Term", type: "string" }),
     defineField({ name: "leaseNote", title: "Lease Note", type: "string" }),
+    defineField({ name: "badge",       title: "Badge Label (e.g. Smart Living)",             type: "string" }),
+    defineField({ name: "heroSubtitle", title: "Hero Subtitle (below title on card)",          type: "string" }),
     defineField({ name: "shortDesc", title: "Short Description", type: "text", rows: 2 }),
     defineField({ name: "description", title: "Full Description", type: "array", of: [{ type: "block" }] }),
+    defineField({
+      name: "features",
+      title: "Feature Checklist (shown on home page card)",
+      type: "array",
+      of: [{ type: "string" }],
+    }),
     defineField({ name: "heroImage", title: "Hero Image", type: "image", options: { hotspot: true } }),
     defineField({ name: "heroVideo", title: "Hero Video URL", type: "url" }),
     defineField({

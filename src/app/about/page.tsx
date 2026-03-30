@@ -1,5 +1,8 @@
 "use client";
 
+import { useState, useEffect, type ElementType } from "react";
+import { client } from "@/sanity/client";
+import { ABOUT_PAGE_QUERY } from "@/sanity/queries";
 import AnimatedSection from "@/components/AnimatedSection";
 import PageHero from "@/components/PageHero";
 import AboutHeroVector from "@/components/heroes/AboutHeroVector";
@@ -7,30 +10,32 @@ import { motion } from "framer-motion";
 import { ArrowRight, Globe, Building2, Shield, TrendingUp } from "lucide-react";
 import Link from "next/link";
 
+const ICON_MAP: Record<string, ElementType> = { Globe, Building2, Shield, TrendingUp };
+
 const foundationPillars = [
   {
-    icon: Globe,
+    iconName: "Globe",
     label: "Continental Vision",
     title: "Africa-First Urban Strategy",
     text: "We focus on high-growth cities where housing demand, workforce mobility, and digital infrastructure growth converge.",
     detail: "Lagos today. Pan-Africa next.",
   },
   {
-    icon: Building2,
+    iconName: "Building2",
     label: "Execution Discipline",
     title: "Prime-Located, High-Utility Assets",
     text: "Every project is built around practical use cases for residents and long-term value creation for investors.",
     detail: "Function-led design decisions.",
   },
   {
-    icon: Shield,
+    iconName: "Shield",
     label: "Investor Confidence",
     title: "Structured, Transparent Delivery",
     text: "From planning to handover, we prioritize clarity in documentation, project updates, and investment structure.",
     detail: "Built for local and diaspora trust.",
   },
   {
-    icon: TrendingUp,
+    iconName: "TrendingUp",
     label: "Long-Term Value",
     title: "Income + Capital Growth Focus",
     text: "Our developments are positioned for rental performance and appreciation in resilient urban corridors.",
@@ -76,6 +81,34 @@ const operatingModel = [
 ];
 
 export default function AboutPage() {
+  const [aboutData, setAboutData] = useState<{
+    introHeadline?: string;
+    introP1?: string;
+    chips?: string[];
+    whatWeBuild?: string;
+    whoWeBuildFor?: string;
+    howWeWin?: string;
+    foundationPillars?: { iconName: string; label: string; title: string; text: string; detail: string }[];
+    keyMetrics?: { value: string; label: string }[];
+    operatingModelPoints?: string[];
+    principles?: { key: string; label: string; title: string; text: string; focus: string }[];
+  } | null>(null);
+
+  useEffect(() => {
+    client.fetch(ABOUT_PAGE_QUERY).then(setAboutData).catch(() => {});
+  }, []);
+
+  const activePillars        = aboutData?.foundationPillars    ?? foundationPillars;
+  const activePrinciples     = aboutData?.principles           ?? principles;
+  const activeMetrics        = aboutData?.keyMetrics           ?? keyMetrics;
+  const activeOperatingModel = aboutData?.operatingModelPoints ?? operatingModel;
+  const introHeadline        = aboutData?.introHeadline        ?? "We Build City-Grade Assets For Africa\u2019s Next Urban Chapter.";
+  const introP1              = aboutData?.introP1              ?? "Zithelo is an urban development and real estate investment company focused on prime locations, high-utility design, and structured investment outcomes. We serve modern professionals, remote workers, and diaspora investors who demand quality and clarity.";
+  const activeChips          = aboutData?.chips                ?? ["Prime Urban Corridors", "Fibre-Ready Infrastructure", "Structured Investment Models"];
+  const whatWeBuild          = aboutData?.whatWeBuild          ?? "Connected residential and mixed-use developments in high-demand urban districts.";
+  const whoWeBuildFor        = aboutData?.whoWeBuildFor        ?? "Professionals and diaspora investors seeking utility, liquidity potential, and long-term resilience.";
+  const howWeWin             = aboutData?.howWeWin             ?? "Disciplined site selection, execution rigor, and transparent structures that scale confidence.";
+
   return (
     <>
       <PageHero
@@ -98,15 +131,13 @@ export default function AboutPage() {
           <AnimatedSection>
             <p className="text-sm tracking-[0.12em] uppercase text-primary mb-4 font-body font-semibold">Who We Are</p>
             <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground leading-[1.03] max-w-[14ch]">
-              We Build City-Grade Assets For Africa&apos;s Next Urban Chapter.
+              {introHeadline}
             </h2>
             <p className="mt-8 text-lg text-muted-foreground font-body leading-relaxed max-w-[56ch]">
-              Zithelo is an urban development and real estate investment company focused on prime locations,
-              high-utility design, and structured investment outcomes. We serve modern professionals, remote
-              workers, and diaspora investors who demand quality and clarity.
+              {introP1}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              {["Prime Urban Corridors", "Fibre-Ready Infrastructure", "Structured Investment Models"].map((chip) => (
+              {activeChips.map((chip) => (
                 <span
                   key={chip}
                   className="px-4 py-2 text-sm tracking-[0.1em] uppercase font-body font-semibold border border-border text-muted-foreground bg-background rounded-sm"
@@ -120,18 +151,9 @@ export default function AboutPage() {
           <AnimatedSection delay={0.15}>
             <div className="h-full grid grid-cols-1 gap-4">
               {[
-                {
-                  title: "What We Build",
-                  text: "Connected residential and mixed-use developments in high-demand urban districts.",
-                },
-                {
-                  title: "Who We Build For",
-                  text: "Professionals and diaspora investors seeking utility, liquidity potential, and long-term resilience.",
-                },
-                {
-                  title: "How We Win",
-                  text: "Disciplined site selection, execution rigor, and transparent structures that scale confidence.",
-                },
+                { title: "What We Build",   text: whatWeBuild },
+                { title: "Who We Build For", text: whoWeBuildFor },
+                { title: "How We Win",       text: howWeWin },
               ].map((item, i) => (
                 <motion.div
                   key={item.title}
@@ -186,7 +208,9 @@ export default function AboutPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {foundationPillars.map((pillar, i) => (
+            {activePillars.map((pillar, i) => {
+              const PillarIcon = ICON_MAP[pillar.iconName ?? "Globe"] ?? Globe;
+              return (
               <motion.div
                 key={pillar.title}
                 initial={{ opacity: 0, y: 30 }}
@@ -196,7 +220,7 @@ export default function AboutPage() {
                 className="group relative border border-white/10 rounded-sm p-8 overflow-hidden hover:border-primary/50 transition-all duration-500"
               >
                 <div className="absolute inset-0 gold-gradient opacity-0 group-hover:opacity-[0.07] transition-opacity duration-500 pointer-events-none" />
-                <pillar.icon size={20} className="text-primary mb-6" />
+                <PillarIcon size={20} className="text-primary mb-6" />
                 <p className="text-sm tracking-[0.1em] uppercase text-primary font-body font-semibold mb-2">{pillar.label}</p>
                 <h3 className="font-display text-2xl font-semibold text-white mb-4">{pillar.title}</h3>
                 <p className="text-white/60 font-body leading-relaxed">{pillar.text}</p>
@@ -204,7 +228,8 @@ export default function AboutPage() {
                   {pillar.detail}
                 </p>
               </motion.div>
-            ))}
+              );
+            })}
           </div>
 
           <AnimatedSection delay={0.25}>
@@ -227,7 +252,7 @@ export default function AboutPage() {
       <section className="section-padding">
         <div className="max-w-[1400px] mx-auto">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
-            {keyMetrics.map((item, i) => (
+            {activeMetrics.map((item, i) => (
               <motion.div
                 key={item.label}
                 initial={{ opacity: 0, y: 20 }}
@@ -274,7 +299,7 @@ export default function AboutPage() {
               Strategy Into Assets
             </h2>
             <div className="space-y-4">
-              {operatingModel.map((line) => (
+              {activeOperatingModel.map((line) => (
                 <div key={line} className="flex items-start gap-3">
                   <span className="mt-[6px] h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
                   <p className="text-muted-foreground font-body leading-relaxed">{line}</p>
@@ -297,7 +322,7 @@ export default function AboutPage() {
           </AnimatedSection>
         </div>
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {principles.map((item, i) => (
+          {activePrinciples.map((item, i) => (
             <AnimatedSection key={item.label} delay={i * 0.12}>
               <div className="group relative h-full border border-border rounded-sm p-8 bg-background overflow-hidden hover:border-primary/40 transition-colors duration-400">
                 <div className="absolute -top-5 -right-3 font-display text-7xl font-black text-primary/10 select-none">

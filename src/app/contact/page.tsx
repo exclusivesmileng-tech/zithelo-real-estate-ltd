@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { client } from "@/sanity/client";
+import { SITE_SETTINGS_QUERY } from "@/sanity/queries";
 import { Mail, MapPin, Phone, ArrowRight, Clock, CheckCircle2, MessageSquare, Building2, Newspaper, Users, Share2 } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import AnimatedCard from "@/components/AnimatedCard";
@@ -31,6 +33,29 @@ const NEXT_STEPS = [
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", company: "", type: "investment", message: "" });
   const [submitted, setSubmitted] = useState(false);
+
+  const [settings, setSettings] = useState<{
+    address?: string;
+    email?: string;
+    phone?: string;
+    partnershipEmail?: string;
+    contactNextSteps?: { step: string; title: string; body: string }[];
+  } | null>(null);
+
+  useEffect(() => {
+    client.fetch(SITE_SETTINGS_QUERY).then(setSettings).catch(() => {});
+  }, []);
+
+  const contactItems = [
+    { icon: MapPin,    label: "Head Office", value: settings?.address  ?? "Victoria Island, Lagos, Nigeria" },
+    { icon: Mail,      label: "Email",       value: settings?.email    ?? "info@zithelo.com" },
+    { icon: Phone,     label: "Phone",       value: settings?.phone    ?? "+234 9110 222 323" },
+    { icon: Share2,    label: "Instagram",   value: "@zithelohomes" },
+    { icon: Clock,     label: "Response",    value: "Within 24 – 48 business hours" },
+  ];
+
+  const nextSteps = settings?.contactNextSteps?.length ? settings.contactNextSteps : NEXT_STEPS;
+  const partnerEmail = settings?.partnershipEmail ?? "partnerships@zithelo.com";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,7 +99,7 @@ export default function ContactPage() {
 
               {/* Contact info cards */}
               <div className="relative z-10 flex flex-col gap-4">
-                {CONTACT_ITEMS.map((item) => (
+                {contactItems.map((item) => (
                   <div key={item.label} className="flex items-start gap-4">
                     <div className="w-9 h-9 rounded-xl gold-gradient flex items-center justify-center shrink-0 shadow-md shadow-primary/20">
                       <item.icon size={15} className="text-primary-foreground" />
@@ -92,7 +117,7 @@ export default function ContactPage() {
                 <p className="text-[9px] tracking-[0.2em] uppercase text-primary font-body font-semibold mb-2">Partnership &amp; Investment</p>
                 <p className="text-xs text-white/55 font-body leading-relaxed">
                   For institutional discussions, joint ventures, or investment proposals, contact our partnerships team at{" "}
-                  <span className="text-primary">partnerships@zithelo.com</span>
+                  <span className="text-primary">{partnerEmail}</span>
                 </p>
               </div>
             </div>
@@ -226,7 +251,7 @@ export default function ContactPage() {
           </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {NEXT_STEPS.map((s, i) => (
+            {nextSteps.map((s, i) => (
               <AnimatedCard key={s.step} index={i} className="relative bg-background border border-border rounded-sm p-8 overflow-hidden group hover:border-primary/30 transition-all duration-300">
                 <div className="absolute top-0 left-0 right-0 h-[2px] gold-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 {/* Large faded step number */}

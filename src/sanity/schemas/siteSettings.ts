@@ -18,6 +18,25 @@ export const siteSettingsSchema = defineType({
     defineField({ name: "aboutVision", title: "About — Vision", type: "text", rows: 4 }),
     defineField({ name: "aboutMission", title: "About — Mission", type: "text", rows: 4 }),
     defineField({ name: "aboutPhilosophy", title: "About — Philosophy", type: "text", rows: 4 }),
+
+    // ─── Contact next steps ──────────────────────────────────────────────────
+    defineField({
+      name: "contactNextSteps",
+      title: "Contact — What Happens Next (3 steps)",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          name: "nextStep",
+          fields: [
+            defineField({ name: "step",  title: "Step Number", type: "string" }),
+            defineField({ name: "title", title: "Title",       type: "string" }),
+            defineField({ name: "body",  title: "Body",        type: "text", rows: 2 }),
+          ],
+          preview: { select: { title: "title", subtitle: "step" } },
+        } as never,
+      ],
+    }),
   ],
   preview: { prepare: () => ({ title: "Site Settings" }) },
 });

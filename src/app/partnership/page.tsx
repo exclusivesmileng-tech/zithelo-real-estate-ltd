@@ -3,12 +3,29 @@ import Link from "next/link";
 import AnimatedSection from "@/components/AnimatedSection";
 import PageHero from "@/components/PageHero";
 import PartnershipHeroVector from "@/components/heroes/PartnershipHeroVector";
+import type { ElementType } from "react";
+import { client } from "@/sanity/client";
+import { PARTNERSHIP_PAGE_QUERY } from "@/sanity/queries";
+
+export const revalidate = 60;
+
+const ICON_MAP: Record<string, ElementType> = { Handshake, TrendingUp, Building2, Users };
+
+interface PartnerItem {
+  iconName: string;
+  accent:   string;
+  title:    string;
+  description: string;
+  points:   string[];
+  cta:      string;
+  ctaHref:  string;
+}
 
 // ─── Partner track ────────────────────────────────────────────────────────────
 
-const PARTNER_TYPES = [
+const PARTNER_TYPES: PartnerItem[] = [
   {
-    icon: Users,
+    iconName: "Users",
     title: "Realtor & Agent Partners",
     description:
       "Are you a licensed real estate agent, broker, or consultant? Join our referral and co-agency network to earn competitive commissions introducing qualified buyers, tenants, or investors to Zithelo developments.",
@@ -23,7 +40,7 @@ const PARTNER_TYPES = [
     accent: "REALTORS & AGENTS",
   },
   {
-    icon: Building2,
+    iconName: "Building2",
     title: "Property Owners & Co-Development",
     description:
       "Own land or an existing asset in a prime urban corridor? We partner with landowners and property holders to co-develop under structured joint venture arrangements — bringing capital, expertise, and execution.",
@@ -41,9 +58,9 @@ const PARTNER_TYPES = [
 
 // ─── Investor track ───────────────────────────────────────────────────────────
 
-const INVESTOR_TYPES = [
+const INVESTOR_TYPES: PartnerItem[] = [
   {
-    icon: TrendingUp,
+    iconName: "TrendingUp",
     title: "Equity Investment — Own a Stake",
     description:
       "Invest directly into a Zithelo development project and earn returns proportional to your equity stake. Suitable for individuals, family offices, and diaspora investors seeking real-asset exposure in Africa's fastest-growing cities.",
@@ -58,7 +75,7 @@ const INVESTOR_TYPES = [
     accent: "EQUITY INVESTORS",
   },
   {
-    icon: Handshake,
+    iconName: "Handshake",
     title: "Institutional & Fund Partnerships",
     description:
       "We work with development finance institutions, family offices, and investment funds seeking structured co-investment or joint venture arrangements at scale. Governance-aligned, returns-focused, and built for long-term value.",
@@ -84,7 +101,19 @@ const HOW_IT_WORKS = [
   { step: "05", title: "Deliver Together", body: "You benefit from Zithelo's execution capability while we build lasting, mutually rewarding relationships." },
 ];
 
-export default function PartnershipPage() {
+export default async function PartnershipPage() {
+  const cmsData = await client
+    .fetch(PARTNERSHIP_PAGE_QUERY)
+    .catch(() => null) as {
+      partnerTypes?:  PartnerItem[];
+      investorTypes?: PartnerItem[];
+      howItWorks?:    { step: string; title: string; body: string }[];
+    } | null;
+
+  const partnerTypes  = cmsData?.partnerTypes?.length  ? cmsData.partnerTypes  : PARTNER_TYPES;
+  const investorTypes = cmsData?.investorTypes?.length ? cmsData.investorTypes : INVESTOR_TYPES;
+  const howItWorks    = cmsData?.howItWorks?.length    ? cmsData.howItWorks    : HOW_IT_WORKS;
+
   return (
     <>
       <PageHero
@@ -140,8 +169,8 @@ export default function PartnershipPage() {
           </AnimatedSection>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            {PARTNER_TYPES.map((item, i) => {
-              const Icon = item.icon;
+            {partnerTypes.map((item, i) => {
+              const Icon = ICON_MAP[item.iconName ?? ""] ?? Users;
               return (
                 <AnimatedSection key={item.title} delay={i * 0.15}>
                   <div className="border border-border rounded-sm p-10 hover:border-primary/30 transition-colors h-full flex flex-col">
@@ -185,8 +214,8 @@ export default function PartnershipPage() {
           </AnimatedSection>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            {INVESTOR_TYPES.map((item, i) => {
-              const Icon = item.icon;
+            {investorTypes.map((item, i) => {
+              const Icon = ICON_MAP[item.iconName ?? ""] ?? TrendingUp;
               return (
                 <AnimatedSection key={item.title} delay={i * 0.15}>
                   <div className="border border-border rounded-sm p-10 hover:border-primary/30 transition-colors bg-background h-full flex flex-col">
@@ -226,10 +255,10 @@ export default function PartnershipPage() {
             </h2>
           </AnimatedSection>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            {HOW_IT_WORKS.map((s, i) => (
+            {howItWorks.map((s, i) => (
               <AnimatedSection key={s.step} delay={i * 0.1}>
                 <div className="relative">
-                  {i < HOW_IT_WORKS.length - 1 && (
+                  {i < howItWorks.length - 1 && (
                     <div className="hidden lg:block absolute top-7 left-[calc(100%+0.75rem)] w-6 h-px bg-primary/30" />
                   )}
                   <span className="font-display text-4xl font-semibold gold-gradient-text">{s.step}</span>

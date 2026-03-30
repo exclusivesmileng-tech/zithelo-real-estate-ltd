@@ -16,18 +16,32 @@ export default defineConfig({
         S.list()
           .title("Content")
           .items([
+            // ─ Singletons ───────────────────────────────────────────────────────────────
             S.listItem()
               .title("Site Settings")
               .id("siteSettings")
               .child(S.document().schemaType("siteSettings").documentId("siteSettings")),
+            S.listItem()
+              .title("🏠 Home Page")
+              .id("homePage")
+              .child(S.document().schemaType("homePage").documentId("homePage")),
+            S.listItem()
+              .title("ℹ️ About Page")
+              .id("aboutPage")
+              .child(S.document().schemaType("aboutPage").documentId("aboutPage")),
+            S.listItem()
+              .title("🤝 Partnership Page")
+              .id("partnershipPage")
+              .child(S.document().schemaType("partnershipPage").documentId("partnershipPage")),
             S.divider(),
-            S.documentTypeListItem("project").title("Projects"),
-            S.documentTypeListItem("insight").title("Insights"),
+            // ─ Collections ───────────────────────────────────────────────────────────
+            S.documentTypeListItem("project").title("🏗 Projects"),
+            S.documentTypeListItem("insight").title("💡 Insights"),
             S.divider(),
-            S.documentTypeListItem("teamMember").title("Team Members"),
-            S.documentTypeListItem("service").title("Services"),
-            S.documentTypeListItem("whyReason").title("Why Zithelo"),
-            S.documentTypeListItem("region").title("Africa Vision — Regions"),
+            S.documentTypeListItem("teamMember").title("👥 Team Members"),
+            S.documentTypeListItem("service").title("⚙️ Services"),
+            S.documentTypeListItem("whyReason").title("✔️ Why Zithelo"),
+            S.documentTypeListItem("region").title("🌍 Africa Vision — Regions"),
           ]),
     }),
     visionTool(),

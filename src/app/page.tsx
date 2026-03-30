@@ -1,14 +1,31 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, ChevronDown, Check, TrendingUp, Shield, Wifi, Clock, Building2, Globe, Users, MessageSquare } from "lucide-react";
 import { FEATURED_TEAM } from "@/lib/team-data";
+import { client, urlFor } from "@/sanity/client";
+import { ALL_PROJECTS_QUERY, FEATURED_TEAM_QUERY } from "@/sanity/queries";
 import InvestmentCalculator from "@/components/InvestmentCalculator";
 import SaveButton from "@/components/SaveButton";
 
-const projects = [
+// ─── Fallback image map keyed by project slug ─────────────────────────────────
+const PROJECT_IMG: Record<string, string> = {
+  "andoyi-house":    "/images/andoyi/2.png",
+  "signature-homes": "/images/signature/zsh1.jpg.jpeg",
+};
+
+// ─── Fallback photo map keyed by team member slug ─────────────────────────────
+const TEAM_PHOTO: Record<string, string> = {
+  "dr-oluwaseun-akinbobola":  "/images/team/Dr. Akinbobola Oluwaseun (Board Executive Chairman).jpg",
+  "mrs-ibitayo-akinbobola":   "/images/team/Mrs. Ibitayo Akinbobola (CEO).jpg",
+  "arc-odunayo-lawani":       "/images/team/Odunayo Lawani (Board Advisory).jpeg",
+  "gabriel-akintayo":         "/images/team/Gabriel Akintayo (Head, Customer Experience).jpeg",
+};
+
+// ─── Static project data (used as fallback when Sanity is empty) ──────────────
+const FALLBACK_PROJECTS = [
   {
     slug: "andoyi-house",
     img: "/images/andoyi/2.png",
@@ -72,6 +89,62 @@ export default function Home() {
   const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+
+  // ── CMS-driven state ────────────────────────────────────────────────────────
+  const [projects, setProjects] = useState(FALLBACK_PROJECTS);
+  const [featuredTeam, setFeaturedTeam] = useState(FEATURED_TEAM);
+
+  useEffect(() => {
+    // Fetch projects from Sanity
+    client.fetch(ALL_PROJECTS_QUERY).then((data: unknown) => {
+      if (Array.isArray(data) && data.length > 0) {
+        setProjects(
+          data.map((p: Record<string, unknown>) => {
+            const slug = (p.slug as { current?: string } | undefined)?.current ?? "";
+            const heroImage = p.heroImage as Record<string, unknown> | undefined;
+            return {
+              slug,
+              img:      heroImage ? urlFor(heroImage).width(800).url() : (PROJECT_IMG[slug] ?? ""),
+              badge:    (p.badge    as string | undefined) ?? "",
+              title:    (p.title    as string | undefined) ?? "",
+              subtitle: (p.heroSubtitle as string | undefined) ?? "",
+              location: (p.location as string | undefined) ?? "",
+              type:     (p.type     as string | undefined) ?? "",
+              status:   (p.status   as string | undefined) ?? "",
+              year:     (p.year     as string | undefined) ?? "",
+              units:    (p.units    as string | undefined) ?? "",
+              desc:     (p.shortDesc as string | undefined) ?? "",
+              features: (p.features as string[] | undefined) ?? [],
+              href:     `/projects/${slug}`,
+            };
+          })
+        );
+      }
+    }).catch(() => {});
+
+    // Fetch featured team from Sanity
+    client.fetch(FEATURED_TEAM_QUERY).then((data: unknown) => {
+      if (Array.isArray(data) && data.length > 0) {
+        setFeaturedTeam(
+          data.map((m: Record<string, unknown>) => {
+            const slug = (m.slug as { current?: string } | undefined)?.current ?? "";
+            const photo = m.photo as Record<string, unknown> | undefined;
+            const name  = (m.name as string | undefined) ?? "";
+            return {
+              slug,
+              name,
+              initials: name.split(" ").map((w: string) => w[0] ?? "").join("").slice(0, 2),
+              role:     (m.role     as string | undefined) ?? "",
+              category: ((m.category as string | undefined) ?? "Board") as "Board" | "Management",
+              tagline:  (m.tagline  as string | undefined) ?? "",
+              bio:      (m.bio      as string | undefined) ?? "",
+              photo:    photo ? urlFor(photo).width(600).url() : TEAM_PHOTO[slug],
+            };
+          })
+        );
+      }
+    }).catch(() => {});
+  }, []);
 
   return (
     <>
@@ -732,7 +805,7 @@ export default function Home() {
           {/* Team cards — horizontal scroll on mobile */}
           <div className="-mx-6 md:mx-0">
           <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5 overflow-x-auto md:overflow-visible px-6 md:px-0 pb-4 md:pb-0 snap-x snap-mandatory scroll-smooth no-scrollbar items-start">
-            {FEATURED_TEAM.map((member, i) => (
+            {featuredTeam.map((member, i) => (
               <motion.div
                 key={member.slug}
                 initial={{ opacity: 0, y: 52 }}
