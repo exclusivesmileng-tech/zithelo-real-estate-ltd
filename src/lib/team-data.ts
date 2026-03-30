@@ -88,7 +88,7 @@ export const TEAM: TeamMember[] = [
     initials: "FD",
     role: "Head, Projects",
     category: "Management",
-    photo: "/images/team/toyin-filusi.jpeg",
+    photo: "/images/team/toyin-filusi.png",
     tagline:
       "Construction professional and Quantity Surveyor leading project delivery with a focus on execution excellence and cost efficiency.",
     bio: "Builder Filusi Toyin Diya is an accomplished construction professional and Quantity Surveyor with over two decades of experience delivering high-value residential, commercial, and industrial developments across Nigeria. Trained in both Building Technology and Quantity Surveying, he brings technical delivery and cost engineering expertise across the full project lifecycle — from feasibility and cost planning to construction management and final delivery. At Zithelo, he leads the Projects function with a focus on execution excellence, cost efficiency, and risk-managed delivery. He is a member of the Nigerian Institute of Building (MNIOB).",
