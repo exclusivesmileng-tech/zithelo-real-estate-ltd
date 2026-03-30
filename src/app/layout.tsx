@@ -19,6 +19,20 @@ export const metadata: Metadata = {
     title: "Zithelo Real Estate Limited",
     description: "Premium urban development across Africa's fastest-growing cities.",
     type: "website",
+    images: [
+      {
+        url: "/images/zithelo-logo-colored.png",
+        width: 1200,
+        height: 630,
+        alt: "Zithelo Real Estate Limited",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Zithelo Real Estate Limited",
+    description: "Premium urban development across Africa's fastest-growing cities.",
+    images: ["/images/zithelo-logo-colored.png"],
   },
 };
 
