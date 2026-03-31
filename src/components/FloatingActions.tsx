@@ -73,7 +73,19 @@ export default function FloatingActions() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <div className="hidden lg:contents">
+    <>
+      {/* ── Mobile-only WhatsApp sticky button ── */}
+      <a
+        href={whatsappUrl(pathname)}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat on WhatsApp"
+        className="lg:hidden fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] right-4 z-50 w-[52px] h-[52px] rounded-full bg-[#25D366] flex items-center justify-center shadow-xl shadow-black/25 hover:opacity-90 transition-opacity"
+      >
+        <MessageCircle size={24} className="text-white" />
+      </a>
+
+      <div className="hidden lg:contents">
       {/* ── Back to top — bottom LEFT ── */}
       <AnimatePresence>
         {showTop && (
@@ -196,5 +208,6 @@ export default function FloatingActions() {
         onClose={() => setShowCallback(false)}
       />
     </div>
+    </>
   );
 }

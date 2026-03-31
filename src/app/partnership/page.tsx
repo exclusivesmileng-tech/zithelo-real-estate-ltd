@@ -1,4 +1,17 @@
+import type { Metadata } from "next";
 import { Handshake, TrendingUp, Building2, Users, CheckCircle2, ArrowRight } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Partnership | Land Owners, JVs & Contractors",
+  description:
+    "Partner with Zithelo for joint venture developments, land acquisitions, and construction contracts across Nigeria and Africa's fastest-growing cities.",
+  alternates: { canonical: "/partnership" },
+  openGraph: {
+    title: "Partnership | Zithelo Real Estate",
+    description:
+      "Joint ventures, land owner agreements, and contractor partnerships with Zithelo.",
+  },
+};
 import Link from "next/link";
 import AnimatedSection from "@/components/AnimatedSection";
 import PageHero from "@/components/PageHero";

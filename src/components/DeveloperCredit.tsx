@@ -19,7 +19,7 @@ export default function DeveloperCredit() {
       rel="noopener noreferrer"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group fixed bottom-5 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2.5 px-4 py-2 rounded-full border border-border bg-background/80 backdrop-blur-md shadow-lg shadow-black/10 hover:border-primary/40 hover:shadow-primary/10 transition-all duration-300 cursor-pointer select-none"
+      className="group fixed bottom-5 left-1/2 -translate-x-1/2 z-50 hidden md:flex items-center gap-2.5 px-4 py-2 rounded-full border border-border bg-background/80 backdrop-blur-md shadow-lg shadow-black/10 hover:border-primary/40 hover:shadow-primary/10 transition-all duration-300 cursor-pointer select-none"
       style={{ fontSize: 0 }} // prevent layout shift from text
     >
       {/* Animated dot */}

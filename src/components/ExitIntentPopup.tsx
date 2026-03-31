@@ -52,12 +52,20 @@ export default function ExitIntentPopup() {
     };
   }, []);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!email) return;
     setLoading(true);
-    // TODO: POST to /api/lead-magnet
-    setTimeout(() => { setLoading(false); setSubmitted(true); }, 900);
+    try {
+      await fetch("/api/lead-magnet", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      setSubmitted(true);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (

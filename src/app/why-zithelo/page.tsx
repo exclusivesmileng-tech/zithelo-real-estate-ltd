@@ -1,5 +1,18 @@
+import type { Metadata } from "next";
 import { client } from "@/sanity/client";
 import { ALL_WHY_REASONS_QUERY } from "@/sanity/queries";
+
+export const metadata: Metadata = {
+  title: "Why Zithelo | What Makes Us Different",
+  description:
+    "Verified title, 25-year lease security, fibre-ready infrastructure, and full management support. Discover why diaspora investors and professionals choose Zithelo.",
+  alternates: { canonical: "/why-zithelo" },
+  openGraph: {
+    title: "Why Zithelo | What Makes Us Different",
+    description:
+      "Verified title. 25-year lease. Managed for you. Here's why investors trust Zithelo.",
+  },
+};
 import type { SanityWhyReason } from "@/sanity/types";
 import AnimatedSection from "@/components/AnimatedSection";
 import AnimatedCard from "@/components/AnimatedCard";

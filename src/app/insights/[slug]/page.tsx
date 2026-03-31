@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { client, urlFor } from "@/sanity/client";
@@ -8,6 +9,37 @@ import AnimatedSection from "@/components/AnimatedSection";
 import NewsletterSignup from "@/components/NewsletterSignup";
 
 export const revalidate = 60;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const article: SanityInsight | null = await client
+    .fetch(INSIGHT_BY_SLUG_QUERY, { slug })
+    .catch(() => null);
+
+  if (!article) return { title: "Article Not Found" };
+
+  const ogImage = article.coverImage
+    ? urlFor(article.coverImage).width(1200).height(630).url()
+    : "/images/andoyi/2.png";
+
+  return {
+    title: article.title,
+    description: article.excerpt ?? `Read this insight from Zithelo Real Estate.`,
+    alternates: { canonical: `/insights/${slug}` },
+    openGraph: {
+      title: article.title,
+      description: article.excerpt ?? "",
+      type: "article",
+      publishedTime: article.date,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: article.title }],
+    },
+  };
+}
+
 
 export async function generateStaticParams() {
   const articles: SanityInsight[] = await client.fetch(ALL_INSIGHTS_QUERY).catch(() => []);
@@ -67,9 +99,32 @@ export default async function InsightArticlePage({ params }: { params: Promise<{
   if (!article) notFound();
 
   const coverUrl = article.coverImage ? urlFor(article.coverImage).width(1400).url() : null;
+  const ogCoverUrl = article.coverImage ? urlFor(article.coverImage).width(1200).height(630).url() : null;
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.zithelo.com";
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.excerpt ?? "",
+    datePublished: article.date ?? new Date().toISOString(),
+    dateModified: article.date ?? new Date().toISOString(),
+    author: { "@type": "Organization", name: "Zithelo Real Estate Limited", url: SITE_URL },
+    publisher: {
+      "@type": "Organization",
+      name: "Zithelo Real Estate Limited",
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/images/zithelo-logo-colored.png` },
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}/insights/${slug}` },
+    ...(ogCoverUrl && { image: { "@type": "ImageObject", url: ogCoverUrl, width: 1200, height: 630 } }),
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       {/* ── Hero ── */}
       <section className="relative min-h-[420px] md:min-h-[540px] flex items-end overflow-hidden bg-[hsl(var(--charcoal))]">
         {coverUrl && (

@@ -17,11 +17,19 @@ export function BrochureModal({ projectName, open, onClose }: BrochureModalProps
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    // TODO: POST to /api/brochure-request
-    setTimeout(() => { setLoading(false); setSubmitted(true); }, 900);
+    try {
+      await fetch("/api/brochure-request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, projectName }),
+      });
+      setSubmitted(true);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -42,7 +50,18 @@ export function BrochureModal({ projectName, open, onClose }: BrochureModalProps
             <CheckCircle2 size={36} className="text-primary" />
             <p className="font-display font-bold text-foreground text-lg">Brochure on its way!</p>
             <p className="text-sm text-muted-foreground font-body">Check your inbox — we&apos;ve sent the {projectName} investment brochure to {form.email}.</p>
-            <button onClick={onClose} className="mt-4 px-6 py-3 rounded-2xl bg-muted text-foreground font-body font-semibold text-sm">Close</button>
+            {process.env.NEXT_PUBLIC_BROCHURE_PDF_URL && (
+              <a
+                href={process.env.NEXT_PUBLIC_BROCHURE_PDF_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+                className="mt-1 inline-flex items-center gap-2 gold-gradient text-primary-foreground font-display font-bold text-xs tracking-[0.08em] uppercase px-5 py-3 rounded-2xl hover:opacity-90 transition-opacity"
+              >
+                <FileText size={13} /> Download Now
+              </a>
+            )}
+            <button onClick={onClose} className="mt-2 px-6 py-3 rounded-2xl bg-muted text-foreground font-body font-semibold text-sm">Close</button>
           </motion.div>
         ) : (
           <motion.form key="form" onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -77,11 +96,19 @@ export function SiteVisitModal({ projectName, open, onClose }: SiteVisitModalPro
   tomorrow.setDate(tomorrow.getDate() + 1);
   const minDate = tomorrow.toISOString().split("T")[0];
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    // TODO: POST to /api/site-visit
-    setTimeout(() => { setLoading(false); setSubmitted(true); }, 900);
+    try {
+      await fetch("/api/site-visit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, projectName }),
+      });
+      setSubmitted(true);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (

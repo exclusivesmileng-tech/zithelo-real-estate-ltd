@@ -15,12 +15,20 @@ export default function NewsletterSignup({ variant = "inline", className = "" }:
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!email) return;
     setLoading(true);
-    // TODO: wire to API route / Resend / Mailchimp
-    setTimeout(() => { setLoading(false); setSubmitted(true); }, 900);
+    try {
+      await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      setSubmitted(true);
+    } finally {
+      setLoading(false);
+    }
   }
 
   if (variant === "card") {

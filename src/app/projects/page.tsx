@@ -1,5 +1,19 @@
+import type { Metadata } from "next";
 import { client, urlFor } from "@/sanity/client";
 import { ALL_PROJECTS_QUERY } from "@/sanity/queries";
+
+export const metadata: Metadata = {
+  title: "Projects | Premium Developments in Lagos",
+  description:
+    "Explore Zithelo's active developments — Andoyi House in Yaba and Signature Homes Lagos. Smart, fibre-ready apartments with verified title and 25-year lease security.",
+  alternates: { canonical: "/projects" },
+  openGraph: {
+    title: "Projects | Zithelo Real Estate",
+    description:
+      "Smart, fibre-ready apartments with verified title and 25-year lease. Explore Andoyi House and Signature Homes.",
+    images: [{ url: "/images/andoyi/2.png", width: 1200, height: 630, alt: "Andoyi House, Yaba Lagos" }],
+  },
+};
 import type { SanityProject } from "@/sanity/types";
 import Link from "next/link";
 import AnimatedSection from "@/components/AnimatedSection";

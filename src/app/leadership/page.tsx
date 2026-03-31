@@ -1,5 +1,18 @@
+import type { Metadata } from "next";
 import { client } from "@/sanity/client";
 import { ALL_TEAM_QUERY } from "@/sanity/queries";
+
+export const metadata: Metadata = {
+  title: "Leadership | Board & Management Team",
+  description:
+    "Meet the board, executive team, and advisors driving Zithelo's pan-African real estate development mission.",
+  alternates: { canonical: "/leadership" },
+  openGraph: {
+    title: "Leadership | Zithelo Real Estate",
+    description:
+      "The board and team behind Africa's premium urban development company.",
+  },
+};
 import type { SanityTeamMember } from "@/sanity/types";
 import AnimatedSection from "@/components/AnimatedSection";
 import AnimatedCard from "@/components/AnimatedCard";

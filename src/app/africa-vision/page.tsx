@@ -1,5 +1,18 @@
+import type { Metadata } from "next";
 import { client } from "@/sanity/client";
 import { ALL_REGIONS_QUERY } from "@/sanity/queries";
+
+export const metadata: Metadata = {
+  title: "Africa Vision | Pan-African Urban Development",
+  description:
+    "Zithelo's expansion roadmap across Africa's fastest-growing cities — from Lagos to Nairobi, Accra, and beyond. Premium real estate built for the continent's next urban generation.",
+  alternates: { canonical: "/africa-vision" },
+  openGraph: {
+    title: "Africa Vision | Zithelo Real Estate",
+    description:
+      "Our pan-African development blueprint: premium, fibre-ready cities built for the future.",
+  },
+};
 import type { SanityRegion } from "@/sanity/types";
 import AnimatedSection from "@/components/AnimatedSection";
 import AnimatedCard from "@/components/AnimatedCard";

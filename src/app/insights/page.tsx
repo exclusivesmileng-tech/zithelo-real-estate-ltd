@@ -1,5 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { client } from "@/sanity/client";
+
+export const metadata: Metadata = {
+  title: "Insights | Real Estate Investment Articles & Guides",
+  description:
+    "Expert insights on real estate investment in Nigeria and Africa — market trends, diaspora guides, project updates, and investment strategy from Zithelo.",
+  alternates: { canonical: "/insights" },
+  openGraph: {
+    title: "Insights | Zithelo Real Estate",
+    description:
+      "Market trends, investor guides, and project updates from Zithelo Real Estate.",
+  },
+};
 import { ALL_INSIGHTS_QUERY } from "@/sanity/queries";
 import type { SanityInsight } from "@/sanity/types";
 import AnimatedSection from "@/components/AnimatedSection";
