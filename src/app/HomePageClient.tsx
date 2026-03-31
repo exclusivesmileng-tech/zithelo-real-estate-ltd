@@ -265,8 +265,6 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      <SocialProofBar />
-
       {/* ══════════════════════════════════════════
           WHY CHOOSE ZITHELO — BOLD DARK PILLARS
       ══════════════════════════════════════════ */}
