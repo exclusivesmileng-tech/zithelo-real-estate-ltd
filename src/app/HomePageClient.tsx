@@ -889,7 +889,7 @@ export default function HomePageClient() {
       {/* ══════════════════════════════════════════
           EXPLORE OUR SERVICES
       ══════════════════════════════════════════ */}
-      <Testimonials />
+      {/* <Testimonials /> — hidden until real testimonials are available */}
       <section className="section-padding bg-card">
         <div className="max-w-[1400px] mx-auto">
 
