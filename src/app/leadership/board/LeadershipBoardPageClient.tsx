@@ -217,6 +217,7 @@ export default function LeadershipBoardPageClient() {
                 key={member.slug}
                 initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -6 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.12, ease }}
                 className="group bg-background border border-border overflow-hidden flex flex-col hover:border-primary/40 transition-colors duration-300"

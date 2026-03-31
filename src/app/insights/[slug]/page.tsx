@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { client, urlFor } from "@/sanity/client";
 import { INSIGHT_BY_SLUG_QUERY, ALL_INSIGHTS_QUERY } from "@/sanity/queries";
+import ReadingProgressBar from "@/components/ReadingProgressBar";
 import type { SanityInsight } from "@/sanity/types";
 import { ArrowLeft, Calendar, Tag } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
@@ -121,6 +122,7 @@ export default async function InsightArticlePage({ params }: { params: Promise<{
 
   return (
     <>
+      <ReadingProgressBar />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}

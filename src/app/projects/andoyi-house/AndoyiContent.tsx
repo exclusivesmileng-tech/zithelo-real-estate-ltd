@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { MapPin, Play, ArrowLeft, ArrowRight, CheckCircle2, ZoomIn } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import ImageLightbox from "@/components/ImageLightbox";
@@ -87,6 +87,11 @@ export default function AndoyiContent({ project }: Props) {
 
   const [active, setActive] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
@@ -108,12 +113,14 @@ export default function AndoyiContent({ project }: Props) {
   return (
     <>
       {/* ── VIDEO HERO ───────────────────────────────────────────────────── */}
-      <section className="relative h-screen min-h-[640px] flex items-end overflow-hidden">
-        <video
-          src={heroVideo}
-          autoPlay muted loop playsInline preload="auto"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+      <section ref={heroRef} className="relative h-screen min-h-[640px] flex items-end overflow-hidden">
+        <motion.div style={{ y: imgY }} className="absolute inset-0">
+          <video
+            src={heroVideo}
+            autoPlay muted loop playsInline preload="auto"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        </motion.div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20" />
 
         <div className="absolute top-28 left-6 md:left-12 lg:left-24 z-20">
@@ -122,7 +129,7 @@ export default function AndoyiContent({ project }: Props) {
           </Link>
         </div>
 
-        <div className="relative z-10 w-full section-padding pb-20">
+        <motion.div style={{ y: textY, opacity: heroOpacity }} className="relative z-10 w-full section-padding pb-20">
           <div className="max-w-[1400px] mx-auto">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}>
               <span className="gold-gradient inline-block px-3 py-1.5 text-[10px] tracking-[0.2em] uppercase font-body font-semibold text-primary-foreground rounded-sm mb-5">
@@ -140,7 +147,7 @@ export default function AndoyiContent({ project }: Props) {
               </div>
             </motion.div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ── VIDEO GALLERY + DETAILS ──────────────────────────────────────── */}

@@ -192,6 +192,7 @@ export default function LeadershipManagementPageClient() {
                 key={m.slug}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -5 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.08, ease }}
                 className={`group ${gridClass} gap-0 border border-border overflow-hidden hover:border-primary/40 transition-colors duration-300`}
