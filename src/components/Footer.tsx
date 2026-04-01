@@ -256,12 +256,14 @@ const Footer = () => {
             © {new Date().getFullYear()} Zithelo Real Estate Limited
           </p>
 
-          {/* Developer credit — mobile only */}
+          {/* Developer credit — mobile */}
           <div className="mt-5 pt-4 border-t border-border/50 flex justify-center">
             <a
               href="https://wa.me/2347069716822?text=Hey%20Harzotech%20%F0%9F%91%8B%F0%9F%8F%BD%2C%20I%20saw%20the%20amazing%20job%20you%20did%20on%20the%20Zithelo%20Real%20Estate%20website%20%E2%80%94%20I%27d%20love%20to%20discuss%20a%20project%20with%20you."
               target="_blank"
               rel="noopener noreferrer"
+              title="Web Design & Development by Harzotech Nig Ltd — Nigeria's Premier Web Agency | azeezagbona.com"
+              aria-label="Website designed and developed by Harzotech Nig Ltd"
               className="flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-muted/50 active:bg-muted transition-colors"
             >
               <span className="relative flex h-2 w-2 shrink-0">
@@ -269,9 +271,13 @@ const Footer = () => {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
               </span>
               <span className="text-[10px] tracking-[0.15em] uppercase font-body font-semibold text-muted-foreground whitespace-nowrap">
-                Crafted by
+                Built by
               </span>
-              <img src="/images/Harzotech-Logo.gif" alt="Harzotech" className="h-4 w-auto object-contain" />
+              <img
+                src="/images/Harzotech-Logo.gif"
+                alt="Harzotech Nig Ltd — Web Design & Development Agency, Nigeria"
+                className="h-4 w-auto object-contain"
+              />
             </a>
           </div>
         </div>
@@ -391,6 +397,17 @@ const Footer = () => {
               <Link href="/privacy-policy" className="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors font-body">Privacy Policy</Link>
               <span className="mx-2 text-border text-xs">·</span>
               <Link href="/terms-of-service" className="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors font-body">Terms of Service</Link>
+              <span className="mx-2 text-border text-xs">·</span>
+              <a
+                href="https://harzotech.com.ng"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Web Design & Development by Harzotech Nig Ltd — Nigeria's Premier Web Agency | azeezagbona.com"
+                aria-label="Website designed and developed by Harzotech Nig Ltd"
+                className="text-xs text-muted-foreground hover:text-primary cursor-pointer transition-colors font-body"
+              >
+                Built by <span className="font-semibold">Harzotech</span>
+              </a>
             </div>
           </div>
         </div>

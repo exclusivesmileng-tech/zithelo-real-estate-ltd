@@ -88,7 +88,7 @@ export const metadata: Metadata = {
   },
 };
 
-// JSON-LD: Organization schema (site-wide)
+// JSON-LD: Organization schema — Zithelo (site-wide)
 const orgSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -116,11 +116,69 @@ const orgSchema = {
   ],
 };
 
+// JSON-LD: Developer organization — Harzotech Nig Ltd
+const harzoOrgSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://harzotech.com.ng/#organization",
+  name: "Harzotech Nig Ltd",
+  alternateName: "Harzotech",
+  url: "https://harzotech.com.ng",
+  description:
+    "Nigerian web design and full-stack development agency specialising in premium digital experiences, real estate platforms, and scalable web applications.",
+  founder: {
+    "@type": "Person",
+    "@id": "https://azeezagbona.com/#person",
+    name: "Azeez Agbona O.",
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: "+2347069716822",
+    contactType: "sales",
+    availableLanguage: "English",
+  },
+  sameAs: [
+    "https://harzotech.com.ng",
+    "https://azeezagbona.com",
+  ],
+};
+
+// JSON-LD: Developer person — Azeez Agbona O.
+const developerSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://azeezagbona.com/#person",
+  name: "Azeez Agbona O.",
+  url: "https://azeezagbona.com",
+  jobTitle: "Full-Stack Web Developer & Digital Strategist",
+  worksFor: {
+    "@type": "Organization",
+    "@id": "https://harzotech.com.ng/#organization",
+    name: "Harzotech Nig Ltd",
+  },
+  sameAs: [
+    "https://azeezagbona.com",
+    "https://harzotech.com.ng",
+  ],
+};
+
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "Zithelo Real Estate",
   url: SITE_URL,
+  // Links this website to the developer for Google authority association
+  creator: {
+    "@type": "Organization",
+    "@id": "https://harzotech.com.ng/#organization",
+    name: "Harzotech Nig Ltd",
+    url: "https://harzotech.com.ng",
+  },
+  contributor: {
+    "@type": "Person",
+    "@id": "https://azeezagbona.com/#person",
+    name: "Azeez Agbona O.",
+  },
   potentialAction: {
     "@type": "SearchAction",
     target: `${SITE_URL}/insights?q={search_term_string}`,
@@ -144,6 +202,15 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+        {/* Developer attribution — links this site to Harzotech & Azeez Agbona */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(harzoOrgSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(developerSchema) }}
         />
         <ThemeProvider>
           <SavedPropertiesProvider>
