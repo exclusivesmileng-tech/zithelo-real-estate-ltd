@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import InvestorQuiz from "@/components/InvestorQuiz";
+import PageHero from "@/components/PageHero";
+import InvestorQuizHeroVector from "@/components/heroes/InvestorQuizHeroVector";
 
 export const metadata: Metadata = {
   title: "Investor Profile Quiz | Find Your Investment Type",
@@ -15,41 +17,14 @@ export const metadata: Metadata = {
 
 export default function InvestorQuizPage() {
   return (
-    <main className="min-h-screen bg-background">
-      {/* ── Hero ── */}
-      <section className="relative overflow-hidden bg-[hsl(var(--charcoal))] py-24 md:py-32">
-        {/* Dot grid */}
-        <div
-          className="absolute inset-0 opacity-[0.06] pointer-events-none"
-          style={{
-            backgroundImage: "radial-gradient(hsl(43 81% 61%) 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-          }}
-        />
-        {/* Gold orb */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-primary/10 blur-[120px] pointer-events-none" />
-
-        <div className="relative z-10 max-w-[760px] mx-auto px-6 md:px-12 text-center">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-primary font-body font-semibold mb-4">
-            Investor Profile Quiz
-          </p>
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
-            Which investment type<br className="hidden md:block" /> is right for you?
-          </h1>
-          <p className="font-body text-base text-white/60 leading-relaxed max-w-lg mx-auto">
-            Answer 4 quick questions. Get an instant, personalised recommendation across
-            Off-Plan, Co-Investment, and Land Funding — matched to your budget, goals, and timeline.
-          </p>
-          {/* Gold rule */}
-          <div className="mt-8 flex items-center justify-center gap-4">
-            <div className="h-[1px] w-12 gold-gradient" />
-            <span className="text-[10px] tracking-[0.2em] uppercase text-primary font-body font-semibold">
-              2 minutes · No registration
-            </span>
-            <div className="h-[1px] w-12 gold-gradient" />
-          </div>
-        </div>
-      </section>
+    <>
+      <PageHero
+        title="Investor Profile"
+        titleAccent="Quiz."
+        subtitle="Answer 4 quick questions. Get an instant recommendation matched to your budget, goals, and timeline — no registration required."
+        breadcrumb="Investor Quiz"
+        vector={<InvestorQuizHeroVector />}
+      />
 
       {/* ── Quiz ── */}
       <section className="section-padding py-16 md:py-24">
@@ -63,6 +38,6 @@ export default function InvestorQuizPage() {
           Speak to our team for a full personalised consultation.
         </p>
       </section>
-    </main>
+    </>
   );
 }

@@ -4,6 +4,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, ChevronLeft, CheckCircle2, Globe, Building2, Users, Sparkles } from "lucide-react";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
+import DiasporaInvestorHeroVector from "@/components/heroes/DiasporaInvestorHeroVector";
 
 /* ── Types ── */
 interface Step1 { country: string; nigerianState: string; ageRange: string }
@@ -257,22 +259,18 @@ export default function DiasporaInvestorPageClient() {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header strip */}
-      <div className="gold-gradient px-6 pt-16 pb-10 text-center">
-        <div className="inline-flex items-center gap-2 bg-white/20 text-primary-foreground text-xs font-body font-semibold px-3 py-1.5 rounded-full mb-4">
-          <Sparkles size={12} /> Diaspora Investor Programme
-        </div>
-        <h1 className="text-2xl sm:text-3xl font-heading font-semibold text-primary-foreground mb-2">
-          Register Your Interest
-        </h1>
-        <p className="text-primary-foreground/80 font-body text-sm max-w-sm mx-auto">
-          Join hundreds of diaspora investors building wealth through Nigerian premium real estate.
-        </p>
-      </div>
+    <>
+      <PageHero
+        title="Diaspora Investor"
+        titleAccent="Programme."
+        subtitle="Join hundreds of diaspora investors building wealth through Nigerian premium real estate. Register your interest in minutes."
+        breadcrumb="Diaspora"
+        vector={<DiasporaInvestorHeroVector />}
+      />
 
-      <div className="max-w-lg mx-auto px-5 -mt-4 pb-20">
-        <div className="bg-card rounded-3xl shadow-2xl shadow-black/10 overflow-hidden">
+      <section className="section-padding py-16">
+      <div className="max-w-lg mx-auto">
+        <div className="bg-card border border-border shadow-2xl shadow-black/10 overflow-hidden rounded-sm">
 
           {!submitted ? (
             <>
@@ -380,6 +378,7 @@ export default function DiasporaInvestorPageClient() {
           )}
         </div>
       </div>
-    </div>
+      </section>
+    </>
   );
 }
