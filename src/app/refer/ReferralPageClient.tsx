@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, ChevronRight, Users2, Sparkles } from "lucide-react";
+import { CheckCircle2, ChevronRight, Sparkles } from "lucide-react";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
+import ReferHeroVector from "@/components/heroes/ReferHeroVector";
 
 /* ── Constants ── */
 const ROLES = ["Realtor / Agent", "Friend / Family", "Business Partner", "Financial Advisor", "Other"];
@@ -144,20 +146,18 @@ export default function ReferralPageClient() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="gold-gradient px-6 pt-16 pb-10 text-center">
-        <div className="inline-flex items-center gap-2 bg-white/20 text-primary-foreground text-xs font-body font-semibold px-3 py-1.5 rounded-full mb-4">
-          <Users2 size={12} /> Referral Programme
-        </div>
-        <h1 className="text-2xl sm:text-3xl font-heading font-semibold text-primary-foreground mb-2">
-          Refer & Earn
-        </h1>
-        <p className="text-primary-foreground/80 font-body text-sm max-w-sm mx-auto">
-          Know someone looking to invest in premium Nigerian real estate? Refer them and earn a commission on every completed purchase.
-        </p>
+      {/* Hero */}
+      <div className="bg-[hsl(var(--charcoal))]">
+        <PageHero
+          breadcrumb="Referral Programme"
+          title="Refer &"
+          titleAccent="Earn"
+          subtitle="Know someone looking to invest in premium Nigerian real estate? Refer them to Zithelo and earn a commission on every completed purchase."
+          vector={<ReferHeroVector />}
+        />
       </div>
 
-      <div className="max-w-lg mx-auto px-5 -mt-4 pb-20">
+      <div className="max-w-lg mx-auto px-5 pt-12 pb-20">
         <div className="bg-card rounded-3xl shadow-2xl shadow-black/10 overflow-hidden">
           <AnimatePresence mode="wait">
             {submitted ? (

@@ -260,13 +260,15 @@ export default function DiasporaInvestorPageClient() {
 
   return (
     <>
-      <PageHero
-        title="Diaspora Investor"
-        titleAccent="Programme."
-        subtitle="Join hundreds of diaspora investors building wealth through Nigerian premium real estate. Register your interest in minutes."
-        breadcrumb="Diaspora"
-        vector={<DiasporaInvestorHeroVector />}
-      />
+      <div className="bg-[hsl(var(--charcoal))]">
+        <PageHero
+          title="Diaspora Investor"
+          titleAccent="Programme."
+          subtitle="Join hundreds of diaspora investors building wealth through Nigerian premium real estate. Register your interest in minutes."
+          breadcrumb="Diaspora"
+          vector={<DiasporaInvestorHeroVector />}
+        />
+      </div>
 
       <section className="section-padding py-16">
       <div className="max-w-lg mx-auto">
