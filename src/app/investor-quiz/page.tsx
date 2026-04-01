@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import InvestorQuiz from "@/components/InvestorQuiz";
 import PageHero from "@/components/PageHero";
 import InvestorQuizHeroVector from "@/components/heroes/InvestorQuizHeroVector";
@@ -24,25 +23,13 @@ export default function InvestorQuizPage() {
         titleAccent="Quiz."
         subtitle="Answer 4 quick questions. Get an instant recommendation matched to your budget, goals, and timeline — no registration required."
         breadcrumb="Investor Quiz"
+        image="/images/hero-skyline.jpg"
         vector={<InvestorQuizHeroVector />}
       />
 
       {/* ── Quiz ── */}
-      <section className="relative section-padding py-16 md:py-24 overflow-hidden">
-        {/* Background image */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/hero-skyline.jpg"
-            alt=""
-            fill
-            className="object-cover object-center"
-            priority
-          />
-          <div className="absolute inset-0 bg-background/88" />
-        </div>
-        <div className="relative z-10">
-          <InvestorQuiz />
-        </div>
+      <section className="section-padding py-16 md:py-24">
+        <InvestorQuiz />
       </section>
 
       {/* ── Footer note ── */}
