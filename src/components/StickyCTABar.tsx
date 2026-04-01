@@ -31,8 +31,7 @@ export default function StickyCTABar({ projectName, threshold = 400 }: Props) {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: "100%", opacity: 0 }}
             transition={{ type: "spring", damping: 28, stiffness: 280 }}
-            className="fixed bottom-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-md border-t border-border shadow-2xl shadow-black/10
-                       pb-[env(safe-area-inset-bottom)]
+            className="fixed bottom-16 left-0 right-0 z-40 bg-background/95 backdrop-blur-md border-t border-border shadow-2xl shadow-black/10
                        lg:bottom-6 lg:left-1/2 lg:-translate-x-1/2 lg:w-auto lg:rounded-2xl lg:border lg:shadow-xl lg:px-2 lg:py-2"
           >
             <div className="flex items-center gap-2 px-4 py-3 lg:px-1 lg:py-0">

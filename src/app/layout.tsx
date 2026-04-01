@@ -7,7 +7,6 @@ import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 import SavedDrawer from "@/components/SavedDrawer";
-import DeveloperCredit from "@/components/DeveloperCredit";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
 import ServiceWorkerRegistrar from "@/components/ServiceWorkerRegistrar";
 import GoogleAnalyticsLoader from "@/components/GoogleAnalyticsLoader";
@@ -154,7 +153,6 @@ export default function RootLayout({
             <FloatingActions />
             <ExitIntentPopup />
             <SavedDrawer />
-            <DeveloperCredit />
             <CookieConsentBanner />
             <ServiceWorkerRegistrar />
             <GoogleAnalyticsLoader />
