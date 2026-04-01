@@ -269,7 +269,7 @@ export default function InvestmentCalculator() {
   }
 
   return (
-    <section className="relative overflow-hidden bg-[hsl(var(--charcoal))] section-padding">
+    <section className="relative overflow-hidden bg-background section-padding">
       {/* Ambient glow */}
       <div
         className="absolute -bottom-40 -left-40 w-[600px] h-[600px] rounded-full pointer-events-none opacity-[0.06]"
