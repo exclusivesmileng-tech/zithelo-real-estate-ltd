@@ -35,7 +35,15 @@ const navLinks: NavItem[] = [
   { label: "Why Zithelo",  path: "/why-zithelo" },
   { label: "Africa Vision",path: "/africa-vision" },
   { label: "Insights",     path: "/insights" },
-  { label: "Partnership",  path: "/partnership" },
+  {
+    label: "Partnership",
+    path: "/partnership",
+    children: [
+      { label: "Become a Partner",   path: "/become-a-partner" },
+      { label: "Become an Investor", path: "/become-an-investor" },
+      { label: "Investor Profile Quiz", path: "/investor-quiz" },
+    ],
+  },
 ];
 
 const isLinkActive = (link: NavItem, pathname: string): boolean =>
