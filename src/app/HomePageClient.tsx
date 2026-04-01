@@ -625,6 +625,17 @@ export default function HomePageClient() {
               </Link>
             </div>
 
+            {/* Quiz discovery link */}
+            <Link
+              href="/investor-quiz"
+              className="group inline-flex items-center gap-1.5 mt-5 text-xs font-body text-white/45 hover:text-primary transition-colors duration-200"
+            >
+              Not sure which type fits you?
+              <span className="font-semibold text-primary/70 group-hover:text-primary transition-colors duration-200">
+                Take the investor quiz →
+              </span>
+            </Link>
+
             {/* Tagline */}
             <p className="mt-8 text-sm font-body italic text-white/40">
               Invest smart. Build generational wealth.{" "}

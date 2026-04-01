@@ -10,6 +10,7 @@ const staticRoutes: MetadataRoute.Sitemap = [
   { url: `${SITE_URL}/projects/andoyi-house`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
   { url: `${SITE_URL}/projects/signature-homes`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
   { url: `${SITE_URL}/become-an-investor`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+  { url: `${SITE_URL}/investor-quiz`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
   { url: `${SITE_URL}/diaspora-investor`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
   { url: `${SITE_URL}/become-a-partner`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
   { url: `${SITE_URL}/why-zithelo`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },

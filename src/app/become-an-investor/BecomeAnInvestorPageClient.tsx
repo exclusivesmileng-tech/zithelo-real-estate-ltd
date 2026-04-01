@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { ArrowRight, TrendingUp, Shield, DollarSign, Globe } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import AnimatedSection from "@/components/AnimatedSection";
@@ -80,9 +81,20 @@ export default function BecomeAnInvestorPageClient() {
           {/* Investor types */}
           <AnimatedSection>
             <p className="text-[11px] tracking-[0.25em] uppercase text-primary font-body font-semibold mb-4">Investment Type</p>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-10">
-              How Would You Like to <span className="gold-gradient-text">Invest?</span>
-            </h2>
+            <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">
+                How Would You Like to <span className="gold-gradient-text">Invest?</span>
+              </h2>
+              <Link
+                href="/investor-quiz"
+                className="group inline-flex items-center gap-1.5 text-xs font-body text-muted-foreground hover:text-primary transition-colors duration-200 shrink-0"
+              >
+                Not sure?
+                <span className="font-semibold text-primary/70 group-hover:text-primary transition-colors duration-200">
+                  Take the investor quiz →
+                </span>
+              </Link>
+            </div>
           </AnimatedSection>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-14">
