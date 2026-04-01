@@ -270,7 +270,28 @@ export default function InvestmentCalculator() {
 
   return (
     <section className="relative overflow-hidden bg-[hsl(var(--charcoal))] section-padding">
-      {/* Ambient glow */}
+      {/* Graph-paper grid pattern — minor lines every 40px, major every 160px */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: [
+            "linear-gradient(rgba(212,170,83,0.13) 1px, transparent 1px)",
+            "linear-gradient(90deg, rgba(212,170,83,0.13) 1px, transparent 1px)",
+            "linear-gradient(rgba(212,170,83,0.05) 1px, transparent 1px)",
+            "linear-gradient(90deg, rgba(212,170,83,0.05) 1px, transparent 1px)",
+          ].join(", "),
+          backgroundSize: "160px 160px, 160px 160px, 40px 40px, 40px 40px",
+        }}
+      />
+      {/* Vignette — fades pattern at all edges */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 85% 85% at 50% 50%, transparent 35%, hsl(var(--charcoal)) 100%)",
+        }}
+      />
+      {/* Ambient glow — bottom-left, preserved */}
       <div
         className="absolute -bottom-40 -left-40 w-[600px] h-[600px] rounded-full pointer-events-none opacity-[0.06]"
         style={{ background: "radial-gradient(circle, hsl(43 81% 61%) 0%, transparent 65%)" }}
