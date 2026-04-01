@@ -645,6 +645,23 @@ export default function HomePageClient() {
         </div>
       </section>
 
+      {/* ── Gold section divider ── */}
+      <div className="bg-[hsl(var(--charcoal))] flex items-center px-6 md:px-12 lg:px-24 py-5">
+        <div
+          className="flex-1 h-px"
+          style={{ background: "linear-gradient(to right, transparent, rgba(212,170,83,0.45))" }}
+        />
+        <div className="flex items-center gap-2.5 px-6">
+          <span className="block w-1 h-1 rounded-full bg-[hsl(43,81%,61%)] opacity-50" />
+          <span className="block w-[6px] h-[6px] rotate-45 bg-[hsl(43,81%,61%)]" />
+          <span className="block w-1 h-1 rounded-full bg-[hsl(43,81%,61%)] opacity-50" />
+        </div>
+        <div
+          className="flex-1 h-px"
+          style={{ background: "linear-gradient(to left, transparent, rgba(212,170,83,0.45))" }}
+        />
+      </div>
+
       {/* ══════════════════════════════════════════
           INVESTMENT CALCULATOR
       ══════════════════════════════════════════ */}
