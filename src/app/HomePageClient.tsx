@@ -493,17 +493,6 @@ export default function HomePageClient() {
           INVEST WITH ZITHELO — SPLIT DARK
       ══════════════════════════════════════════ */}
       <section className="relative overflow-hidden bg-[hsl(var(--charcoal))]">
-        {/* Dot grid pattern */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: "radial-gradient(rgba(212,170,83,0.18) 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-          }}
-        />
-        {/* Fade edges so pattern doesn't look clipped */}
-        <div className="absolute inset-0 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, hsl(var(--charcoal)) 100%)" }} />
         {/* subtle gold glow top-right */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] opacity-[0.07] pointer-events-none"
           style={{ background: "radial-gradient(circle at top right, hsl(43 81% 61%) 0%, transparent 65%)" }} />
