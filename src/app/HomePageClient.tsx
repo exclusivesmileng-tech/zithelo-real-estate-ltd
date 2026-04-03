@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, ChevronDown, Check, TrendingUp, Shield, Wifi, Clock, Building2, Globe, Users, MessageSquare } from "lucide-react";
+import { ArrowRight, ChevronDown, Check, TrendingUp, Shield, Wifi, Clock, Building2, Globe, Users, MessageSquare, Leaf, Zap, Droplets, Wind, BrainCircuit } from "lucide-react";
 import { FEATURED_TEAM } from "@/lib/team-data";
 import { client, urlFor } from "@/sanity/client";
 import { ALL_PROJECTS_QUERY, FEATURED_TEAM_QUERY } from "@/sanity/queries";
@@ -691,6 +691,126 @@ export default function HomePageClient() {
               Invest smart. Build generational wealth.{" "}
               <span className="gold-gradient-text font-semibold not-italic">Grow with Zithelo.</span>
             </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          SUSTAINABILITY
+      ══════════════════════════════════════════ */}
+      <section className="relative overflow-hidden bg-background">
+        {/* Green ambient glow */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 right-0 w-[600px] h-[600px]"
+            style={{ background: "radial-gradient(ellipse at top right, rgba(34,197,94,0.06) 0%, transparent 65%)" }} />
+          <div className="absolute bottom-0 left-0 w-[500px] h-[400px]"
+            style={{ background: "radial-gradient(ellipse at bottom left, rgba(34,197,94,0.04) 0%, transparent 65%)" }} />
+        </div>
+
+        <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24 py-20 md:py-28">
+
+          {/* ── Header ── */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-end mb-16 md:mb-20">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-8 h-8 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center">
+                  <Leaf size={14} className="text-green-500" />
+                </div>
+                <p className="text-[11px] tracking-[0.3em] uppercase font-body font-semibold text-green-500">Sustainable Development</p>
+              </div>
+              <h2 className="font-display text-4xl md:text-5xl font-bold leading-[1.06]">
+                Built for Performance.<br />
+                <span className="text-green-500">Designed for Tomorrow.</span>
+              </h2>
+            </motion.div>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.15 }}
+              className="text-base md:text-lg text-muted-foreground font-body leading-relaxed lg:pb-1"
+            >
+              We don&apos;t just construct buildings — we develop future-ready assets designed for efficiency, clean energy, and enduring value. Sustainability at Zithelo is not an add-on. It is the foundation.
+            </motion.p>
+          </div>
+
+          {/* ── Pillars grid ── */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-16">
+            {[
+              {
+                icon: Zap,
+                title: "Clean Energy",
+                body: "Solar power integration across all developments, reducing reliance on combustion-based systems and lowering operational costs.",
+              },
+              {
+                icon: Droplets,
+                title: "Water Intelligence",
+                body: "Rainwater harvesting, water-efficient fixtures, and sustainable drainage systems tailored to each environment.",
+              },
+              {
+                icon: Wind,
+                title: "Responsible Materials",
+                body: "Locally sourced, environmentally responsible materials that reduce waste and minimise lifecycle costs.",
+              },
+              {
+                icon: BrainCircuit,
+                title: "Smart Systems",
+                body: "Smart building technologies for real-time monitoring, energy efficiency, and alignment with global benchmarks including LEED.",
+              },
+            ].map((pillar, i) => {
+              const Icon = pillar.icon;
+              return (
+                <motion.div
+                  key={pillar.title}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.55, delay: i * 0.1 }}
+                  className="group relative bg-card border border-border hover:border-green-500/30 p-6 transition-all duration-300"
+                >
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                    style={{ background: "radial-gradient(ellipse at top left, rgba(34,197,94,0.04) 0%, transparent 70%)" }} />
+                  <div className="relative z-10">
+                    <div className="w-10 h-10 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-center mb-5">
+                      <Icon size={18} className="text-green-500" />
+                    </div>
+                    <h3 className="font-display text-base font-bold text-foreground mb-3">{pillar.title}</h3>
+                    <p className="text-sm text-muted-foreground font-body leading-relaxed">{pillar.body}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* ── Bottom commitment strip ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="relative bg-card border border-green-500/20 p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 overflow-hidden"
+          >
+            {/* Green glow inside strip */}
+            <div className="absolute inset-0 pointer-events-none"
+              style={{ background: "radial-gradient(ellipse at left, rgba(34,197,94,0.05) 0%, transparent 60%)" }} />
+            <div className="relative z-10">
+              <p className="text-[11px] tracking-[0.25em] uppercase font-body font-semibold text-green-500 mb-2">Our Commitment</p>
+              <p className="font-display text-xl md:text-2xl font-bold text-foreground max-w-xl leading-snug">
+                Where Smart Development Meets Clean Energy.
+              </p>
+              <p className="mt-3 text-sm text-muted-foreground font-body max-w-lg leading-relaxed">
+                By combining clean energy, intelligent design, and disciplined execution, Zithelo creates projects that deliver superior returns, reduced environmental impact, and long-term relevance.
+              </p>
+            </div>
+            <div className="relative z-10 flex items-center gap-2 shrink-0">
+              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              <span className="text-sm font-body font-semibold text-green-500 tracking-wide">LEED Aligned</span>
+            </div>
           </motion.div>
         </div>
       </section>
