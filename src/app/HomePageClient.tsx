@@ -261,129 +261,6 @@ export default function HomePageClient() {
       </section>
 
       {/* ══════════════════════════════════════════
-          OUR FLAGSHIP PROJECTS
-      ══════════════════════════════════════════ */}
-      <section className="section-padding">
-        <div className="max-w-[1400px] mx-auto">
-
-          {/* Header */}
-          <div className="text-center mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-            >
-              <p className="text-sm tracking-[0.12em] uppercase text-primary mb-4 font-body font-semibold">Our Flagship Estates</p>
-              <h2 className="font-display text-4xl md:text-5xl font-bold leading-tight">
-                Prime <span className="gold-gradient-text">Investment</span> Opportunities
-              </h2>
-              <p className="mt-5 text-lg text-muted-foreground font-body max-w-xl mx-auto leading-relaxed">
-                Discover our most sought-after developments offering exceptional value, security, and growth potential.
-              </p>
-            </motion.div>
-          </div>
-
-          {/* Cards — horizontal swipe on mobile */}
-          <div className="-mx-6 md:mx-0">
-          <div className="flex md:grid md:grid-cols-2 gap-6 overflow-x-auto md:overflow-visible px-6 md:px-0 pb-4 md:pb-0 snap-x snap-mandatory scroll-smooth no-scrollbar">
-            {projects.map((project, i) => (
-              <TiltCard
-                key={project.title}
-                maxTilt={6}
-                className="snap-start shrink-0 w-[85vw] sm:w-[70vw] md:w-auto"
-              >
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ y: -5 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.7, delay: i * 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="group bg-card border border-border rounded-2xl md:rounded-sm overflow-hidden hover:shadow-2xl hover:shadow-black/10 hover:border-primary/30 transition-all duration-500 h-full"
-              >
-                {/* Image */}
-                <div className="relative overflow-hidden aspect-[16/10]">
-                  <img
-                    src={project.img}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    style={{ transitionTimingFunction: "cubic-bezier(0.25, 0.46, 0.45, 0.94)" }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-
-                  {/* Badge — gold on charcoal */}
-                  <div className="absolute top-4 left-4">
-                    <span className="inline-flex items-center gap-2 px-4 py-1.5 gold-gradient text-primary-foreground text-sm tracking-[0.1em] uppercase font-body font-bold rounded-sm shadow-md">
-                      {project.badge}
-                    </span>
-                  </div>
-
-                  {/* Status + Save button — top right stack */}
-                  <div className="absolute top-4 right-4 flex flex-col items-end gap-2">
-                    <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-foreground/90 backdrop-blur-sm text-background dark:text-foreground text-[10px] tracking-[0.15em] uppercase font-body font-semibold rounded-sm">
-                      {project.status}
-                    </span>
-                    <SaveButton slug={project.slug} />
-                  </div>
-
-                  {/* Title overlay on image */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="font-display text-2xl md:text-3xl font-bold text-white">{project.title}</h3>
-                    <p className="text-white/70 font-body text-sm mt-1">{project.subtitle}</p>
-                  </div>
-                </div>
-
-                {/* Body */}
-                <div className="p-7">
-                  <p className="text-muted-foreground font-body text-base leading-relaxed">{project.desc}</p>
-
-                  {/* Features grid */}
-                  <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-3">
-                    {project.features.map((feat) => (
-                      <div key={feat} className="flex items-center gap-2.5">
-                        <span className="w-5 h-5 rounded-full gold-gradient flex items-center justify-center shrink-0">
-                          <Check size={11} className="text-primary-foreground" strokeWidth={3} />
-                        </span>
-                        <span className="text-sm text-foreground font-body">{feat}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* CTA */}
-                  <Link
-                    href={project.href}
-                    className="group/btn mt-8 flex items-center justify-center gap-2 w-full py-4 gold-gradient text-primary-foreground font-body font-bold text-sm tracking-[0.12em] uppercase rounded-sm hover:opacity-90 transition-all duration-300 shadow-md shadow-primary/20"
-                  >
-                    Explore Estate
-                    <ArrowRight size={15} className="transition-transform duration-300 group-hover/btn:translate-x-1" />
-                  </Link>
-                </div>
-              </motion.div>
-              </TiltCard>
-            ))}
-          </div>
-          </div>
-
-          {/* View all link */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-12 text-center"
-          >
-            <Link
-              href="/projects"
-              className="group inline-flex items-center gap-2 text-sm tracking-[0.15em] uppercase font-body font-semibold text-muted-foreground hover:text-primary transition-colors duration-300"
-            >
-              View All Projects
-              <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════
           WHY CHOOSE ZITHELO — BOLD DARK PILLARS
       ══════════════════════════════════════════ */}
       <section className="relative overflow-hidden bg-[hsl(var(--charcoal))]">
@@ -658,264 +535,6 @@ export default function HomePageClient() {
       </section>
 
       {/* ══════════════════════════════════════════
-          INVEST WITH ZITHELO — SPLIT DARK
-      ══════════════════════════════════════════ */}
-      <section className="relative overflow-hidden bg-[hsl(var(--charcoal))]">
-        {/* subtle gold glow top-right */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] opacity-[0.07] pointer-events-none"
-          style={{ background: "radial-gradient(circle at top right, hsl(43 81% 61%) 0%, transparent 65%)" }} />
-
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 items-center">
-
-          {/* LEFT — stacked image cards (hidden on mobile, shown md+) */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="hidden md:flex relative items-center justify-center px-10 py-20 lg:py-28"
-          >
-            <motion.div
-              initial={{ opacity: 0, x: -24, rotate: -4 }}
-              whileInView={{ opacity: 1, x: 0, rotate: -4 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="absolute top-[15%] left-[8%] w-[62%] aspect-[4/5] rounded-sm overflow-hidden border-2 border-primary/30 shadow-2xl"
-            >
-              <img src="/images/andoyi/3.png" alt="Andoyi House interior" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-black/30" />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              whileHover={{ y: -8, scale: 1.02 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.9, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative w-[68%] aspect-[4/5] rounded-sm overflow-hidden border-2 border-primary/60 shadow-2xl shadow-black/60 ml-[20%] mt-[10%] group"
-            >
-              <img src="/images/andoyi/2.png" alt="Andoyi House"
-                className="w-full h-full object-cover transition-transform duration-[2000ms] ease-out group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              <div className="absolute bottom-5 left-5">
-                <p className="text-sm tracking-[0.1em] uppercase text-primary font-body font-semibold">Andoyi House</p>
-                <p className="text-white font-display font-bold text-lg">Yaba, Lagos</p>
-              </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.85 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.45 }}
-              className="absolute top-[12%] right-[6%] gold-gradient rounded-full px-5 py-3 shadow-xl shadow-primary/30 flex items-center gap-2"
-            >
-              <TrendingUp size={15} className="text-primary-foreground" />
-              <span className="font-display font-bold text-primary-foreground text-sm">25-Year Lease</span>
-            </motion.div>
-          </motion.div>
-
-          {/* RIGHT — content */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="px-6 md:px-12 lg:px-16 py-10 md:py-20 lg:py-28"
-          >
-            <div className="block md:hidden rounded-2xl overflow-hidden aspect-[16/9] mb-8 border border-primary/40">
-              <img src="/images/andoyi/2.png" alt="Andoyi House" className="w-full h-full object-cover" />
-            </div>
-            <div className="inline-flex items-center gap-2 px-5 py-2 gold-gradient rounded-full mb-8 shadow-lg shadow-primary/20">
-              <span className="text-[11px] tracking-[0.2em] uppercase font-body font-bold text-primary-foreground">
-                Structured Investment Model
-              </span>
-            </div>
-            <h2 className="font-display font-bold text-white leading-[1.08] text-4xl md:text-5xl">
-              The Zithelo<br />
-              <span className="gold-gradient-text">25-Year Lease</span><br />
-              Investment Model
-            </h2>
-            <p className="mt-6 text-white/65 font-body text-lg leading-relaxed">
-              Own rental income rights and long-term capital growth without the burden of direct management. A structured, transparent vehicle built for diaspora and professional investors.
-            </p>
-            <div className="mt-8 space-y-3">
-              {[
-                { icon: TrendingUp, title: "Rental Income Rights", desc: "— earn from day one of occupancy" },
-                { icon: Shield,     title: "Verified Title & Documentation", desc: "— fully legal, fully protected" },
-                { icon: Wifi,       title: "Fibre-Ready Infrastructure", desc: "— wired for the modern professional" },
-                { icon: Clock,      title: "Resale Flexibility After Term", desc: "— exit on your own timeline" },
-              ].map((item, i) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
-                  className="flex items-center gap-4 bg-white/5 border border-white/10 hover:border-primary/40 hover:bg-white/8 transition-all duration-300 rounded-sm px-5 py-4"
-                >
-                  <div className="w-9 h-9 rounded-sm gold-gradient flex items-center justify-center shrink-0">
-                    <item.icon size={16} className="text-primary-foreground" />
-                  </div>
-                  <p className="font-body text-sm text-white/90">
-                    <span className="font-semibold text-white">{item.title}</span>
-                    <span className="text-primary font-semibold"> {item.desc}</span>
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-            <div className="mt-10 flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/contact"
-                className="group inline-flex items-center justify-center gap-2 px-8 py-4 gold-gradient text-primary-foreground font-body font-bold text-sm tracking-wide rounded-2xl md:rounded-sm hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/30"
-              >
-                Invest With Us
-                <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-              <Link
-                href="/projects"
-                className="group inline-flex items-center justify-center gap-2 px-8 py-4 border border-white/25 text-white font-body font-semibold text-sm tracking-wide rounded-2xl md:rounded-sm hover:border-primary/60 hover:bg-white/5 transition-all duration-300"
-              >
-                Browse Estates
-                <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-            </div>
-            <Link
-              href="/investor-quiz"
-              className="group inline-flex items-center gap-1.5 mt-5 text-xs font-body text-white/45 hover:text-primary transition-colors duration-200"
-            >
-              Not sure which type fits you?
-              <span className="font-semibold text-primary/70 group-hover:text-primary transition-colors duration-200">
-                Take the investor quiz →
-              </span>
-            </Link>
-            <p className="mt-8 text-sm font-body italic text-white/40">
-              Invest smart. Build generational wealth.{" "}
-              <span className="gold-gradient-text font-semibold not-italic">Grow with Zithelo.</span>
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════
-          WHY NIGERIA / WHY NOW
-      ══════════════════════════════════════════ */}
-      <section className="relative overflow-hidden bg-background section-padding">
-        {/* Subtle diagonal texture */}
-        <div className="absolute inset-0 pointer-events-none opacity-30"
-          style={{ backgroundImage: `repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(212,170,83,0.03) 40px,rgba(212,170,83,0.03) 41px)` }} />
-
-        <div className="relative z-10 max-w-[1400px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-stretch">
-
-            {/* ── LEFT: editorial copy ── */}
-            <motion.div
-              initial={{ opacity: 0, x: -24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="flex flex-col justify-center"
-            >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="h-px w-8 gold-gradient rounded-full" />
-                <p className="text-[11px] tracking-[0.3em] uppercase text-primary font-body font-semibold">The Opportunity</p>
-              </div>
-
-              <h2 className="font-display text-4xl md:text-5xl lg:text-[3.2rem] font-bold leading-[1.06] mb-8">
-                Why Nigeria.<br />
-                <span className="gold-gradient-text">Why Now.</span>
-              </h2>
-
-              <div className="space-y-5 mb-10">
-                <p className="text-base md:text-lg text-muted-foreground font-body leading-relaxed">
-                  Nigeria is home to Africa&apos;s largest economy and fastest-growing urban population. Lagos alone adds over 600,000 new residents every year — creating a structural, long-term demand for quality housing that far outpaces supply.
-                </p>
-                <p className="text-base text-muted-foreground font-body leading-relaxed">
-                  For diaspora investors and forward-thinking professionals, this gap is the opportunity. Zithelo is built to capture it — with verified title, structured leases, and developments in the highest-demand corridors.
-                </p>
-              </div>
-
-              {/* Inline micro-stats row */}
-              <div className="flex flex-wrap gap-x-8 gap-y-5 border-t border-border pt-8">
-                {[
-                  { value: "600K+", label: "new Lagos residents yearly" },
-                  { value: "2×",    label: "urban population by 2050" },
-                  { value: "28M",   label: "unit housing deficit" },
-                ].map((s, i) => (
-                  <motion.div
-                    key={s.label}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
-                  >
-                    <p className="font-display text-3xl font-black gold-gradient-text leading-none mb-1">{s.value}</p>
-                    <p className="text-xs text-muted-foreground font-body uppercase tracking-wide">{s.label}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* ── RIGHT: dark callout card ── */}
-            <motion.div
-              initial={{ opacity: 0, x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative rounded-2xl overflow-hidden bg-[hsl(var(--charcoal))] p-8 md:p-10 flex flex-col justify-between gap-10"
-            >
-              {/* Ambient gold glow */}
-              <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full pointer-events-none"
-                style={{ background: "radial-gradient(circle, hsl(43 81% 61% / 0.12) 0%, transparent 70%)" }} />
-              <div className="absolute -bottom-16 -left-16 w-48 h-48 rounded-full pointer-events-none"
-                style={{ background: "radial-gradient(circle, hsl(43 81% 61% / 0.07) 0%, transparent 70%)" }} />
-
-              {/* Pull quote */}
-              <div className="relative">
-                <span className="font-display text-7xl leading-none text-primary/20 select-none absolute -top-4 -left-2">&ldquo;</span>
-                <p className="font-display text-2xl md:text-3xl font-bold text-white leading-[1.2] pt-6">
-                  Lagos will be one of the world&apos;s largest cities by 2100 — and premium housing supply is{" "}
-                  <span className="gold-gradient-text">critically scarce today.</span>
-                </p>
-              </div>
-
-              {/* 3 stat rows */}
-              <div className="relative space-y-0 divide-y divide-white/8">
-                {[
-                  { value: "600K+", label: "New residents in Lagos per year",       source: "UN Urbanisation Outlook" },
-                  { value: "2×",    label: "Africa's urban pop. doubles by 2050",   source: "World Bank Urban Report" },
-                  { value: "28M",   label: "Unit housing deficit across Nigeria",   source: "Nigeria Housing Finance Corp" },
-                ].map((stat, i) => (
-                  <motion.div
-                    key={stat.label}
-                    initial={{ opacity: 0, x: 12 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.35 + i * 0.1 }}
-                    className="flex items-center gap-5 py-4"
-                  >
-                    <p className="font-display text-2xl font-black gold-gradient-text shrink-0 w-16">{stat.value}</p>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-body font-semibold text-white/85 leading-snug">{stat.label}</p>
-                      <p className="text-[10px] tracking-[0.12em] uppercase text-primary/45 font-body mt-0.5">{stat.source}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* CTA */}
-              <Link
-                href="/diaspora-investor"
-                className="relative group inline-flex items-center gap-2.5 px-6 py-3.5 border border-primary/40 text-sm font-body font-semibold text-primary hover:bg-primary/10 transition-all duration-300 self-start"
-              >
-                Explore the Investment Case
-                <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-            </motion.div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════
           SUSTAINABILITY
       ══════════════════════════════════════════ */}
       <section className="relative overflow-hidden" style={{ backgroundColor: "#071a0e" }}>
@@ -1070,6 +689,267 @@ export default function HomePageClient() {
         </div>
       </section>
 
+      {/* ══════════════════════════════════════════
+          OUR FLAGSHIP PROJECTS
+      ══════════════════════════════════════════ */}
+      <section className="section-padding">
+        <div className="max-w-[1400px] mx-auto">
+
+          {/* Header */}
+          <div className="text-center mb-16">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              <p className="text-sm tracking-[0.12em] uppercase text-primary mb-4 font-body font-semibold">Our Flagship Estates</p>
+              <h2 className="font-display text-4xl md:text-5xl font-bold leading-tight">
+                Prime <span className="gold-gradient-text">Investment</span> Opportunities
+              </h2>
+              <p className="mt-5 text-lg text-muted-foreground font-body max-w-xl mx-auto leading-relaxed">
+                Discover our most sought-after developments offering exceptional value, security, and growth potential.
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Cards — horizontal swipe on mobile */}
+          <div className="-mx-6 md:mx-0">
+          <div className="flex md:grid md:grid-cols-2 gap-6 overflow-x-auto md:overflow-visible px-6 md:px-0 pb-4 md:pb-0 snap-x snap-mandatory scroll-smooth no-scrollbar">
+            {projects.map((project, i) => (
+              <TiltCard
+                key={project.title}
+                maxTilt={6}
+                className="snap-start shrink-0 w-[85vw] sm:w-[70vw] md:w-auto"
+              >
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -5 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.7, delay: i * 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="group bg-card border border-border rounded-2xl md:rounded-sm overflow-hidden hover:shadow-2xl hover:shadow-black/10 hover:border-primary/30 transition-all duration-500 h-full"
+              >
+                {/* Image */}
+                <div className="relative overflow-hidden aspect-[16/10]">
+                  <img
+                    src={project.img}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    style={{ transitionTimingFunction: "cubic-bezier(0.25, 0.46, 0.45, 0.94)" }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+
+                  {/* Badge — gold on charcoal */}
+                  <div className="absolute top-4 left-4">
+                    <span className="inline-flex items-center gap-2 px-4 py-1.5 gold-gradient text-primary-foreground text-sm tracking-[0.1em] uppercase font-body font-bold rounded-sm shadow-md">
+                      {project.badge}
+                    </span>
+                  </div>
+
+                  {/* Status + Save button — top right stack */}
+                  <div className="absolute top-4 right-4 flex flex-col items-end gap-2">
+                    <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-foreground/90 backdrop-blur-sm text-background dark:text-foreground text-[10px] tracking-[0.15em] uppercase font-body font-semibold rounded-sm">
+                      {project.status}
+                    </span>
+                    <SaveButton slug={project.slug} />
+                  </div>
+
+                  {/* Title overlay on image */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="font-display text-2xl md:text-3xl font-bold text-white">{project.title}</h3>
+                    <p className="text-white/70 font-body text-sm mt-1">{project.subtitle}</p>
+                  </div>
+                </div>
+
+                {/* Body */}
+                <div className="p-7">
+                  <p className="text-muted-foreground font-body text-base leading-relaxed">{project.desc}</p>
+
+                  {/* Features grid */}
+                  <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-3">
+                    {project.features.map((feat) => (
+                      <div key={feat} className="flex items-center gap-2.5">
+                        <span className="w-5 h-5 rounded-full gold-gradient flex items-center justify-center shrink-0">
+                          <Check size={11} className="text-primary-foreground" strokeWidth={3} />
+                        </span>
+                        <span className="text-sm text-foreground font-body">{feat}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* CTA */}
+                  <Link
+                    href={project.href}
+                    className="group/btn mt-8 flex items-center justify-center gap-2 w-full py-4 gold-gradient text-primary-foreground font-body font-bold text-sm tracking-[0.12em] uppercase rounded-sm hover:opacity-90 transition-all duration-300 shadow-md shadow-primary/20"
+                  >
+                    Explore Estate
+                    <ArrowRight size={15} className="transition-transform duration-300 group-hover/btn:translate-x-1" />
+                  </Link>
+                </div>
+              </motion.div>
+              </TiltCard>
+            ))}
+          </div>
+          </div>
+
+          {/* View all link */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-12 text-center"
+          >
+            <Link
+              href="/projects"
+              className="group inline-flex items-center gap-2 text-sm tracking-[0.15em] uppercase font-body font-semibold text-muted-foreground hover:text-primary transition-colors duration-300"
+            >
+              View All Projects
+              <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          INVEST WITH ZITHELO — SPLIT DARK
+      ══════════════════════════════════════════ */}
+      <section className="relative overflow-hidden bg-[hsl(var(--charcoal))]">
+        {/* subtle gold glow top-right */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] opacity-[0.07] pointer-events-none"
+          style={{ background: "radial-gradient(circle at top right, hsl(43 81% 61%) 0%, transparent 65%)" }} />
+
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 items-center">
+
+          {/* LEFT — stacked image cards (hidden on mobile, shown md+) */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="hidden md:flex relative items-center justify-center px-10 py-20 lg:py-28"
+          >
+            <motion.div
+              initial={{ opacity: 0, x: -24, rotate: -4 }}
+              whileInView={{ opacity: 1, x: 0, rotate: -4 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="absolute top-[15%] left-[8%] w-[62%] aspect-[4/5] rounded-sm overflow-hidden border-2 border-primary/30 shadow-2xl"
+            >
+              <img src="/images/andoyi/3.png" alt="Andoyi House interior" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-black/30" />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              whileHover={{ y: -8, scale: 1.02 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="relative w-[68%] aspect-[4/5] rounded-sm overflow-hidden border-2 border-primary/60 shadow-2xl shadow-black/60 ml-[20%] mt-[10%] group"
+            >
+              <img src="/images/andoyi/2.png" alt="Andoyi House"
+                className="w-full h-full object-cover transition-transform duration-[2000ms] ease-out group-hover:scale-105" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute bottom-5 left-5">
+                <p className="text-sm tracking-[0.1em] uppercase text-primary font-body font-semibold">Andoyi House</p>
+                <p className="text-white font-display font-bold text-lg">Yaba, Lagos</p>
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.45 }}
+              className="absolute top-[12%] right-[6%] gold-gradient rounded-full px-5 py-3 shadow-xl shadow-primary/30 flex items-center gap-2"
+            >
+              <TrendingUp size={15} className="text-primary-foreground" />
+              <span className="font-display font-bold text-primary-foreground text-sm">25-Year Lease</span>
+            </motion.div>
+          </motion.div>
+
+          {/* RIGHT — content */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="px-6 md:px-12 lg:px-16 py-10 md:py-20 lg:py-28"
+          >
+            <div className="block md:hidden rounded-2xl overflow-hidden aspect-[16/9] mb-8 border border-primary/40">
+              <img src="/images/andoyi/2.png" alt="Andoyi House" className="w-full h-full object-cover" />
+            </div>
+            <div className="inline-flex items-center gap-2 px-5 py-2 gold-gradient rounded-full mb-8 shadow-lg shadow-primary/20">
+              <span className="text-[11px] tracking-[0.2em] uppercase font-body font-bold text-primary-foreground">
+                Structured Investment Model
+              </span>
+            </div>
+            <h2 className="font-display font-bold text-white leading-[1.08] text-4xl md:text-5xl">
+              The Zithelo<br />
+              <span className="gold-gradient-text">25-Year Lease</span><br />
+              Investment Model
+            </h2>
+            <p className="mt-6 text-white/65 font-body text-lg leading-relaxed">
+              Own rental income rights and long-term capital growth without the burden of direct management. A structured, transparent vehicle built for diaspora and professional investors.
+            </p>
+            <div className="mt-8 space-y-3">
+              {[
+                { icon: TrendingUp, title: "Rental Income Rights", desc: "— earn from day one of occupancy" },
+                { icon: Shield,     title: "Verified Title & Documentation", desc: "— fully legal, fully protected" },
+                { icon: Wifi,       title: "Fibre-Ready Infrastructure", desc: "— wired for the modern professional" },
+                { icon: Clock,      title: "Resale Flexibility After Term", desc: "— exit on your own timeline" },
+              ].map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
+                  className="flex items-center gap-4 bg-white/5 border border-white/10 hover:border-primary/40 hover:bg-white/8 transition-all duration-300 rounded-sm px-5 py-4"
+                >
+                  <div className="w-9 h-9 rounded-sm gold-gradient flex items-center justify-center shrink-0">
+                    <item.icon size={16} className="text-primary-foreground" />
+                  </div>
+                  <p className="font-body text-sm text-white/90">
+                    <span className="font-semibold text-white">{item.title}</span>
+                    <span className="text-primary font-semibold"> {item.desc}</span>
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+            <div className="mt-10 flex flex-col sm:flex-row gap-4">
+              <Link
+                href="/contact"
+                className="group inline-flex items-center justify-center gap-2 px-8 py-4 gold-gradient text-primary-foreground font-body font-bold text-sm tracking-wide rounded-2xl md:rounded-sm hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/30"
+              >
+                Invest With Us
+                <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+              <Link
+                href="/projects"
+                className="group inline-flex items-center justify-center gap-2 px-8 py-4 border border-white/25 text-white font-body font-semibold text-sm tracking-wide rounded-2xl md:rounded-sm hover:border-primary/60 hover:bg-white/5 transition-all duration-300"
+              >
+                Browse Estates
+                <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </div>
+            <Link
+              href="/investor-quiz"
+              className="group inline-flex items-center gap-1.5 mt-5 text-xs font-body text-white/45 hover:text-primary transition-colors duration-200"
+            >
+              Not sure which type fits you?
+              <span className="font-semibold text-primary/70 group-hover:text-primary transition-colors duration-200">
+                Take the investor quiz →
+              </span>
+            </Link>
+            <p className="mt-8 text-sm font-body italic text-white/40">
+              Invest smart. Build generational wealth.{" "}
+              <span className="gold-gradient-text font-semibold not-italic">Grow with Zithelo.</span>
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ── Gold section divider ── */}
       <div className="bg-[hsl(var(--charcoal))] flex items-center px-6 md:px-12 lg:px-24 py-5">
         <div
@@ -1091,6 +971,126 @@ export default function HomePageClient() {
           INVESTMENT CALCULATOR
       ══════════════════════════════════════════ */}
       <InvestmentCalculator />
+
+      {/* ══════════════════════════════════════════
+          WHY NIGERIA / WHY NOW
+      ══════════════════════════════════════════ */}
+      <section className="relative overflow-hidden bg-background section-padding">
+        {/* Subtle diagonal texture */}
+        <div className="absolute inset-0 pointer-events-none opacity-30"
+          style={{ backgroundImage: `repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(212,170,83,0.03) 40px,rgba(212,170,83,0.03) 41px)` }} />
+
+        <div className="relative z-10 max-w-[1400px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-stretch">
+
+            {/* ── LEFT: editorial copy ── */}
+            <motion.div
+              initial={{ opacity: 0, x: -24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="flex flex-col justify-center"
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <div className="h-px w-8 gold-gradient rounded-full" />
+                <p className="text-[11px] tracking-[0.3em] uppercase text-primary font-body font-semibold">The Opportunity</p>
+              </div>
+
+              <h2 className="font-display text-4xl md:text-5xl lg:text-[3.2rem] font-bold leading-[1.06] mb-8">
+                Why Nigeria.<br />
+                <span className="gold-gradient-text">Why Now.</span>
+              </h2>
+
+              <div className="space-y-5 mb-10">
+                <p className="text-base md:text-lg text-muted-foreground font-body leading-relaxed">
+                  Nigeria is home to Africa&apos;s largest economy and fastest-growing urban population. Lagos alone adds over 600,000 new residents every year — creating a structural, long-term demand for quality housing that far outpaces supply.
+                </p>
+                <p className="text-base text-muted-foreground font-body leading-relaxed">
+                  For diaspora investors and forward-thinking professionals, this gap is the opportunity. Zithelo is built to capture it — with verified title, structured leases, and developments in the highest-demand corridors.
+                </p>
+              </div>
+
+              {/* Inline micro-stats row */}
+              <div className="flex flex-wrap gap-x-8 gap-y-5 border-t border-border pt-8">
+                {[
+                  { value: "600K+", label: "new Lagos residents yearly" },
+                  { value: "2×",    label: "urban population by 2050" },
+                  { value: "28M",   label: "unit housing deficit" },
+                ].map((s, i) => (
+                  <motion.div
+                    key={s.label}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
+                  >
+                    <p className="font-display text-3xl font-black gold-gradient-text leading-none mb-1">{s.value}</p>
+                    <p className="text-xs text-muted-foreground font-body uppercase tracking-wide">{s.label}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* ── RIGHT: dark callout card ── */}
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="relative rounded-2xl overflow-hidden bg-[hsl(var(--charcoal))] p-8 md:p-10 flex flex-col justify-between gap-10"
+            >
+              {/* Ambient gold glow */}
+              <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full pointer-events-none"
+                style={{ background: "radial-gradient(circle, hsl(43 81% 61% / 0.12) 0%, transparent 70%)" }} />
+              <div className="absolute -bottom-16 -left-16 w-48 h-48 rounded-full pointer-events-none"
+                style={{ background: "radial-gradient(circle, hsl(43 81% 61% / 0.07) 0%, transparent 70%)" }} />
+
+              {/* Pull quote */}
+              <div className="relative">
+                <span className="font-display text-7xl leading-none text-primary/20 select-none absolute -top-4 -left-2">&ldquo;</span>
+                <p className="font-display text-2xl md:text-3xl font-bold text-white leading-[1.2] pt-6">
+                  Lagos will be one of the world&apos;s largest cities by 2100 — and premium housing supply is{" "}
+                  <span className="gold-gradient-text">critically scarce today.</span>
+                </p>
+              </div>
+
+              {/* 3 stat rows */}
+              <div className="relative space-y-0 divide-y divide-white/8">
+                {[
+                  { value: "600K+", label: "New residents in Lagos per year",       source: "UN Urbanisation Outlook" },
+                  { value: "2×",    label: "Africa's urban pop. doubles by 2050",   source: "World Bank Urban Report" },
+                  { value: "28M",   label: "Unit housing deficit across Nigeria",   source: "Nigeria Housing Finance Corp" },
+                ].map((stat, i) => (
+                  <motion.div
+                    key={stat.label}
+                    initial={{ opacity: 0, x: 12 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.35 + i * 0.1 }}
+                    className="flex items-center gap-5 py-4"
+                  >
+                    <p className="font-display text-2xl font-black gold-gradient-text shrink-0 w-16">{stat.value}</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-body font-semibold text-white/85 leading-snug">{stat.label}</p>
+                      <p className="text-[10px] tracking-[0.12em] uppercase text-primary/45 font-body mt-0.5">{stat.source}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* CTA */}
+              <Link
+                href="/diaspora-investor"
+                className="relative group inline-flex items-center gap-2.5 px-6 py-3.5 border border-primary/40 text-sm font-body font-semibold text-primary hover:bg-primary/10 transition-all duration-300 self-start"
+              >
+                Explore the Investment Case
+                <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
 
       {/* ══════════════════════════════════════════
           MEET THE TEAM
@@ -1306,6 +1306,7 @@ export default function HomePageClient() {
           </div>
         </div>
       </section>
+
 
 
     </>
