@@ -534,6 +534,161 @@ export default function HomePageClient() {
       </section>
 
       {/* ══════════════════════════════════════════
+          SUSTAINABILITY
+      ══════════════════════════════════════════ */}
+      <section className="relative overflow-hidden" style={{ backgroundColor: "#071a0e" }}>
+        {/* Background laye rs */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/2 left-1/4 -translate-y-1/2 -translate-x-1/2 w-[900px] h-[900px] rounded-full"
+            style={{ background: "radial-gradient(circle, rgba(34,197,94,0.09) 0%, transparent 65%)" }} />
+          <div className="absolute top-0 left-0 w-[500px] h-[420px]"
+            style={{ background: "radial-gradient(ellipse at top left, rgba(34,197,94,0.07) 0%, transparent 55%)" }} />
+          <div className="absolute bottom-0 right-0 w-[560px] h-[460px]"
+            style={{ background: "radial-gradient(ellipse at bottom right, rgba(34,197,94,0.05) 0%, transparent 55%)" }} />
+          <div className="absolute inset-0"
+            style={{ backgroundImage: `repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(34,197,94,0.018) 40px,rgba(34,197,94,0.018) 41px)` }} />
+        </div>
+
+        <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24 py-20 md:py-28">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+
+            {/* ── Left: content ── */}
+            <div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7 }}
+              >
+                {/* Pill badge */}
+                <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full"
+                  style={{ background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.28)" }}>
+                  <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse shrink-0" />
+                  <p className="text-[11px] tracking-[0.28em] uppercase font-body font-semibold text-green-400">Sustainability Commitment</p>
+                </div>
+
+                <h2 className="font-display text-4xl md:text-5xl font-bold leading-[1.06] text-white mb-5">
+                  Built for Performance.<br />
+                  <span className="text-green-400">Designed for Tomorrow.</span>
+                </h2>
+                <p className="text-white/55 font-body text-base md:text-lg leading-relaxed">
+                  We don&apos;t just construct buildings — we develop future-ready assets designed for efficiency, clean energy, and enduring value. Sustainability at Zithelo is not an add-on. It is the foundation.
+                </p>
+              </motion.div>
+
+              {/* ── Stats row ── */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="mt-10 grid grid-cols-3 gap-3"
+              >
+                {[
+                  { value: "40%",  label: "Energy Savings",  sub: "vs conventional builds" },
+                  { value: "100%", label: "Solar-Ready",     sub: "across all estates" },
+                  { value: "LEED", label: "Framework",       sub: "globally aligned" },
+                ].map((stat) => (
+                  <div key={stat.label} className="rounded-xl p-4 text-center"
+                    style={{ background: "rgba(34,197,94,0.06)", border: "1px solid rgba(34,197,94,0.15)" }}>
+                    <p className="font-display font-black text-2xl text-green-400 leading-none mb-1">{stat.value}</p>
+                    <p className="font-body text-[10px] font-bold text-white/75 uppercase tracking-wide">{stat.label}</p>
+                    <p className="font-body text-[9px] text-white/35 mt-0.5 leading-snug">{stat.sub}</p>
+                  </div>
+                ))}
+              </motion.div>
+
+              {/* ── Pillar cards — 2×2 grid ── */}
+              <div className="mt-7 grid grid-cols-2 gap-3">
+                {[
+                  { icon: Zap,          title: "Clean Energy",         body: "Solar power integration reducing reliance on combustion-based systems.", tag: "Solar + Grid" },
+                  { icon: Droplets,     title: "Water Intelligence",    body: "Rainwater harvesting with water-efficient, sustainable drainage systems.", tag: "60% Less Wastage" },
+                  { icon: Wind,         title: "Responsible Materials", body: "Locally sourced, low-waste materials that minimise environmental impact.", tag: "Ethically Sourced" },
+                  { icon: BrainCircuit, title: "Smart Systems",         body: "Real-time monitoring technologies aligned with global LEED benchmarks.", tag: "IoT Monitoring" },
+                ].map((p, i) => {
+                  const Icon = p.icon;
+                  return (
+                    <motion.div
+                      key={p.title}
+                      initial={{ opacity: 0, y: 16 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                      transition={{ duration: 0.5, delay: 0.3 + i * 0.08 }}
+                      className="group rounded-xl p-4 cursor-default transition-colors duration-300"
+                      style={{ background: "rgba(34,197,94,0.05)", border: "1px solid rgba(34,197,94,0.13)" }}
+                    >
+                      <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-3 shrink-0"
+                        style={{ background: "rgba(34,197,94,0.12)", border: "1px solid rgba(34,197,94,0.25)" }}>
+                        <Icon size={15} className="text-green-400" />
+                      </div>
+                      <p className="font-display text-[13px] font-bold text-white mb-1">{p.title}</p>
+                      <p className="text-[11px] font-body leading-relaxed mb-2.5" style={{ color: "rgba(255,255,255,0.4)" }}>{p.body}</p>
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-body font-semibold tracking-wide"
+                        style={{ background: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.22)", color: "rgba(74,222,128,0.75)" }}>
+                        {p.tag}
+                      </span>
+                    </motion.div>
+                  );
+                })}
+              </div>
+
+              {/* ── LEED tags ── */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.55 }}
+                className="mt-7 flex flex-wrap items-center gap-2"
+              >
+                {["LEED Aligned", "Low Carbon", "Solar Ready", "Future-Ready"].map((tag) => (
+                  <span key={tag} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] tracking-[0.15em] uppercase font-body font-semibold"
+                    style={{ background: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.25)", color: "rgba(74,222,128,0.8)" }}>
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                    {tag}
+                  </span>
+                ))}
+              </motion.div>
+
+              {/* ── CTA ── */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.65 }}
+                className="mt-6"
+              >
+                <Link
+                  href="/why-zithelo"
+                  className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-body font-semibold transition-all duration-300 hover:shadow-lg"
+                  style={{
+                    background: "rgba(34,197,94,0.08)",
+                    border: "1px solid rgba(34,197,94,0.38)",
+                    color: "rgba(74,222,128,0.9)",
+                  }}
+                >
+                  <Leaf size={14} />
+                  Explore Our Green Standards
+                  <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+              </motion.div>
+            </div>
+
+            {/* ── Right: animated SVG ── */}
+            <motion.div
+              initial={{ opacity: 0, x: 32 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="flex items-center justify-center"
+            >
+              <SustainabilityVector />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
           INVEST WITH ZITHELO — SPLIT DARK
       ══════════════════════════════════════════ */}
       <section className="relative overflow-hidden bg-[hsl(var(--charcoal))]">
@@ -690,133 +845,6 @@ export default function HomePageClient() {
       </section>
 
       {/* ══════════════════════════════════════════
-          SUSTAINABILITY
-      ══════════════════════════════════════════ */}
-      <section className="relative overflow-hidden" style={{ backgroundColor: "#071a0e" }}>
-        {/* Layered green glows */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-0 w-[700px] h-[600px]"
-            style={{ background: "radial-gradient(ellipse at top left, rgba(34,197,94,0.12) 0%, transparent 60%)" }} />
-          <div className="absolute bottom-0 right-0 w-[600px] h-[500px]"
-            style={{ background: "radial-gradient(ellipse at bottom right, rgba(34,197,94,0.08) 0%, transparent 60%)" }} />
-          <div className="absolute inset-0"
-            style={{ backgroundImage: `repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(34,197,94,0.025) 40px,rgba(34,197,94,0.025) 41px)` }} />
-        </div>
-
-        <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24 py-20 md:py-28">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
-
-            {/* ── Left: content ── */}
-            <div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7 }}
-              >
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
-                    style={{ background: "rgba(34,197,94,0.15)", border: "1px solid rgba(34,197,94,0.3)" }}>
-                    <Leaf size={14} className="text-green-400" />
-                  </div>
-                  <p className="text-[11px] tracking-[0.3em] uppercase font-body font-semibold text-green-400">Sustainable Development</p>
-                </div>
-                <h2 className="font-display text-4xl md:text-5xl font-bold leading-[1.06] text-white mb-6">
-                  Built for Performance.<br />
-                  <span className="text-green-400">Designed for Tomorrow.</span>
-                </h2>
-                <p className="text-white/55 font-body text-base md:text-lg leading-relaxed mb-12">
-                  We don&apos;t just construct buildings — we develop future-ready assets designed for efficiency, clean energy, and enduring value. Sustainability at Zithelo is not an add-on. It is the foundation.
-                </p>
-              </motion.div>
-
-              {/* Pillars */}
-              <div className="divide-y border-y" style={{ borderColor: "rgba(34,197,94,0.15)", "--tw-divide-opacity": 1 } as React.CSSProperties}>
-                {[
-                  { icon: Zap,          title: "Clean Energy",         body: "Solar power integration across all developments, reducing reliance on combustion-based systems." },
-                  { icon: Droplets,     title: "Water Intelligence",    body: "Rainwater harvesting, water-efficient fixtures, and sustainable drainage tailored to each site." },
-                  { icon: Wind,         title: "Responsible Materials", body: "Locally sourced, low-waste materials that minimise environmental impact and lifecycle costs." },
-                  { icon: BrainCircuit, title: "Smart Systems",         body: "Real-time monitoring technologies and efficiency systems aligned with global LEED benchmarks." },
-                ].map((p, i) => {
-                  const Icon = p.icon;
-                  return (
-                    <motion.div
-                      key={p.title}
-                      initial={{ opacity: 0, x: -16 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: 0.1 + i * 0.1 }}
-                      className="group flex items-start gap-4 py-5 transition-colors duration-200 cursor-default"
-                      style={{ borderColor: "rgba(34,197,94,0.12)" }}
-                    >
-                      <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5 transition-colors duration-200"
-                        style={{ background: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.2)" }}>
-                        <Icon size={16} className="text-green-400" />
-                      </div>
-                      <div>
-                        <p className="font-display text-sm font-bold text-white mb-1">{p.title}</p>
-                        <p className="text-sm font-body leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>{p.body}</p>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-
-              {/* LEED badge row */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-                className="mt-10 flex flex-wrap items-center gap-3"
-              >
-                {["LEED Aligned", "Low Carbon", "Solar Ready", "Future-Ready"].map((tag) => (
-                  <span key={tag} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] tracking-[0.15em] uppercase font-body font-semibold"
-                    style={{ background: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.25)", color: "rgba(74,222,128,0.8)" }}>
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                    {tag}
-                  </span>
-                ))}
-              </motion.div>
-            </div>
-
-            {/* ── Right: animated SVG ── */}
-            <motion.div
-              initial={{ opacity: 0, x: 32 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="flex items-center justify-center"
-            >
-              <SustainabilityVector />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Gold section divider ── */}
-      <div className="bg-[hsl(var(--charcoal))] flex items-center px-6 md:px-12 lg:px-24 py-5">
-        <div
-          className="flex-1 h-px"
-          style={{ background: "linear-gradient(to right, transparent, rgba(212,170,83,0.45))" }}
-        />
-        <div className="flex items-center gap-2.5 px-6">
-          <span className="block w-1 h-1 rounded-full bg-[hsl(43,81%,61%)] opacity-50" />
-          <span className="block w-[6px] h-[6px] rotate-45 bg-[hsl(43,81%,61%)]" />
-          <span className="block w-1 h-1 rounded-full bg-[hsl(43,81%,61%)] opacity-50" />
-        </div>
-        <div
-          className="flex-1 h-px"
-          style={{ background: "linear-gradient(to left, transparent, rgba(212,170,83,0.45))" }}
-        />
-      </div>
-
-      {/* ══════════════════════════════════════════
-          INVESTMENT CALCULATOR
-      ══════════════════════════════════════════ */}
-      <InvestmentCalculator />
-
-      {/* ══════════════════════════════════════════
           OUR FLAGSHIP PROJECTS
       ══════════════════════════════════════════ */}
       <section className="section-padding">
@@ -938,6 +966,29 @@ export default function HomePageClient() {
           </motion.div>
         </div>
       </section>
+
+      {/* ── Gold section divider ── */}
+      <div className="bg-[hsl(var(--charcoal))] flex items-center px-6 md:px-12 lg:px-24 py-5">
+        <div
+          className="flex-1 h-px"
+          style={{ background: "linear-gradient(to right, transparent, rgba(212,170,83,0.45))" }}
+        />
+        <div className="flex items-center gap-2.5 px-6">
+          <span className="block w-1 h-1 rounded-full bg-[hsl(43,81%,61%)] opacity-50" />
+          <span className="block w-[6px] h-[6px] rotate-45 bg-[hsl(43,81%,61%)]" />
+          <span className="block w-1 h-1 rounded-full bg-[hsl(43,81%,61%)] opacity-50" />
+        </div>
+        <div
+          className="flex-1 h-px"
+          style={{ background: "linear-gradient(to left, transparent, rgba(212,170,83,0.45))" }}
+        />
+      </div>
+
+      {/* ══════════════════════════════════════════
+          INVESTMENT CALCULATOR
+      ══════════════════════════════════════════ */}
+      <InvestmentCalculator />
+
       {/* ══════════════════════════════════════════
           MEET THE TEAM
       ══════════════════════════════════════════ */}
