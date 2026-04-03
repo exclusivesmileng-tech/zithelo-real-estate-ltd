@@ -10,7 +10,6 @@ import SavedDrawer from "@/components/SavedDrawer";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
 import ServiceWorkerRegistrar from "@/components/ServiceWorkerRegistrar";
 import GoogleAnalyticsLoader from "@/components/GoogleAnalyticsLoader";
-import WhatsAppChatBubble from "@/components/WhatsAppChatBubble";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.zithelo.com";
 
@@ -224,7 +223,6 @@ export default function RootLayout({
             <CookieConsentBanner />
             <ServiceWorkerRegistrar />
             <GoogleAnalyticsLoader />
-            <WhatsAppChatBubble />
           </SavedPropertiesProvider>
         </ThemeProvider>
       </body>
