@@ -128,15 +128,6 @@ export default function SignatureContent({ project }: Props) {
     if (videoRef.current) { videoRef.current.load(); videoRef.current.play().catch(() => {}); }
   }
 
-  // Layout: varied sizing for visual hierarchy across 5 images
-  const gridLayout = [
-    "col-span-2 row-span-2",  // 0 — large hero
-    "col-span-1 row-span-1",  // 1
-    "col-span-1 row-span-1",  // 2
-    "col-span-1 row-span-1",  // 3
-    "col-span-1 row-span-1",  // 4
-  ];
-
   return (
     <>
       {/* ══════════════════════════════════════════
@@ -559,63 +550,80 @@ export default function SignatureContent({ project }: Props) {
       </section>
 
       {/* ══════════════════════════════════════════
-          FULL GALLERY — all 14 images
+          PHOTO GALLERY — editorial grid
       ══════════════════════════════════════════ */}
-      <section id="gallery" className="section-padding overflow-hidden">
+      <section id="gallery" className="section-padding bg-[hsl(var(--charcoal))] overflow-hidden">
         <div className="max-w-[1400px] mx-auto">
           <AnimatedSection>
-            <p className="text-[11px] tracking-[0.3em] uppercase text-primary font-body font-semibold mb-3">Photo Gallery</p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground leading-tight mb-12">
-              The Estate
-            </h2>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+              <div>
+                <p className="text-[11px] tracking-[0.3em] uppercase text-primary font-body font-semibold mb-3">Photo Gallery</p>
+                <h2 className="font-display text-4xl md:text-5xl font-bold text-white leading-tight">
+                  The Estate,<br />
+                  <span className="gold-gradient-text">Up Close.</span>
+                </h2>
+              </div>
+              <p className="text-base text-white/50 font-body leading-relaxed max-w-xs md:max-w-sm">
+                Premium semi-detached living in the heart of Ikeja &mdash; every angle crafted to impress.
+              </p>
+            </div>
           </AnimatedSection>
 
-          {/* Mosaic grid — upgraded */}
-          <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[160px] md:auto-rows-[220px] gap-3">
-            {gallery.map((src, i) => (
+          {/* Top row: large left + tall right */}
+          <div className="grid grid-cols-5 gap-3 mb-3">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }} transition={{ duration: 0.65 }}
+              className="col-span-3 aspect-[4/3] overflow-hidden rounded-sm cursor-zoom-in group relative"
+              onClick={() => openLightbox(0)}
+            >
+              <img src={gallery[0]} alt={title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/35 transition-all duration-400" />
+              <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-primary/80 via-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="w-12 h-12 rounded-full gold-gradient flex items-center justify-center shadow-xl shadow-primary/40">
+                  <ZoomIn size={18} className="text-primary-foreground" />
+                </div>
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }} transition={{ duration: 0.65, delay: 0.1 }}
+              className="col-span-2 aspect-[4/3] overflow-hidden rounded-sm cursor-zoom-in group relative"
+              onClick={() => openLightbox(1)}
+            >
+              <img src={gallery[1]} alt={title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/35 transition-all duration-400" />
+              <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-primary/80 via-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="w-12 h-12 rounded-full gold-gradient flex items-center justify-center shadow-xl shadow-primary/40">
+                  <ZoomIn size={18} className="text-primary-foreground" />
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Bottom row: 3 equal images */}
+          <div className="grid grid-cols-3 gap-3">
+            {[gallery[2], gallery[3], gallery[4]].map((src, i) => src && (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ duration: 0.5, delay: (i % 4) * 0.06, ease: [0.25, 0.46, 0.45, 0.94] }}
-                onClick={() => openLightbox(i)}
-                className={`${gridLayout[i] ?? "col-span-1 row-span-1"} overflow-hidden rounded-sm cursor-zoom-in group relative border border-transparent hover:border-primary/50 transition-colors duration-300`}
+                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 + i * 0.1 }}
+                className="aspect-[4/3] overflow-hidden rounded-sm cursor-zoom-in group relative"
+                onClick={() => openLightbox(i + 2)}
               >
-                <img
-                  src={src}
-                  alt={`${title} ${i + 1}`}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                {/* Dark overlay */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/45 transition-all duration-400" />
-                {/* Gold top line */}
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                {/* Centre zoom icon */}
+                <img src={src} alt={`${title} ${i + 3}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/35 transition-all duration-400" />
+                <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-primary/80 via-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="w-11 h-11 rounded-full gold-gradient flex items-center justify-center shadow-lg shadow-primary/30">
+                  <div className="w-11 h-11 rounded-full gold-gradient flex items-center justify-center shadow-xl shadow-primary/40">
                     <ZoomIn size={18} className="text-primary-foreground" />
                   </div>
-                </div>
-                {/* Image counter badge */}
-                <div className="absolute bottom-2.5 left-2.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="bg-black/70 backdrop-blur-sm border border-white/20 px-2 py-0.5 text-[9px] tracking-[0.12em] uppercase text-white/90 font-body font-semibold rounded-sm">
-                    {i + 1}&nbsp;/&nbsp;{gallery.length}
-                  </span>
                 </div>
               </motion.div>
             ))}
           </div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-5 text-xs text-muted-foreground font-body text-center tracking-wide"
-          >
-            {gallery.length} photographs &mdash; click any image to view full screen
-          </motion.p>
         </div>
       </section>
 
