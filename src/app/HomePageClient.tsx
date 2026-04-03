@@ -526,28 +526,6 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      {/* ── Gold section divider ── */}
-      <div className="bg-[hsl(var(--charcoal))] flex items-center px-6 md:px-12 lg:px-24 py-5">
-        <div
-          className="flex-1 h-px"
-          style={{ background: "linear-gradient(to right, transparent, rgba(212,170,83,0.45))" }}
-        />
-        <div className="flex items-center gap-2.5 px-6">
-          <span className="block w-1 h-1 rounded-full bg-[hsl(43,81%,61%)] opacity-50" />
-          <span className="block w-[6px] h-[6px] rotate-45 bg-[hsl(43,81%,61%)]" />
-          <span className="block w-1 h-1 rounded-full bg-[hsl(43,81%,61%)] opacity-50" />
-        </div>
-        <div
-          className="flex-1 h-px"
-          style={{ background: "linear-gradient(to left, transparent, rgba(212,170,83,0.45))" }}
-        />
-      </div>
-
-      {/* ══════════════════════════════════════════
-          INVESTMENT CALCULATOR
-      ══════════════════════════════════════════ */}
-      <InvestmentCalculator />
-
       {/* ══════════════════════════════════════════
           WHO WE ARE
       ══════════════════════════════════════════ */}
@@ -676,6 +654,144 @@ export default function HomePageClient() {
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          INVEST WITH ZITHELO — SPLIT DARK
+      ══════════════════════════════════════════ */}
+      <section className="relative overflow-hidden bg-[hsl(var(--charcoal))]">
+        {/* subtle gold glow top-right */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] opacity-[0.07] pointer-events-none"
+          style={{ background: "radial-gradient(circle at top right, hsl(43 81% 61%) 0%, transparent 65%)" }} />
+
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 items-center">
+
+          {/* LEFT — stacked image cards (hidden on mobile, shown md+) */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="hidden md:flex relative items-center justify-center px-10 py-20 lg:py-28"
+          >
+            <motion.div
+              initial={{ opacity: 0, x: -24, rotate: -4 }}
+              whileInView={{ opacity: 1, x: 0, rotate: -4 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="absolute top-[15%] left-[8%] w-[62%] aspect-[4/5] rounded-sm overflow-hidden border-2 border-primary/30 shadow-2xl"
+            >
+              <img src="/images/andoyi/3.png" alt="Andoyi House interior" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-black/30" />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              whileHover={{ y: -8, scale: 1.02 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="relative w-[68%] aspect-[4/5] rounded-sm overflow-hidden border-2 border-primary/60 shadow-2xl shadow-black/60 ml-[20%] mt-[10%] group"
+            >
+              <img src="/images/andoyi/2.png" alt="Andoyi House"
+                className="w-full h-full object-cover transition-transform duration-[2000ms] ease-out group-hover:scale-105" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute bottom-5 left-5">
+                <p className="text-sm tracking-[0.1em] uppercase text-primary font-body font-semibold">Andoyi House</p>
+                <p className="text-white font-display font-bold text-lg">Yaba, Lagos</p>
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.45 }}
+              className="absolute top-[12%] right-[6%] gold-gradient rounded-full px-5 py-3 shadow-xl shadow-primary/30 flex items-center gap-2"
+            >
+              <TrendingUp size={15} className="text-primary-foreground" />
+              <span className="font-display font-bold text-primary-foreground text-sm">25-Year Lease</span>
+            </motion.div>
+          </motion.div>
+
+          {/* RIGHT — content */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="px-6 md:px-12 lg:px-16 py-10 md:py-20 lg:py-28"
+          >
+            <div className="block md:hidden rounded-2xl overflow-hidden aspect-[16/9] mb-8 border border-primary/40">
+              <img src="/images/andoyi/2.png" alt="Andoyi House" className="w-full h-full object-cover" />
+            </div>
+            <div className="inline-flex items-center gap-2 px-5 py-2 gold-gradient rounded-full mb-8 shadow-lg shadow-primary/20">
+              <span className="text-[11px] tracking-[0.2em] uppercase font-body font-bold text-primary-foreground">
+                Structured Investment Model
+              </span>
+            </div>
+            <h2 className="font-display font-bold text-white leading-[1.08] text-4xl md:text-5xl">
+              The Zithelo<br />
+              <span className="gold-gradient-text">25-Year Lease</span><br />
+              Investment Model
+            </h2>
+            <p className="mt-6 text-white/65 font-body text-lg leading-relaxed">
+              Own rental income rights and long-term capital growth without the burden of direct management. A structured, transparent vehicle built for diaspora and professional investors.
+            </p>
+            <div className="mt-8 space-y-3">
+              {[
+                { icon: TrendingUp, title: "Rental Income Rights", desc: "— earn from day one of occupancy" },
+                { icon: Shield,     title: "Verified Title & Documentation", desc: "— fully legal, fully protected" },
+                { icon: Wifi,       title: "Fibre-Ready Infrastructure", desc: "— wired for the modern professional" },
+                { icon: Clock,      title: "Resale Flexibility After Term", desc: "— exit on your own timeline" },
+              ].map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
+                  className="flex items-center gap-4 bg-white/5 border border-white/10 hover:border-primary/40 hover:bg-white/8 transition-all duration-300 rounded-sm px-5 py-4"
+                >
+                  <div className="w-9 h-9 rounded-sm gold-gradient flex items-center justify-center shrink-0">
+                    <item.icon size={16} className="text-primary-foreground" />
+                  </div>
+                  <p className="font-body text-sm text-white/90">
+                    <span className="font-semibold text-white">{item.title}</span>
+                    <span className="text-primary font-semibold"> {item.desc}</span>
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+            <div className="mt-10 flex flex-col sm:flex-row gap-4">
+              <Link
+                href="/contact"
+                className="group inline-flex items-center justify-center gap-2 px-8 py-4 gold-gradient text-primary-foreground font-body font-bold text-sm tracking-wide rounded-2xl md:rounded-sm hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/30"
+              >
+                Invest With Us
+                <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+              <Link
+                href="/projects"
+                className="group inline-flex items-center justify-center gap-2 px-8 py-4 border border-white/25 text-white font-body font-semibold text-sm tracking-wide rounded-2xl md:rounded-sm hover:border-primary/60 hover:bg-white/5 transition-all duration-300"
+              >
+                Browse Estates
+                <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </div>
+            <Link
+              href="/investor-quiz"
+              className="group inline-flex items-center gap-1.5 mt-5 text-xs font-body text-white/45 hover:text-primary transition-colors duration-200"
+            >
+              Not sure which type fits you?
+              <span className="font-semibold text-primary/70 group-hover:text-primary transition-colors duration-200">
+                Take the investor quiz →
+              </span>
+            </Link>
+            <p className="mt-8 text-sm font-body italic text-white/40">
+              Invest smart. Build generational wealth.{" "}
+              <span className="gold-gradient-text font-semibold not-italic">Grow with Zithelo.</span>
+            </p>
+          </motion.div>
         </div>
       </section>
 
@@ -954,143 +1070,27 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          INVEST WITH ZITHELO — SPLIT DARK
-      ══════════════════════════════════════════ */}
-      <section className="relative overflow-hidden bg-[hsl(var(--charcoal))]">
-        {/* subtle gold glow top-right */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] opacity-[0.07] pointer-events-none"
-          style={{ background: "radial-gradient(circle at top right, hsl(43 81% 61%) 0%, transparent 65%)" }} />
-
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 items-center">
-
-          {/* LEFT — stacked image cards (hidden on mobile, shown md+) */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="hidden md:flex relative items-center justify-center px-10 py-20 lg:py-28"
-          >
-            <motion.div
-              initial={{ opacity: 0, x: -24, rotate: -4 }}
-              whileInView={{ opacity: 1, x: 0, rotate: -4 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="absolute top-[15%] left-[8%] w-[62%] aspect-[4/5] rounded-sm overflow-hidden border-2 border-primary/30 shadow-2xl"
-            >
-              <img src="/images/andoyi/3.png" alt="Andoyi House interior" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-black/30" />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              whileHover={{ y: -8, scale: 1.02 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.9, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative w-[68%] aspect-[4/5] rounded-sm overflow-hidden border-2 border-primary/60 shadow-2xl shadow-black/60 ml-[20%] mt-[10%] group"
-            >
-              <img src="/images/andoyi/2.png" alt="Andoyi House"
-                className="w-full h-full object-cover transition-transform duration-[2000ms] ease-out group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              <div className="absolute bottom-5 left-5">
-                <p className="text-sm tracking-[0.1em] uppercase text-primary font-body font-semibold">Andoyi House</p>
-                <p className="text-white font-display font-bold text-lg">Yaba, Lagos</p>
-              </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.85 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.45 }}
-              className="absolute top-[12%] right-[6%] gold-gradient rounded-full px-5 py-3 shadow-xl shadow-primary/30 flex items-center gap-2"
-            >
-              <TrendingUp size={15} className="text-primary-foreground" />
-              <span className="font-display font-bold text-primary-foreground text-sm">25-Year Lease</span>
-            </motion.div>
-          </motion.div>
-
-          {/* RIGHT — content */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="px-6 md:px-12 lg:px-16 py-10 md:py-20 lg:py-28"
-          >
-            <div className="block md:hidden rounded-2xl overflow-hidden aspect-[16/9] mb-8 border border-primary/40">
-              <img src="/images/andoyi/2.png" alt="Andoyi House" className="w-full h-full object-cover" />
-            </div>
-            <div className="inline-flex items-center gap-2 px-5 py-2 gold-gradient rounded-full mb-8 shadow-lg shadow-primary/20">
-              <span className="text-[11px] tracking-[0.2em] uppercase font-body font-bold text-primary-foreground">
-                Structured Investment Model
-              </span>
-            </div>
-            <h2 className="font-display font-bold text-white leading-[1.08] text-4xl md:text-5xl">
-              The Zithelo<br />
-              <span className="gold-gradient-text">25-Year Lease</span><br />
-              Investment Model
-            </h2>
-            <p className="mt-6 text-white/65 font-body text-lg leading-relaxed">
-              Own rental income rights and long-term capital growth without the burden of direct management. A structured, transparent vehicle built for diaspora and professional investors.
-            </p>
-            <div className="mt-8 space-y-3">
-              {[
-                { icon: TrendingUp, title: "Rental Income Rights", desc: "— earn from day one of occupancy" },
-                { icon: Shield,     title: "Verified Title & Documentation", desc: "— fully legal, fully protected" },
-                { icon: Wifi,       title: "Fibre-Ready Infrastructure", desc: "— wired for the modern professional" },
-                { icon: Clock,      title: "Resale Flexibility After Term", desc: "— exit on your own timeline" },
-              ].map((item, i) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
-                  className="flex items-center gap-4 bg-white/5 border border-white/10 hover:border-primary/40 hover:bg-white/8 transition-all duration-300 rounded-sm px-5 py-4"
-                >
-                  <div className="w-9 h-9 rounded-sm gold-gradient flex items-center justify-center shrink-0">
-                    <item.icon size={16} className="text-primary-foreground" />
-                  </div>
-                  <p className="font-body text-sm text-white/90">
-                    <span className="font-semibold text-white">{item.title}</span>
-                    <span className="text-primary font-semibold"> {item.desc}</span>
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-            <div className="mt-10 flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/contact"
-                className="group inline-flex items-center justify-center gap-2 px-8 py-4 gold-gradient text-primary-foreground font-body font-bold text-sm tracking-wide rounded-2xl md:rounded-sm hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/30"
-              >
-                Invest With Us
-                <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-              <Link
-                href="/projects"
-                className="group inline-flex items-center justify-center gap-2 px-8 py-4 border border-white/25 text-white font-body font-semibold text-sm tracking-wide rounded-2xl md:rounded-sm hover:border-primary/60 hover:bg-white/5 transition-all duration-300"
-              >
-                Browse Estates
-                <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-            </div>
-            <Link
-              href="/investor-quiz"
-              className="group inline-flex items-center gap-1.5 mt-5 text-xs font-body text-white/45 hover:text-primary transition-colors duration-200"
-            >
-              Not sure which type fits you?
-              <span className="font-semibold text-primary/70 group-hover:text-primary transition-colors duration-200">
-                Take the investor quiz →
-              </span>
-            </Link>
-            <p className="mt-8 text-sm font-body italic text-white/40">
-              Invest smart. Build generational wealth.{" "}
-              <span className="gold-gradient-text font-semibold not-italic">Grow with Zithelo.</span>
-            </p>
-          </motion.div>
+      {/* ── Gold section divider ── */}
+      <div className="bg-[hsl(var(--charcoal))] flex items-center px-6 md:px-12 lg:px-24 py-5">
+        <div
+          className="flex-1 h-px"
+          style={{ background: "linear-gradient(to right, transparent, rgba(212,170,83,0.45))" }}
+        />
+        <div className="flex items-center gap-2.5 px-6">
+          <span className="block w-1 h-1 rounded-full bg-[hsl(43,81%,61%)] opacity-50" />
+          <span className="block w-[6px] h-[6px] rotate-45 bg-[hsl(43,81%,61%)]" />
+          <span className="block w-1 h-1 rounded-full bg-[hsl(43,81%,61%)] opacity-50" />
         </div>
-      </section>
+        <div
+          className="flex-1 h-px"
+          style={{ background: "linear-gradient(to left, transparent, rgba(212,170,83,0.45))" }}
+        />
+      </div>
+
+      {/* ══════════════════════════════════════════
+          INVESTMENT CALCULATOR
+      ══════════════════════════════════════════ */}
+      <InvestmentCalculator />
 
       {/* ══════════════════════════════════════════
           MEET THE TEAM
@@ -1306,6 +1306,7 @@ export default function HomePageClient() {
           </div>
         </div>
       </section>
+
 
     </>
   );
