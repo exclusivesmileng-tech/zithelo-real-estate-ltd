@@ -692,24 +692,21 @@ export default function HomePageClient() {
       {/* ══════════════════════════════════════════
           SUSTAINABILITY
       ══════════════════════════════════════════ */}
-      <section className="relative overflow-hidden bg-[hsl(var(--charcoal))]">
-        {/* Gold ambient glow */}
+      <section className="relative overflow-hidden" style={{ backgroundColor: "#071a0e" }}>
+        {/* Layered green glows */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-0 w-[500px] h-[500px]"
-            style={{ background: "radial-gradient(ellipse at top left, rgba(212,170,83,0.10) 0%, transparent 65%)" }} />
-          <div className="absolute bottom-0 right-0 w-[400px] h-[400px]"
-            style={{ background: "radial-gradient(ellipse at bottom right, rgba(212,170,83,0.07) 0%, transparent 65%)" }} />
-          {/* Diagonal texture */}
-          <div className="absolute inset-0 opacity-30"
-            style={{ backgroundImage: `repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(212,170,83,0.04) 40px,rgba(212,170,83,0.04) 41px)` }} />
+          <div className="absolute top-0 left-0 w-[700px] h-[600px]"
+            style={{ background: "radial-gradient(ellipse at top left, rgba(34,197,94,0.12) 0%, transparent 60%)" }} />
+          <div className="absolute bottom-0 right-0 w-[600px] h-[500px]"
+            style={{ background: "radial-gradient(ellipse at bottom right, rgba(34,197,94,0.08) 0%, transparent 60%)" }} />
+          <div className="absolute inset-0"
+            style={{ backgroundImage: `repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(34,197,94,0.025) 40px,rgba(34,197,94,0.025) 41px)` }} />
         </div>
 
         <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24 py-20 md:py-28">
-
-          {/* ── Two-column: content left, visual right ── */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
 
-            {/* Left: text content */}
+            {/* ── Left: content ── */}
             <div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -717,69 +714,73 @@ export default function HomePageClient() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.7 }}
               >
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="h-px w-10 gold-gradient rounded-full" />
-                  <div className="inline-flex items-center gap-2">
-                    <Leaf size={13} className="text-primary" />
-                    <p className="text-[11px] tracking-[0.3em] uppercase font-body font-semibold text-primary">Sustainable Development</p>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
+                    style={{ background: "rgba(34,197,94,0.15)", border: "1px solid rgba(34,197,94,0.3)" }}>
+                    <Leaf size={14} className="text-green-400" />
                   </div>
+                  <p className="text-[11px] tracking-[0.3em] uppercase font-body font-semibold text-green-400">Sustainable Development</p>
                 </div>
                 <h2 className="font-display text-4xl md:text-5xl font-bold leading-[1.06] text-white mb-6">
                   Built for Performance.<br />
-                  <span className="gold-gradient-text">Designed for Tomorrow.</span>
+                  <span className="text-green-400">Designed for Tomorrow.</span>
                 </h2>
-                <p className="text-white/60 font-body text-base md:text-lg leading-relaxed mb-12">
+                <p className="text-white/55 font-body text-base md:text-lg leading-relaxed mb-12">
                   We don&apos;t just construct buildings — we develop future-ready assets designed for efficiency, clean energy, and enduring value. Sustainability at Zithelo is not an add-on. It is the foundation.
                 </p>
               </motion.div>
 
-              {/* Pillars list */}
-              <div className="space-y-0 divide-y divide-white/8 border-y border-white/8">
+              {/* Pillars */}
+              <div className="divide-y border-y" style={{ borderColor: "rgba(34,197,94,0.15)", "--tw-divide-opacity": 1 } as React.CSSProperties}>
                 {[
-                  { icon: Zap,         title: "Clean Energy",          body: "Solar power integration reducing reliance on combustion-based systems and lowering operational costs." },
-                  { icon: Droplets,    title: "Water Intelligence",     body: "Rainwater harvesting, water-efficient fixtures, and sustainable drainage tailored to each site." },
-                  { icon: Wind,        title: "Responsible Materials",  body: "Locally sourced, low-waste materials that minimise environmental impact and lifecycle costs." },
-                  { icon: BrainCircuit,title: "Smart Systems",          body: "Building technologies for real-time monitoring and efficiency, aligned with global LEED benchmarks." },
-                ].map((pillar, i) => {
-                  const Icon = pillar.icon;
+                  { icon: Zap,          title: "Clean Energy",         body: "Solar power integration across all developments, reducing reliance on combustion-based systems." },
+                  { icon: Droplets,     title: "Water Intelligence",    body: "Rainwater harvesting, water-efficient fixtures, and sustainable drainage tailored to each site." },
+                  { icon: Wind,         title: "Responsible Materials", body: "Locally sourced, low-waste materials that minimise environmental impact and lifecycle costs." },
+                  { icon: BrainCircuit, title: "Smart Systems",         body: "Real-time monitoring technologies and efficiency systems aligned with global LEED benchmarks." },
+                ].map((p, i) => {
+                  const Icon = p.icon;
                   return (
                     <motion.div
-                      key={pillar.title}
+                      key={p.title}
                       initial={{ opacity: 0, x: -16 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: 0.1 + i * 0.1 }}
-                      className="group flex items-start gap-4 py-5 hover:bg-white/[0.03] px-2 -mx-2 transition-colors duration-200"
+                      className="group flex items-start gap-4 py-5 transition-colors duration-200 cursor-default"
+                      style={{ borderColor: "rgba(34,197,94,0.12)" }}
                     >
-                      <div className="w-9 h-9 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0 mt-0.5">
-                        <Icon size={16} className="text-primary" />
+                      <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5 transition-colors duration-200"
+                        style={{ background: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.2)" }}>
+                        <Icon size={16} className="text-green-400" />
                       </div>
                       <div>
-                        <p className="font-display text-sm font-bold text-white mb-1">{pillar.title}</p>
-                        <p className="text-sm text-white/50 font-body leading-relaxed">{pillar.body}</p>
+                        <p className="font-display text-sm font-bold text-white mb-1">{p.title}</p>
+                        <p className="text-sm font-body leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>{p.body}</p>
                       </div>
                     </motion.div>
                   );
                 })}
               </div>
 
-              {/* Commitment tagline */}
+              {/* LEED badge row */}
               <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.5 }}
-                className="mt-10 flex items-center gap-4"
+                className="mt-10 flex flex-wrap items-center gap-3"
               >
-                <div className="h-px flex-1 gold-gradient rounded-full opacity-30" />
-                <p className="text-[10px] tracking-[0.25em] uppercase font-body font-semibold text-primary/70 whitespace-nowrap">
-                  LEED Aligned · Low Carbon · Future-Ready
-                </p>
-                <div className="h-px flex-1 gold-gradient rounded-full opacity-30" />
+                {["LEED Aligned", "Low Carbon", "Solar Ready", "Future-Ready"].map((tag) => (
+                  <span key={tag} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] tracking-[0.15em] uppercase font-body font-semibold"
+                    style={{ background: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.25)", color: "rgba(74,222,128,0.8)" }}>
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                    {tag}
+                  </span>
+                ))}
               </motion.div>
             </div>
 
-            {/* Right: animated SVG illustration */}
+            {/* ── Right: animated SVG ── */}
             <motion.div
               initial={{ opacity: 0, x: 32 }}
               whileInView={{ opacity: 1, x: 0 }}
