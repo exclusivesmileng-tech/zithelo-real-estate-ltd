@@ -468,23 +468,23 @@ export default function HomePageClient() {
                 <p className="text-[11px] text-muted-foreground font-body leading-relaxed">Africa&apos;s urban population doubles by 2050. We&apos;re building for it.</p>
               </motion.div>
 
-              {/* Gold corner accent top-left */}
-              <div className="absolute -top-3 -left-3 w-12 h-12 pointer-events-none">
-                <div className="absolute top-0 left-0 w-full h-[2px] gold-gradient" />
-                <div className="absolute top-0 left-0 h-full w-[2px] gold-gradient" />
+              {/* Gold corner accent — top-right */}
+              <div className="absolute -top-3 -right-3 w-12 h-12 pointer-events-none">
+                <div className="absolute top-0 right-0 w-full h-[2px] gold-gradient" />
+                <div className="absolute top-0 right-0 h-full w-[2px] gold-gradient" />
               </div>
 
-              {/* Option B: larger globe vector — floating top-right of image */}
+              {/* Atlanta HQ globe — floating top-left of image */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: 0.5 }}
-                className="absolute -top-6 -right-6 md:-right-10 bg-[hsl(var(--charcoal))] border border-border rounded-2xl p-4 shadow-xl shadow-black/20 flex flex-col items-center gap-1"
+                className="absolute -top-6 -left-6 md:-left-10 bg-[hsl(var(--charcoal))] border border-border rounded-2xl p-4 shadow-xl shadow-black/20 flex flex-col items-center gap-1"
               >
                 <AtlantaHQVector size={110} />
-                <p className="text-[10px] tracking-[0.2em] uppercase text-primary font-body font-semibold">Atlanta, USA</p>
-                <p className="text-[10px] text-muted-foreground font-body">HQ · Zithelo Homes LLC</p>
+                <p className="text-[10px] tracking-[0.2em] uppercase font-body font-bold text-white">HQ</p>
+                <p className="text-[10px] font-body text-white/70">Zithelo Homes LLC</p>
               </motion.div>
             </motion.div>
 
@@ -508,18 +508,17 @@ export default function HomePageClient() {
                 We develop connected spaces for modern professionals, remote workers, and diaspora investors — built with fibre optic infrastructure and structured investment models that generate strong rental income and long-term capital growth.
               </p>
 
-              {/* Atlanta HQ callout — Option A: compact vector inside card */}
+              {/* Atlanta HQ callout */}
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="flex items-center gap-4 bg-background border border-border rounded-xl p-5 mb-8 overflow-hidden"
+                className="flex items-start gap-4 bg-background border border-border rounded-xl p-5 mb-8"
               >
-                <div className="shrink-0">
-                  <AtlantaHQVector size={72} />
+                <div className="w-10 h-10 rounded-full gold-gradient flex items-center justify-center shrink-0">
+                  <MapPin size={16} className="text-primary-foreground" />
                 </div>
-                <div className="w-px self-stretch bg-border shrink-0" />
                 <div>
                   <p className="text-[10px] tracking-[0.25em] uppercase text-primary font-body font-semibold mb-1">International Footprint</p>
                   <p className="font-display text-base font-bold text-foreground mb-1.5">Zithelo Homes LLC · Atlanta, USA</p>
