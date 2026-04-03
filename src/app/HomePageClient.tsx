@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, ChevronDown, Check, TrendingUp, Shield, Wifi, Clock, Building2, Globe, Users, MessageSquare, Leaf, Zap, Droplets, Wind, BrainCircuit } from "lucide-react";
+import { ArrowRight, ChevronDown, Check, TrendingUp, Shield, Wifi, Clock, Building2, Globe, Users, MessageSquare, Leaf, Zap, Droplets, Wind, BrainCircuit, MapPin } from "lucide-react";
 import { FEATURED_TEAM } from "@/lib/team-data";
 import { client, urlFor } from "@/sanity/client";
 import { ALL_PROJECTS_QUERY, FEATURED_TEAM_QUERY } from "@/sanity/queries";
@@ -87,6 +87,7 @@ const marqueeItems = [
   "Smart Apartments",
   "Structured Returns",
   "Lagos · Nairobi · Accra",
+  "Global Office · Atlanta, USA",
 ];
 
 export default function HomePageClient() {
@@ -388,10 +389,16 @@ export default function HomePageClient() {
             transition={{ duration: 0.6, delay: 0.5 }}
             className="mt-14 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-white/10 pt-10"
           >
-            <p className="text-white/50 font-body text-sm italic">
-              Invest smart. Build generational wealth.{" "}
-              <span className="gold-gradient-text font-semibold not-italic">Grow with Zithelo.</span>
-            </p>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+              <p className="text-white/50 font-body text-sm italic">
+                Invest smart. Build generational wealth.{" "}
+                <span className="gold-gradient-text font-semibold not-italic">Grow with Zithelo.</span>
+              </p>
+              <span className="inline-flex items-center gap-2 px-4 py-2 border border-primary/30 rounded-full shrink-0 self-start sm:self-auto">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse shrink-0" />
+                <span className="text-[11px] tracking-[0.15em] uppercase text-primary font-body font-semibold">HQ · Atlanta, USA</span>
+              </span>
+            </div>
             <Link
               href="/why-zithelo"
               className="group inline-flex items-center gap-2 px-8 py-4 gold-gradient text-primary-foreground font-body font-bold text-sm tracking-wide rounded-sm hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20 shrink-0"
@@ -483,9 +490,29 @@ export default function HomePageClient() {
               <p className="text-base md:text-lg text-muted-foreground font-body leading-relaxed mb-5">
                 Zithelo is an urban development and real estate investment company focused on delivering well-structured, high-quality developments within prime city locations — combining functionality, contemporary design, and long-term investment value.
               </p>
-              <p className="text-base md:text-lg text-muted-foreground font-body leading-relaxed">
+              <p className="text-base md:text-lg text-muted-foreground font-body leading-relaxed mb-5">
                 We develop connected spaces for modern professionals, remote workers, and diaspora investors — built with fibre optic infrastructure and structured investment models that generate strong rental income and long-term capital growth.
               </p>
+
+              {/* Atlanta HQ callout */}
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="flex items-start gap-4 bg-background border border-border rounded-xl p-5 mb-8"
+              >
+                <div className="w-10 h-10 rounded-full gold-gradient flex items-center justify-center shrink-0">
+                  <MapPin size={16} className="text-primary-foreground" />
+                </div>
+                <div>
+                  <p className="text-[10px] tracking-[0.25em] uppercase text-primary font-body font-semibold mb-1">International Footprint</p>
+                  <p className="font-display text-base font-bold text-foreground mb-1.5">Zithelo Homes LLC · Atlanta, USA</p>
+                  <p className="text-sm text-muted-foreground font-body leading-relaxed">
+                    Operating through our US entity, we go beyond traditional property transactions — combining rigorous asset selection, structured acquisition, and professional-grade asset management to deliver end-to-end real estate solutions from origination to long-term portfolio optimisation.
+                  </p>
+                </div>
+              </motion.div>
 
               {/* Vision / Mission / Philosophy pillars */}
               <div className="mt-12 space-y-0 divide-y divide-border border-y border-border">
@@ -953,120 +980,112 @@ export default function HomePageClient() {
       {/* ══════════════════════════════════════════
           WHAT SETS US APART — GLOBAL DIFFERENTIATORS
       ══════════════════════════════════════════ */}
-      <section className="relative overflow-hidden bg-black">
-        {/* Dot texture */}
-        <div className="absolute inset-0 opacity-[0.06] pointer-events-none"
-          style={{ backgroundImage: "radial-gradient(hsl(43 81% 61%) 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
-        {/* Ambient glow */}
-        <motion.div
-          animate={{ scale: [1, 1.18, 1], opacity: [0.05, 0.1, 0.05] }}
-          transition={{ repeat: Infinity, duration: 9, ease: "easeInOut" }}
-          className="absolute -bottom-40 -right-40 w-[700px] h-[700px] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(circle, hsl(43 81% 61%) 0%, transparent 65%)" }}
-        />
-
+      <section className="relative overflow-hidden bg-background">
         <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24 py-24 md:py-32">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
-          {/* ── Global offices badge ── */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} transition={{ duration: 0.5 }}
-            className="inline-flex items-stretch mb-12 rounded-sm overflow-hidden border border-white/15"
-          >
-            <div className="flex items-center gap-2.5 px-4 py-2.5 bg-white/[0.05]">
-              <span className="text-sm leading-none">🇳🇬</span>
-              <span className="text-[11px] tracking-[0.15em] uppercase text-white/65 font-body font-semibold whitespace-nowrap">Lagos, Nigeria</span>
-            </div>
-            <div className="flex items-center gap-2 px-4 py-2.5 bg-primary/10 border-l border-r border-white/15">
-              <span className="relative flex h-1.5 w-1.5 shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary" />
-              </span>
-              <span className="text-[10px] tracking-[0.22em] uppercase text-primary font-body font-semibold">Global</span>
-              <span className="relative flex h-1.5 w-1.5 shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary" />
-              </span>
-            </div>
-            <div className="flex items-center gap-2.5 px-4 py-2.5 bg-white/[0.05]">
-              <span className="text-sm leading-none">🇺🇸</span>
-              <span className="text-[11px] tracking-[0.15em] uppercase text-white/65 font-body font-semibold whitespace-nowrap">Atlanta, Georgia</span>
-            </div>
-          </motion.div>
-
-          {/* ── Headline + sub ── */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-10 items-end mb-16">
+            {/* ── Left: differentiators list ── */}
             <motion.div
               initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.6 }}
             >
-              <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.04]">
-                Built to Build Portfolios.
-                <br />
-                <span className="gold-gradient-text">Not Just Properties.</span>
+              <p className="text-[11px] tracking-[0.25em] uppercase text-primary font-body font-semibold mb-4">Our Advantage</p>
+              <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground leading-[1.06] mb-12">
+                What Sets Us<br />
+                <span className="gold-gradient-text">Apart.</span>
               </h2>
+
+              <div className="space-y-7">
+                {[
+                  { label: "Global Access",              text: "Direct exposure to U.S. real estate through our on-ground presence." },
+                  { label: "Institutional Approach",     text: "Data-driven acquisition and risk-managed investment strategy." },
+                  { label: "End-to-End Execution",       text: "From sourcing and structuring to management and exit." },
+                  { label: "Capital Preservation Focus", text: "Prioritizing downside protection alongside growth." },
+                  { label: "Cross-Border Expertise",     text: "Bridging African capital with international opportunities." },
+                ].map((item, i) => (
+                  <motion.div
+                    key={item.label}
+                    initial={{ opacity: 0, x: -16 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.08 }}
+                    className="flex items-start gap-4"
+                  >
+                    <span className="mt-[7px] h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
+                    <p className="text-base font-body leading-relaxed">
+                      <span className="font-bold text-foreground">{item.label}:</span>{" "}
+                      <span className="text-muted-foreground">{item.text}</span>
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
             </motion.div>
+
+            {/* ── Right: positioning + process ── */}
             <motion.div
               initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.12 }}
-              className="lg:pb-2"
+              viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 }}
+              className="flex flex-col gap-4"
             >
-              <p className="text-white/55 font-body text-base leading-relaxed">
-                Real estate investment partners — disciplined, cross-border, and focused on
-                long-term value creation for investors who demand more than a transaction.
-              </p>
-            </motion.div>
-          </div>
-
-          {/* ── 5 differentiator cards — numbered ── */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-14">
-            {[
-              { num: "01", label: "Global Access",              text: "Direct exposure to U.S. real estate through our on-ground presence in Atlanta, Georgia." },
-              { num: "02", label: "Institutional Approach",     text: "Data-driven acquisition and risk-managed investment strategy applied to every decision." },
-              { num: "03", label: "End-to-End Execution",       text: "From sourcing and structuring to management and exit — we manage the full lifecycle." },
-              { num: "04", label: "Capital Preservation Focus", text: "Prioritizing downside protection alongside growth to safeguard client capital." },
-              { num: "05", label: "Cross-Border Expertise",     text: "Bridging African capital with international opportunities across U.S. and emerging markets." },
-            ].map((item, i) => (
-              <motion.div
-                key={item.label}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.55, delay: i * 0.09 }}
-                className="group relative border border-white/10 rounded-sm p-7 overflow-hidden hover:border-primary/50 transition-all duration-500"
-              >
-                <div className="absolute inset-0 gold-gradient opacity-0 group-hover:opacity-[0.07] transition-opacity duration-500 pointer-events-none" />
-                <p className="font-display text-3xl font-black text-white/[0.08] leading-none mb-5 select-none">{item.num}</p>
-                <p className="text-[10px] tracking-[0.2em] uppercase text-primary font-body font-semibold mb-3">{item.label}</p>
-                <p className="text-white/55 font-body text-sm leading-relaxed">{item.text}</p>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* ── Investment process strip ── */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 }}
-          >
-            <div className="border border-white/10 rounded-sm overflow-hidden grid grid-cols-2 md:grid-cols-4">
-              {[
-                { step: "01", action: "Identify & Source",   detail: "Lagos · Atlanta" },
-                { step: "02", action: "Structure & Acquire", detail: "Risk-first lens" },
-                { step: "03", action: "Manage & Optimise",   detail: "Full lifecycle" },
-                { step: "04", action: "Deliver Returns",     detail: "Long-term value" },
-              ].map((s, i) => (
-                <div
-                  key={s.step}
-                  className={`p-6 md:p-7 ${i < 3 ? "md:border-r md:border-white/10" : ""} ${i % 2 === 0 ? "border-r border-white/10" : ""} ${i < 2 ? "border-b md:border-b-0 border-white/10" : ""}`}
-                >
-                  <p className="text-[10px] tracking-[0.2em] uppercase text-primary/60 font-body mb-2">{s.step}</p>
-                  <p className="font-display text-base font-bold text-white mb-1">{s.action}</p>
-                  <p className="text-[11px] text-white/40 font-body tracking-wide">{s.detail}</p>
+              {/* Lagos | Global | Atlanta badge */}
+              <div className="inline-flex items-stretch self-start rounded-sm overflow-hidden border border-border">
+                <div className="flex items-center gap-2 px-4 py-2.5 bg-muted/60">
+                  <span className="text-sm leading-none">🇳🇬</span>
+                  <span className="text-[11px] tracking-[0.15em] uppercase text-muted-foreground font-body font-semibold whitespace-nowrap">Lagos</span>
                 </div>
-              ))}
-            </div>
-          </motion.div>
+                <div className="flex items-center gap-1.5 px-3 py-2.5 bg-primary/10 border-l border-r border-border">
+                  <span className="relative flex h-1.5 w-1.5 shrink-0">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60" />
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary" />
+                  </span>
+                  <span className="text-[10px] tracking-[0.22em] uppercase text-primary font-body font-semibold">Global</span>
+                  <span className="relative flex h-1.5 w-1.5 shrink-0">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60" />
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary" />
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 px-4 py-2.5 bg-muted/60">
+                  <span className="text-sm leading-none">🇺🇸</span>
+                  <span className="text-[11px] tracking-[0.15em] uppercase text-muted-foreground font-body font-semibold whitespace-nowrap">Atlanta</span>
+                </div>
+              </div>
 
+              {/* Positioning card */}
+              <div className="relative bg-[hsl(var(--charcoal))] rounded-sm p-8 md:p-10 overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-[2px] gold-gradient" />
+                <div className="absolute inset-0 opacity-[0.04] pointer-events-none"
+                  style={{ backgroundImage: "radial-gradient(hsl(43 81% 61%) 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
+                <div className="relative z-10">
+                  <p className="font-display text-2xl md:text-3xl font-bold text-white leading-[1.2] mb-4">
+                    We are not brokers.
+                  </p>
+                  <p className="text-white/65 font-body text-base leading-relaxed">
+                    We are real estate investment partners, focused on building resilient portfolios across borders.
+                  </p>
+                </div>
+              </div>
+
+              {/* Investment process — 2×2 grid */}
+              <div className="border border-border rounded-sm overflow-hidden grid grid-cols-2">
+                {[
+                  { step: "01", action: "Identify & Source",   detail: "Lagos · Atlanta" },
+                  { step: "02", action: "Structure & Acquire", detail: "Risk-first" },
+                  { step: "03", action: "Manage & Optimise",   detail: "Full lifecycle" },
+                  { step: "04", action: "Deliver Returns",     detail: "Long-term value" },
+                ].map((s, i) => (
+                  <div
+                    key={s.step}
+                    className={`p-5 ${i % 2 === 0 ? "border-r border-border" : ""} ${i < 2 ? "border-b border-border" : ""}`}
+                  >
+                    <p className="text-[10px] tracking-[0.2em] uppercase text-primary/70 font-body mb-1">{s.step}</p>
+                    <p className="font-display text-sm font-bold text-foreground mb-0.5">{s.action}</p>
+                    <p className="text-[11px] text-muted-foreground font-body">{s.detail}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+          </div>
         </div>
       </section>
 

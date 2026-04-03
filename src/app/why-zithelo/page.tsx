@@ -73,12 +73,13 @@ export default async function WhyZitheloPage() {
       {/* ── Intro stat bar ── */}
       <section className="bg-[hsl(var(--charcoal))] py-10">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
             {[
-              { figure: "2", label: "Active Developments", sub: "Lagos, Nigeria" },
-              { figure: "88+", label: "Residential Units", sub: "In current pipeline" },
-              { figure: "25yr", label: "Lease Structure", sub: "Long-term income model" },
-              { figure: "2027", label: "Delivery Target", sub: "Current active builds" },
+              { figure: "2",        label: "Active Developments", sub: "Lagos, Nigeria" },
+              { figure: "88+",      label: "Residential Units",   sub: "In current pipeline" },
+              { figure: "25yr",     label: "Lease Structure",     sub: "Long-term income model" },
+              { figure: "2027",     label: "Delivery Target",     sub: "Current active builds" },
+              { figure: "Atlanta",  label: "Headquarters",        sub: "USA" },
             ].map((s, i) => (
               <div key={s.label} className="text-center">
                 <p className="font-display text-3xl md:text-4xl font-black gold-gradient-text">{s.figure}</p>
