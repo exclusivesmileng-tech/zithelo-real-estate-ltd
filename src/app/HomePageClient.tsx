@@ -534,36 +534,29 @@ export default function HomePageClient() {
             </motion.div>
           </div>
 
-          {/* Vision / Mission / Philosophy — horizontal strip */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mt-14 border border-border rounded-xl overflow-hidden"
-          >
-            <div className="flex flex-col sm:flex-row divide-y sm:divide-y-0 sm:divide-x divide-border">
-              {[
-                { num: "01", label: "Vision",     text: "The leading urban investment platform across Africa's fastest-growing cities." },
-                { num: "02", label: "Mission",    text: "High-quality developments generating long-term value for investors and communities." },
-                { num: "03", label: "Philosophy", text: "Every decision guided by lasting value — for investors, residents, and cities." },
-              ].map((item, i) => (
-                <div key={item.label} className="group relative flex items-start gap-5 px-7 py-6 flex-1 bg-card hover:bg-background transition-colors duration-300">
-                  {/* Gold left accent */}
-                  <div className="absolute left-0 top-0 bottom-0 w-[3px] gold-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-l-xl" />
-                  {/* Number */}
-                  <span className="font-display text-2xl font-black text-foreground/[0.07] shrink-0 leading-none mt-0.5 group-hover:text-foreground/12 transition-colors duration-300 select-none">{item.num}</span>
-                  {/* Vertical divider */}
-                  <div className="w-px self-stretch bg-border shrink-0" />
-                  {/* Content */}
-                  <div className="min-w-0">
-                    <p className="text-[10px] tracking-[0.28em] uppercase text-primary font-body font-semibold mb-2">{item.label}</p>
-                    <p className="text-sm text-muted-foreground font-body leading-relaxed">{item.text}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+          {/* Vision / Mission / Philosophy — left gold border cards */}
+          <div className="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {[
+              { num: "01", label: "Vision",     text: "The leading urban investment platform across Africa's fastest-growing cities." },
+              { num: "02", label: "Mission",    text: "High-quality developments generating long-term value for investors and communities." },
+              { num: "03", label: "Philosophy", text: "Every decision guided by lasting value — for investors, residents, and cities." },
+            ].map((item, i) => (
+              <motion.div
+                key={item.label}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="group relative flex flex-col gap-3 p-6 bg-background border border-border border-l-[3px] rounded-sm hover:border-border hover:bg-card transition-all duration-300"
+                style={{ borderLeftColor: "hsl(var(--primary))" }}
+              >
+                <p className="text-[10px] tracking-[0.3em] uppercase text-primary font-body font-semibold">{item.label}</p>
+                <h3 className="font-display text-lg font-bold text-foreground leading-snug">{item.label === "Vision" ? "Pan-African Leadership" : item.label === "Mission" ? "Delivering Real Value" : "Long-Term Thinking"}</h3>
+                <p className="text-sm text-muted-foreground font-body leading-relaxed">{item.text}</p>
+                <span className="text-[10px] tracking-[0.15em] font-body font-bold text-primary/30 mt-auto pt-2 select-none">{item.num}</span>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
