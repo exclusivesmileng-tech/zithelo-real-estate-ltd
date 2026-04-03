@@ -534,31 +534,36 @@ export default function HomePageClient() {
             </motion.div>
           </div>
 
-          {/* Vision / Mission / Philosophy — full-width row */}
-          <div className="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {[
-              { num: "01", label: "Vision",     text: "The leading urban investment platform across Africa's fastest-growing cities." },
-              { num: "02", label: "Mission",    text: "High-quality developments generating long-term value for investors and communities." },
-              { num: "03", label: "Philosophy", text: "Every decision guided by lasting value — for investors, residents, and cities." },
-            ].map((item, i) => (
-              <motion.div
-                key={item.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="group relative flex flex-col p-6 bg-card border border-border rounded-xl overflow-hidden hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
-              >
-                <div className="absolute top-0 left-0 right-0 h-[3px] gold-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute -bottom-8 -right-8 w-24 h-24 rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{ background: "radial-gradient(circle, rgba(212,170,83,0.08) 0%, transparent 70%)" }} />
-                <span className="font-display text-3xl font-black text-foreground/[0.06] mb-3 select-none leading-none group-hover:text-foreground/10 transition-colors duration-300">{item.num}</span>
-                <p className="text-[10px] tracking-[0.28em] uppercase text-primary font-body font-semibold mb-2">{item.label}</p>
-                <div className="h-[2px] w-8 gold-gradient rounded-full mb-4" />
-                <p className="text-sm text-muted-foreground font-body leading-relaxed flex-1">{item.text}</p>
-              </motion.div>
-            ))}
-          </div>
+          {/* Vision / Mission / Philosophy — horizontal strip */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mt-14 border border-border rounded-xl overflow-hidden"
+          >
+            <div className="flex flex-col sm:flex-row divide-y sm:divide-y-0 sm:divide-x divide-border">
+              {[
+                { num: "01", label: "Vision",     text: "The leading urban investment platform across Africa's fastest-growing cities." },
+                { num: "02", label: "Mission",    text: "High-quality developments generating long-term value for investors and communities." },
+                { num: "03", label: "Philosophy", text: "Every decision guided by lasting value — for investors, residents, and cities." },
+              ].map((item, i) => (
+                <div key={item.label} className="group relative flex items-start gap-5 px-7 py-6 flex-1 bg-card hover:bg-background transition-colors duration-300">
+                  {/* Gold left accent */}
+                  <div className="absolute left-0 top-0 bottom-0 w-[3px] gold-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-l-xl" />
+                  {/* Number */}
+                  <span className="font-display text-2xl font-black text-foreground/[0.07] shrink-0 leading-none mt-0.5 group-hover:text-foreground/12 transition-colors duration-300 select-none">{item.num}</span>
+                  {/* Vertical divider */}
+                  <div className="w-px self-stretch bg-border shrink-0" />
+                  {/* Content */}
+                  <div className="min-w-0">
+                    <p className="text-[10px] tracking-[0.28em] uppercase text-primary font-body font-semibold mb-2">{item.label}</p>
+                    <p className="text-sm text-muted-foreground font-body leading-relaxed">{item.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
