@@ -74,18 +74,7 @@ export default function FloatingActions() {
 
   return (
     <>
-      {/* ── Mobile-only WhatsApp sticky button ── */}
-      <a
-        href={whatsappUrl(pathname)}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Chat on WhatsApp"
-        className="lg:hidden fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] right-4 z-50 w-[52px] h-[52px] rounded-full bg-[#25D366] flex items-center justify-center shadow-xl shadow-black/25 hover:opacity-90 transition-opacity"
-      >
-        <MessageCircle size={24} className="text-white" />
-      </a>
-
-      <div className="hidden lg:contents">
+      <div className="contents">
       {/* ── Back to top — bottom LEFT ── */}
       <AnimatePresence>
         {showTop && (
@@ -96,7 +85,7 @@ export default function FloatingActions() {
             transition={{ duration: 0.3 }}
             onClick={scrollToTop}
             aria-label="Back to top"
-            className="fixed bottom-[calc(2rem+env(safe-area-inset-bottom))] left-6 z-50 w-11 h-11 rounded-full gold-gradient flex items-center justify-center shadow-lg shadow-primary/30 hover:opacity-90 hover:scale-110 transition-all duration-200"
+            className="hidden lg:flex fixed bottom-[calc(2rem+env(safe-area-inset-bottom))] left-6 z-50 w-11 h-11 rounded-full gold-gradient items-center justify-center shadow-lg shadow-primary/30 hover:opacity-90 hover:scale-110 transition-all duration-200"
           >
             <ArrowUp size={18} className="text-primary-foreground" />
           </motion.button>
@@ -113,7 +102,7 @@ export default function FloatingActions() {
             transition={{ duration: 0.25 }}
             onClick={() => setDrawerOpen(true)}
             aria-label="View saved properties"
-            className="fixed bottom-[calc(2rem+env(safe-area-inset-bottom))] right-[76px] z-50 h-11 px-4 rounded-full gold-gradient flex items-center gap-2 shadow-lg shadow-primary/30 hover:opacity-90 transition-opacity"
+            className="hidden lg:flex fixed bottom-[calc(2rem+env(safe-area-inset-bottom))] right-[76px] z-50 h-11 px-4 rounded-full gold-gradient items-center gap-2 shadow-lg shadow-primary/30 hover:opacity-90 transition-opacity"
           >
             <Bookmark size={14} className="text-primary-foreground" />
             <span className="text-xs font-body font-bold text-primary-foreground">
@@ -124,7 +113,7 @@ export default function FloatingActions() {
       </AnimatePresence>
 
       {/* ── Contact FAB — bottom RIGHT ── */}
-      <div className="fixed bottom-[calc(2rem+env(safe-area-inset-bottom))] right-6 z-50 flex flex-col items-center gap-3">
+      <div className="fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] lg:bottom-[calc(2rem+env(safe-area-inset-bottom))] right-4 lg:right-6 z-50 flex flex-col items-center gap-3">
 
         {/* Expanded contact buttons */}
         <AnimatePresence>
