@@ -162,7 +162,7 @@ const Footer = () => {
             <img src={logo} alt="Zithelo Real Estate" className="h-9 w-auto" />
           </div>
           <p className="text-sm text-muted-foreground font-body leading-relaxed mb-4 max-w-xs">
-            Developing connected urban spaces for modern professionals and global investors.
+            A global real estate platform. Developing premium assets in Nigeria and investing cross-border from Atlanta, Georgia.
           </p>
           <div className="flex flex-col gap-2 mb-8">
             <a href="mailto:info@zithelo.com" className="inline-flex items-center gap-2 text-sm text-muted-foreground font-body">
@@ -174,6 +174,9 @@ const Footer = () => {
             </a>
             <div className="inline-flex items-center gap-2 text-sm text-muted-foreground font-body">
               <MapPin size={13} className="text-primary shrink-0" /> Victoria Island, Lagos, Nigeria
+            </div>
+            <div className="inline-flex items-center gap-2 text-sm text-muted-foreground font-body">
+              <MapPin size={13} className="text-primary shrink-0" /> Atlanta, Georgia, USA
             </div>
           </div>
 
@@ -289,7 +292,7 @@ const Footer = () => {
             <div className="md:col-span-4">
               <img src={logo} alt="Zithelo Real Estate" className="h-12 w-auto mb-6" />
               <p className="text-base text-muted-foreground font-body leading-relaxed max-w-xs">
-                Developing connected urban spaces for modern professionals and global investors.
+                A global real estate platform. Developing premium assets in Nigeria and investing cross-border from Atlanta, Georgia.
               </p>
               <div className="mt-6 flex flex-col gap-3">
                 <a href="mailto:info@zithelo.com" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors font-body">
@@ -301,6 +304,9 @@ const Footer = () => {
                 </a>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground font-body">
                   <MapPin size={14} className="text-primary" /> Lagos, Nigeria
+                </div>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground font-body">
+                  <MapPin size={14} className="text-primary" /> Atlanta, Georgia, USA
                 </div>
               </div>
             </div>

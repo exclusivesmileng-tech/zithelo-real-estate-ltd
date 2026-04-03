@@ -358,6 +358,68 @@ export default function AboutPageClient() {
         </div>
       </section>
 
+      {/* ── Global Real Estate Platform ── */}
+      <section className="relative overflow-hidden section-padding bg-[hsl(var(--charcoal))]">
+        <div className="absolute inset-0 opacity-[0.04] pointer-events-none"
+          style={{ backgroundImage: "radial-gradient(hsl(43 81% 61%) 1px, transparent 1px)", backgroundSize: "22px 22px" }} />
+        <div className="relative z-10 max-w-[1400px] mx-auto">
+          <AnimatedSection className="mb-14">
+            <p className="text-[11px] tracking-[0.25em] uppercase text-primary font-body font-semibold mb-4">Global Footprint</p>
+            <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-10 mb-6">
+              <h2 className="font-display text-4xl md:text-5xl font-bold text-white leading-[1.06]">
+                Global Real Estate<br />
+                <span className="gold-gradient-text">Platform.</span>
+              </h2>
+              <p className="md:pb-1 font-display text-lg md:text-2xl font-semibold text-white/50 leading-tight">
+                Institutional Thinking.<br className="hidden md:block" /> Global Execution.
+              </p>
+            </div>
+            <p className="text-white/65 font-body text-base md:text-lg leading-relaxed max-w-[780px]">
+              With an expanding international footprint, our group operates through Zithelo Homes LLC,
+              headquartered in Atlanta, Georgia, USA — advancing our mission to connect institutional-quality
+              thinking with high-growth real estate markets.
+            </p>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-14">
+            {[
+              { label: "Global Access",         text: "End-to-end solutions for investors seeking exposure to high-growth US and African real estate markets." },
+              { label: "Institutional Approach", text: "We apply institutional-grade thinking and governance to every investment strategy we design." },
+              { label: "End-to-End Execution",   text: "From deal origination to ongoing portfolio optimisation, we manage the full investment lifecycle." },
+              { label: "Capital Preservation",   text: "Our risk-first ethos ensures that protecting client capital is always the starting point for every decision." },
+              { label: "Cross-Border Expertise", text: "Deep knowledge in cross-border capital flows, regulatory structures, and tax-efficient investment frameworks." },
+            ].map((item, i) => (
+              <motion.div
+                key={item.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="group border border-white/10 rounded-sm p-7 hover:border-primary/40 transition-all duration-500 relative overflow-hidden"
+              >
+                <div className="absolute inset-0 gold-gradient opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 pointer-events-none" />
+                <p className="text-[10px] tracking-[0.2em] uppercase text-primary font-body font-semibold mb-3">{item.label}</p>
+                <p className="text-white/60 font-body text-sm leading-relaxed">{item.text}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <AnimatedSection>
+            <div className="border border-primary/25 rounded-sm p-6 md:p-8 bg-primary/5">
+              <p className="font-display text-xl md:text-2xl font-bold text-white mb-3">
+                We are not brokers.{" "}
+                <span className="gold-gradient-text">We are real estate investment partners.</span>
+              </p>
+              <p className="text-white/60 font-body text-sm md:text-base leading-relaxed max-w-[860px]">
+                Whether you are a high-net-worth individual, a family office, or an institutional investor,
+                we bring the discipline, transparency, and global access needed to allocate capital
+                intelligently across borders.
+              </p>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
       <section className="section-padding">
         <div className="max-w-[1100px] mx-auto border border-border rounded-sm p-8 md:p-12 bg-background">
           <AnimatedSection>

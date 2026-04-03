@@ -291,6 +291,41 @@ export default function ContactPageClient() {
         </div>
       </section>
 
+      {/* ── Global Offices ── */}
+      <section className="section-padding">
+        <div className="max-w-[1400px] mx-auto">
+          <AnimatedSection>
+            <p className="text-[11px] tracking-[0.25em] uppercase text-primary font-body font-semibold mb-3">Global Presence</p>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-10">
+              Our <span className="gold-gradient-text">Global Offices</span>
+            </h2>
+          </AnimatedSection>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <AnimatedCard index={0} className="relative bg-card border border-border rounded-sm p-8 overflow-hidden group hover:border-primary/30 transition-all duration-300">
+              <div className="absolute top-0 left-0 right-0 h-[2px] gold-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <p className="text-2xl mb-4">🇳🇬</p>
+              <p className="text-[10px] tracking-[0.22em] uppercase text-primary font-body font-semibold mb-2">Head Office</p>
+              <h3 className="font-display text-xl font-bold text-foreground mb-1">Lagos, Nigeria</h3>
+              <p className="text-sm text-muted-foreground font-body mb-5">Victoria Island, Lagos</p>
+              <div className="space-y-1.5">
+                <p className="text-sm text-muted-foreground font-body">info@zithelo.com</p>
+                <p className="text-sm text-muted-foreground font-body">+234 9110 222 323</p>
+              </div>
+            </AnimatedCard>
+            <AnimatedCard index={1} className="relative bg-card border border-border rounded-sm p-8 overflow-hidden group hover:border-primary/30 transition-all duration-300">
+              <div className="absolute top-0 left-0 right-0 h-[2px] gold-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <p className="text-2xl mb-4">🇺🇸</p>
+              <p className="text-[10px] tracking-[0.22em] uppercase text-primary font-body font-semibold mb-2">US Office</p>
+              <h3 className="font-display text-xl font-bold text-foreground mb-1">Atlanta, Georgia</h3>
+              <p className="text-sm text-muted-foreground font-body mb-5">Zithelo Homes LLC</p>
+              <div className="space-y-1.5">
+                <p className="text-sm text-muted-foreground font-body">us@zithelo.com</p>
+              </div>
+            </AnimatedCard>
+          </div>
+        </div>
+      </section>
+
       {/* ── Map ── */}
       <section className="section-padding pb-0 bg-[hsl(var(--charcoal))] relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
