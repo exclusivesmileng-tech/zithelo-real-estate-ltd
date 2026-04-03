@@ -514,8 +514,8 @@ export default function HomePageClient() {
                 </div>
               </motion.div>
 
-              {/* Vision / Mission / Philosophy pillars */}
-              <div className="mt-12 space-y-0 divide-y divide-border border-y border-border">
+              {/* Vision / Mission / Philosophy cards */}
+              <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
                   { num: "01", label: "Vision",     text: "The leading urban investment platform across Africa's fastest-growing cities." },
                   { num: "02", label: "Mission",    text: "High-quality developments generating long-term value for investors and communities." },
@@ -523,18 +523,22 @@ export default function HomePageClient() {
                 ].map((item, i) => (
                   <motion.div
                     key={item.label}
-                    initial={{ opacity: 0, y: 12 }}
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
-                    className="group flex items-start gap-5 py-5 hover:bg-muted/30 px-2 -mx-2 transition-colors duration-200"
+                    className="group relative flex flex-col p-6 bg-card border border-border rounded-xl overflow-hidden hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
                   >
-                    <span className="text-[11px] tracking-[0.15em] font-body font-bold text-primary/50 mt-0.5 shrink-0 w-6">{item.num}</span>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-[11px] tracking-[0.2em] uppercase text-primary font-body font-semibold mb-1">{item.label}</p>
-                      <p className="text-sm text-muted-foreground font-body leading-relaxed">{item.text}</p>
-                    </div>
-                    <ArrowRight size={14} className="text-primary/0 group-hover:text-primary/40 shrink-0 mt-0.5 transition-all duration-200 translate-x-0 group-hover:translate-x-1" />
+                    {/* Gold top accent bar */}
+                    <div className="absolute top-0 left-0 right-0 h-[3px] gold-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    {/* Background glow */}
+                    <div className="absolute -bottom-8 -right-8 w-24 h-24 rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                      style={{ background: "radial-gradient(circle, rgba(212,170,83,0.08) 0%, transparent 70%)" }} />
+
+                    <span className="font-display text-3xl font-black text-foreground/[0.06] mb-3 select-none leading-none group-hover:text-foreground/10 transition-colors duration-300">{item.num}</span>
+                    <p className="text-[10px] tracking-[0.28em] uppercase text-primary font-body font-semibold mb-2">{item.label}</p>
+                    <div className="h-[2px] w-8 gold-gradient rounded-full mb-4" />
+                    <p className="text-sm text-muted-foreground font-body leading-relaxed flex-1">{item.text}</p>
                   </motion.div>
                 ))}
               </div>
