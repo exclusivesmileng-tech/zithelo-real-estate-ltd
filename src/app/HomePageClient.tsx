@@ -950,6 +950,81 @@ export default function HomePageClient() {
         </div>
       </section>
 
+      {/* ══════════════════════════════════════════
+          WHAT SETS US APART — GLOBAL DIFFERENTIATORS
+      ══════════════════════════════════════════ */}
+      <section className="relative overflow-hidden section-padding bg-card">
+        <div className="absolute -top-24 -right-24 w-[500px] h-[500px] rounded-full pointer-events-none hidden md:block"
+          style={{ background: "radial-gradient(ellipse, rgba(212,170,83,0.07) 0%, transparent 70%)" }} />
+        <div className="relative z-10 max-w-[1400px] mx-auto">
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end mb-12">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }} transition={{ duration: 0.6 }}
+            >
+              <p className="text-[11px] tracking-[0.25em] uppercase text-primary font-body font-semibold mb-4">Our Advantage</p>
+              <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground leading-[1.06]">
+                What Sets Us<br />
+                <span className="gold-gradient-text">Apart.</span>
+              </h2>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.12 }}
+            >
+              <p className="text-lg text-muted-foreground font-body leading-relaxed">
+                We are not brokers. We are real estate investment partners, focused on building
+                resilient portfolios across borders.
+              </p>
+            </motion.div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+            {[
+              { label: "Global Access",             text: "Direct exposure to U.S. real estate through our on-ground presence in Atlanta, Georgia." },
+              { label: "Institutional Approach",    text: "Data-driven acquisition and risk-managed investment strategy applied to every decision." },
+              { label: "End-to-End Execution",      text: "From sourcing and structuring to management and exit — we manage the full lifecycle." },
+              { label: "Capital Preservation Focus", text: "Prioritizing downside protection alongside growth to safeguard client capital." },
+              { label: "Cross-Border Expertise",    text: "Bridging African capital with international opportunities across U.S. and emerging markets." },
+            ].map((item, i) => (
+              <motion.div
+                key={item.label}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: i * 0.1 }}
+                className="group relative border border-border rounded-sm p-7 bg-background hover:border-primary/40 transition-all duration-500 overflow-hidden"
+              >
+                <div className="absolute top-0 left-0 right-0 h-[2px] gold-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <p className="text-[10px] tracking-[0.2em] uppercase text-primary font-body font-semibold mb-3">{item.label}</p>
+                <p className="text-muted-foreground font-body text-sm leading-relaxed">{item.text}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <div className="border border-primary/30 rounded-sm p-8 md:p-10 bg-background relative overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-[2px] gold-gradient" />
+              <p className="font-display text-xl md:text-2xl lg:text-3xl font-bold text-foreground leading-[1.25] max-w-[860px]">
+                &ldquo;By aligning global opportunities with disciplined execution, we provide our clients
+                with access to{" "}
+                <span className="gold-gradient-text">real assets in mature markets</span>{" "}
+                — delivering not just ownership, but long-term value and legacy.&rdquo;
+              </p>
+              <div className="mt-6 flex items-center gap-3">
+                <div className="h-px w-[60px] bg-border" />
+                <p className="text-sm tracking-[0.15em] uppercase text-primary font-body font-semibold">Zithelo Group</p>
+              </div>
+            </div>
+          </motion.div>
+
+        </div>
+      </section>
+
       {/* ── Gold section divider ── */}
       <div className="bg-[hsl(var(--charcoal))] flex items-center px-6 md:px-12 lg:px-24 py-5">
         <div
