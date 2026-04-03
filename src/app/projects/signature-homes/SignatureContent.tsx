@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import {
   MapPin, ArrowLeft, ArrowRight,
-  ChevronLeft, ChevronRight, Check, Home, ZoomIn, Play,
+  Check, Home, ZoomIn, Play,
 } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import ImageLightbox from "@/components/ImageLightbox";
@@ -98,7 +98,6 @@ export default function SignatureContent({ project }: Props) {
     project?.shortDesc ??
     "Where Luxury Meets Legacy. Spacious 4-bedroom semi-detached duplexes with BQ, designed for returning professionals and diaspora investors seeking quality, space, and connectivity in the heart of Ikeja.";
 
-  const [activeImg, setActiveImg] = useState(0);
   const [heroCycle, setHeroCycle] = useState(0);
   const [activeClip, setActiveClip] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -114,8 +113,6 @@ export default function SignatureContent({ project }: Props) {
     return () => clearInterval(t);
   }, [gallery.length]);
 
-  function prev() { setActiveImg((activeImg - 1 + gallery.length) % gallery.length); }
-  function next() { setActiveImg((activeImg + 1) % gallery.length); }
 
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
@@ -222,62 +219,68 @@ export default function SignatureContent({ project }: Props) {
       </section>
 
       {/* ══════════════════════════════════════════
-          INTERACTIVE VIEWER + PROJECT OVERVIEW
+          VIDEO TOUR + PROJECT OVERVIEW
       ══════════════════════════════════════════ */}
       <section className="section-padding overflow-hidden">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-14 items-start">
           <AnimatedSection>
-            {/* Main image — click to open lightbox */}
-            <div
-              className="relative aspect-video overflow-hidden rounded-sm bg-card cursor-zoom-in group/viewer"
-              onClick={() => openLightbox(activeImg)}
-            >
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={activeImg}
-                  src={gallery[activeImg]}
-                  alt={`${title} — image ${activeImg + 1}`}
-                  initial={{ opacity: 0, scale: 1.03 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.55 }}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover/viewer:scale-[1.02]"
-                />
-              </AnimatePresence>
-              {/* Expand hint */}
-              <div className="absolute top-3 right-3 opacity-0 group-hover/viewer:opacity-100 transition-opacity duration-200 pointer-events-none">
-                <div className="bg-black/60 backdrop-blur-sm border border-white/20 px-2.5 py-1.5 rounded-sm flex items-center gap-1.5">
-                  <ZoomIn size={12} className="text-primary" />
-                  <span className="text-[9px] tracking-[0.15em] uppercase text-white/80 font-body font-semibold">Expand</span>
-                </div>
-              </div>
+            {/* Video player */}
+            <div className="relative aspect-video overflow-hidden rounded-sm bg-black">
+              <video
+                ref={videoRef}
+                key={VIDEO_CLIPS[activeClip].src}
+                src={VIDEO_CLIPS[activeClip].src}
+                autoPlay muted loop playsInline preload="auto"
+                className="w-full h-full object-cover"
+              />
               {/* Corner brackets */}
               <span className="absolute top-0 left-0 w-10 h-10 border-t-2 border-l-2 border-primary pointer-events-none" />
               <span className="absolute top-0 right-0 w-10 h-10 border-t-2 border-r-2 border-primary pointer-events-none" />
               <span className="absolute bottom-0 left-0 w-10 h-10 border-b-2 border-l-2 border-primary pointer-events-none" />
               <span className="absolute bottom-0 right-0 w-10 h-10 border-b-2 border-r-2 border-primary pointer-events-none" />
-              {/* Arrows */}
-              <button onClick={prev} className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/55 backdrop-blur-sm rounded-full p-2 text-white hover:bg-primary/80 transition-colors"><ChevronLeft size={20} /></button>
-              <button onClick={next} className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/55 backdrop-blur-sm rounded-full p-2 text-white hover:bg-primary/80 transition-colors"><ChevronRight size={20} /></button>
-              {/* Counter */}
-              <div className="absolute bottom-4 left-4">
+              {/* Label badge */}
+              <div className="absolute bottom-4 right-4">
                 <span className="bg-black/65 backdrop-blur-sm border border-white/20 px-3 py-1 text-[10px] tracking-[0.15em] uppercase text-white/90 font-body font-semibold rounded-sm">
-                  {activeImg + 1} / {gallery.length}
+                  {VIDEO_CLIPS[activeClip].label}
+                </span>
+              </div>
+              {/* Clip counter */}
+              <div className="absolute top-4 right-4">
+                <span className="bg-black/55 backdrop-blur-sm border border-primary/30 px-2.5 py-1 text-[10px] tracking-[0.12em] uppercase text-primary font-body font-semibold rounded-sm">
+                  {activeClip + 1} / {VIDEO_CLIPS.length}
                 </span>
               </div>
             </div>
 
-            {/* Thumbnails — scrollable strip */}
-            <div className="mt-3 flex gap-2 overflow-x-auto pb-1 scrollbar-thin scroll-smooth">
-              {gallery.map((src, i) => (
+            {/* Clip thumbnails */}
+            <div className="grid grid-cols-3 gap-2 mt-3">
+              {VIDEO_CLIPS.map((clip, i) => (
                 <button
                   key={i}
-                  onClick={() => setActiveImg(i)}
-                  className={`relative flex-shrink-0 w-20 aspect-square overflow-hidden rounded-sm border-2 transition-all duration-200 focus:outline-none ${activeImg === i ? "border-primary" : "border-transparent opacity-50 hover:opacity-90 hover:border-primary/40"}`}
+                  onClick={() => switchClip(i)}
+                  className={`relative aspect-video overflow-hidden rounded-sm border-2 transition-all duration-200 focus:outline-none group ${
+                    activeClip === i
+                      ? "border-primary shadow-lg shadow-primary/20"
+                      : "border-transparent opacity-55 hover:opacity-90 hover:border-primary/40"
+                  }`}
                 >
-                  <img src={src} alt="" className="w-full h-full object-cover" />
+                  <img src={clip.thumbUrl} alt={clip.label} className="w-full h-full object-cover" />
+                  <div className={`absolute inset-0 flex flex-col items-center justify-center gap-1 transition-colors ${
+                    activeClip === i ? "bg-black/20" : "bg-black/55 group-hover:bg-black/35"
+                  }`}>
+                    {activeClip !== i && <Play size={14} className="text-white" fill="white" />}
+                    <span className="text-[9px] tracking-[0.1em] uppercase text-white font-body font-semibold leading-none text-center px-1">{clip.label}</span>
+                  </div>
+                  {activeClip === i && (
+                    <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent" />
+                  )}
                 </button>
               ))}
+              {/* Coming soon slot */}
+              <div className="aspect-video rounded-sm border border-dashed border-border flex flex-col items-center justify-center gap-1.5 opacity-40">
+                <Play size={12} className="text-primary" />
+                <span className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground font-body font-semibold">More Soon</span>
+              </div>
             </div>
           </AnimatedSection>
 
@@ -471,95 +474,7 @@ export default function SignatureContent({ project }: Props) {
       </section>
 
       {/* ══════════════════════════════════════════
-          VIDEO TOUR
-      ══════════════════════════════════════════ */}
-      <section className="section-padding bg-[hsl(var(--charcoal))] overflow-hidden">
-        <div className="max-w-[1400px] mx-auto">
-          <AnimatedSection>
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-              <div>
-                <p className="text-[11px] tracking-[0.3em] uppercase text-primary font-body font-semibold mb-3">Video Tour</p>
-                <h2 className="font-display text-4xl md:text-5xl font-bold text-white leading-tight">
-                  See It in<br />
-                  <span className="gold-gradient-text">Motion.</span>
-                </h2>
-              </div>
-              <p className="text-base text-white/50 font-body leading-relaxed max-w-sm">
-                Watch the build progress and explore Signature Homes 1 from every angle &mdash; more footage coming soon.
-              </p>
-            </div>
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.1}>
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-4 items-start">
-              {/* Active video player */}
-              <div className="relative aspect-video overflow-hidden rounded-sm bg-black">
-                <video
-                  ref={videoRef}
-                  key={VIDEO_CLIPS[activeClip].src}
-                  src={VIDEO_CLIPS[activeClip].src}
-                  autoPlay muted loop playsInline preload="auto"
-                  className="w-full h-full object-cover"
-                />
-                {/* Corner brackets */}
-                <span className="absolute top-0 left-0 w-10 h-10 border-t-2 border-l-2 border-primary pointer-events-none" />
-                <span className="absolute top-0 right-0 w-10 h-10 border-t-2 border-r-2 border-primary pointer-events-none" />
-                <span className="absolute bottom-0 left-0 w-10 h-10 border-b-2 border-l-2 border-primary pointer-events-none" />
-                <span className="absolute bottom-0 right-0 w-10 h-10 border-b-2 border-r-2 border-primary pointer-events-none" />
-                {/* Label badge */}
-                <div className="absolute bottom-4 left-4">
-                  <span className="bg-black/65 backdrop-blur-sm border border-white/20 px-3 py-1 text-[10px] tracking-[0.15em] uppercase text-white/90 font-body font-semibold rounded-sm">
-                    {VIDEO_CLIPS[activeClip].label}
-                  </span>
-                </div>
-                {/* Clip counter */}
-                <div className="absolute top-4 right-4">
-                  <span className="bg-black/55 backdrop-blur-sm border border-primary/30 px-2.5 py-1 text-[10px] tracking-[0.12em] uppercase text-primary font-body font-semibold rounded-sm">
-                    {activeClip + 1} / {VIDEO_CLIPS.length}
-                  </span>
-                </div>
-              </div>
-
-              {/* Clip selector — vertical stack */}
-              <div className="flex lg:flex-col gap-3">
-                {VIDEO_CLIPS.map((clip, i) => (
-                  <button
-                    key={i}
-                    onClick={() => switchClip(i)}
-                    className={`relative flex-1 lg:flex-none overflow-hidden rounded-sm border-2 transition-all duration-200 focus:outline-none group ${
-                      activeClip === i
-                        ? "border-primary shadow-lg shadow-primary/20"
-                        : "border-transparent opacity-55 hover:opacity-90 hover:border-primary/40"
-                    }`}
-                  >
-                    <div className="aspect-video">
-                      <img src={clip.thumbUrl} alt={clip.label} className="w-full h-full object-cover" />
-                    </div>
-                    <div className={`absolute inset-0 flex flex-col items-center justify-center gap-1.5 transition-colors ${
-                      activeClip === i ? "bg-black/20" : "bg-black/55 group-hover:bg-black/35"
-                    }`}>
-                      {activeClip !== i && <Play size={16} className="text-white" fill="white" />}
-                      <span className="text-[9px] tracking-[0.12em] uppercase text-white font-body font-semibold leading-none px-1 text-center">{clip.label}</span>
-                    </div>
-                    {activeClip === i && (
-                      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent" />
-                    )}
-                  </button>
-                ))}
-
-                {/* Coming soon placeholder */}
-                <div className="flex-1 lg:flex-none aspect-video rounded-sm border border-dashed border-white/15 flex flex-col items-center justify-center gap-2 opacity-40">
-                  <Play size={14} className="text-primary" />
-                  <span className="text-[9px] tracking-[0.15em] uppercase text-white/60 font-body font-semibold">More Soon</span>
-                </div>
-              </div>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════
-          FULL GALLERY — all 14 images
+          FULL GALLERY — all images
       ══════════════════════════════════════════ */}
       <section id="gallery" className="section-padding overflow-hidden">
         <div className="max-w-[1400px] mx-auto">
