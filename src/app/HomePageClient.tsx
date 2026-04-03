@@ -8,9 +8,13 @@ import { FEATURED_TEAM } from "@/lib/team-data";
 import { client, urlFor } from "@/sanity/client";
 import { ALL_PROJECTS_QUERY, FEATURED_TEAM_QUERY } from "@/sanity/queries";
 import InvestmentCalculator from "@/components/InvestmentCalculator";
+import SustainabilityVector from "@/components/SustainabilityVector";
 import SaveButton from "@/components/SaveButton";
 import SocialProofBar from "@/components/SocialProofBar";
 import Testimonials from "@/components/Testimonials";
+import WordReveal from "@/components/WordReveal";
+import TiltCard from "@/components/TiltCard";
+import MagneticButton from "@/components/MagneticButton";
 
 // ─── Fallback image map keyed by project slug ─────────────────────────────────
 const PROJECT_IMG: Record<string, string> = {
@@ -184,23 +188,9 @@ export default function HomePageClient() {
               <span className="w-8 h-px bg-primary" />
             </motion.p>
 
-            <h1 className="font-display font-bold text-white leading-[1.05] text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem]">
-              <motion.span
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, delay: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="block"
-              >
-                Building Africa&apos;s
-              </motion.span>
-              <motion.span
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="block gold-gradient-text"
-              >
-                Urban Future
-              </motion.span>
+            <h1 className="font-display font-bold text-white leading-[1.05] text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem]" aria-label="Building Africa's Urban Future">
+              <WordReveal text="Building Africa's" className="block" delay={0.25} stagger={0.09} />
+              <WordReveal text="Urban Future" className="block gold-gradient-text" delay={0.5} stagger={0.1} />
             </h1>
 
             <motion.p
@@ -218,19 +208,23 @@ export default function HomePageClient() {
               transition={{ duration: 0.8, delay: 0.8 }}
               className="mt-10 flex items-center justify-center gap-3 px-4"
             >
-              <Link
-                href="/projects"
-                className="group inline-flex items-center gap-2 px-6 py-4 md:px-8 gold-gradient text-primary-foreground font-body font-semibold text-sm tracking-wide rounded-2xl md:rounded-sm hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20 flex-1 md:flex-none justify-center"
-              >
-                Explore Projects
-                <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-              <Link
-                href="/why-zithelo"
-                className="inline-flex items-center justify-center gap-2 px-6 py-4 md:px-8 border border-white/30 text-white font-body font-semibold text-sm tracking-wide rounded-2xl md:rounded-sm hover:bg-white/10 hover:border-white/60 transition-all duration-300 backdrop-blur-sm flex-1 md:flex-none"
-              >
-                Why Zithelo
-              </Link>
+              <MagneticButton className="flex-1 md:flex-none">
+                <Link
+                  href="/projects"
+                  className="group inline-flex items-center gap-2 px-6 py-4 md:px-8 gold-gradient text-primary-foreground font-body font-semibold text-sm tracking-wide rounded-2xl md:rounded-sm hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20 w-full justify-center"
+                >
+                  Explore Projects
+                  <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+              </MagneticButton>
+              <MagneticButton className="flex-1 md:flex-none">
+                <Link
+                  href="/why-zithelo"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-4 md:px-8 border border-white/30 text-white font-body font-semibold text-sm tracking-wide rounded-2xl md:rounded-sm hover:bg-white/10 hover:border-white/60 transition-all duration-300 backdrop-blur-sm w-full"
+                >
+                  Why Zithelo
+                </Link>
+              </MagneticButton>
             </motion.div>
           </div>
         </motion.div>
@@ -698,120 +692,104 @@ export default function HomePageClient() {
       {/* ══════════════════════════════════════════
           SUSTAINABILITY
       ══════════════════════════════════════════ */}
-      <section className="relative overflow-hidden bg-background">
-        {/* Green ambient glow */}
+      <section className="relative overflow-hidden bg-[hsl(var(--charcoal))]">
+        {/* Gold ambient glow */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 right-0 w-[600px] h-[600px]"
-            style={{ background: "radial-gradient(ellipse at top right, rgba(34,197,94,0.06) 0%, transparent 65%)" }} />
-          <div className="absolute bottom-0 left-0 w-[500px] h-[400px]"
-            style={{ background: "radial-gradient(ellipse at bottom left, rgba(34,197,94,0.04) 0%, transparent 65%)" }} />
+          <div className="absolute top-0 left-0 w-[500px] h-[500px]"
+            style={{ background: "radial-gradient(ellipse at top left, rgba(212,170,83,0.10) 0%, transparent 65%)" }} />
+          <div className="absolute bottom-0 right-0 w-[400px] h-[400px]"
+            style={{ background: "radial-gradient(ellipse at bottom right, rgba(212,170,83,0.07) 0%, transparent 65%)" }} />
+          {/* Diagonal texture */}
+          <div className="absolute inset-0 opacity-30"
+            style={{ backgroundImage: `repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(212,170,83,0.04) 40px,rgba(212,170,83,0.04) 41px)` }} />
         </div>
 
         <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24 py-20 md:py-28">
 
-          {/* ── Header ── */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-end mb-16 md:mb-20">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-            >
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-8 h-8 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center">
-                  <Leaf size={14} className="text-green-500" />
-                </div>
-                <p className="text-[11px] tracking-[0.3em] uppercase font-body font-semibold text-green-500">Sustainable Development</p>
-              </div>
-              <h2 className="font-display text-4xl md:text-5xl font-bold leading-[1.06]">
-                Built for Performance.<br />
-                <span className="text-green-500">Designed for Tomorrow.</span>
-              </h2>
-            </motion.div>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.15 }}
-              className="text-base md:text-lg text-muted-foreground font-body leading-relaxed lg:pb-1"
-            >
-              We don&apos;t just construct buildings — we develop future-ready assets designed for efficiency, clean energy, and enduring value. Sustainability at Zithelo is not an add-on. It is the foundation.
-            </motion.p>
-          </div>
+          {/* ── Two-column: content left, visual right ── */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
 
-          {/* ── Pillars grid ── */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-16">
-            {[
-              {
-                icon: Zap,
-                title: "Clean Energy",
-                body: "Solar power integration across all developments, reducing reliance on combustion-based systems and lowering operational costs.",
-              },
-              {
-                icon: Droplets,
-                title: "Water Intelligence",
-                body: "Rainwater harvesting, water-efficient fixtures, and sustainable drainage systems tailored to each environment.",
-              },
-              {
-                icon: Wind,
-                title: "Responsible Materials",
-                body: "Locally sourced, environmentally responsible materials that reduce waste and minimise lifecycle costs.",
-              },
-              {
-                icon: BrainCircuit,
-                title: "Smart Systems",
-                body: "Smart building technologies for real-time monitoring, energy efficiency, and alignment with global benchmarks including LEED.",
-              },
-            ].map((pillar, i) => {
-              const Icon = pillar.icon;
-              return (
-                <motion.div
-                  key={pillar.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.55, delay: i * 0.1 }}
-                  className="group relative bg-card border border-border hover:border-green-500/30 p-6 transition-all duration-300"
-                >
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                    style={{ background: "radial-gradient(ellipse at top left, rgba(34,197,94,0.04) 0%, transparent 70%)" }} />
-                  <div className="relative z-10">
-                    <div className="w-10 h-10 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-center mb-5">
-                      <Icon size={18} className="text-green-500" />
-                    </div>
-                    <h3 className="font-display text-base font-bold text-foreground mb-3">{pillar.title}</h3>
-                    <p className="text-sm text-muted-foreground font-body leading-relaxed">{pillar.body}</p>
+            {/* Left: text content */}
+            <div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7 }}
+              >
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="h-px w-10 gold-gradient rounded-full" />
+                  <div className="inline-flex items-center gap-2">
+                    <Leaf size={13} className="text-primary" />
+                    <p className="text-[11px] tracking-[0.3em] uppercase font-body font-semibold text-primary">Sustainable Development</p>
                   </div>
-                </motion.div>
-              );
-            })}
-          </div>
+                </div>
+                <h2 className="font-display text-4xl md:text-5xl font-bold leading-[1.06] text-white mb-6">
+                  Built for Performance.<br />
+                  <span className="gold-gradient-text">Designed for Tomorrow.</span>
+                </h2>
+                <p className="text-white/60 font-body text-base md:text-lg leading-relaxed mb-12">
+                  We don&apos;t just construct buildings — we develop future-ready assets designed for efficiency, clean energy, and enduring value. Sustainability at Zithelo is not an add-on. It is the foundation.
+                </p>
+              </motion.div>
 
-          {/* ── Bottom commitment strip ── */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="relative bg-card border border-green-500/20 p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 overflow-hidden"
-          >
-            {/* Green glow inside strip */}
-            <div className="absolute inset-0 pointer-events-none"
-              style={{ background: "radial-gradient(ellipse at left, rgba(34,197,94,0.05) 0%, transparent 60%)" }} />
-            <div className="relative z-10">
-              <p className="text-[11px] tracking-[0.25em] uppercase font-body font-semibold text-green-500 mb-2">Our Commitment</p>
-              <p className="font-display text-xl md:text-2xl font-bold text-foreground max-w-xl leading-snug">
-                Where Smart Development Meets Clean Energy.
-              </p>
-              <p className="mt-3 text-sm text-muted-foreground font-body max-w-lg leading-relaxed">
-                By combining clean energy, intelligent design, and disciplined execution, Zithelo creates projects that deliver superior returns, reduced environmental impact, and long-term relevance.
-              </p>
+              {/* Pillars list */}
+              <div className="space-y-0 divide-y divide-white/8 border-y border-white/8">
+                {[
+                  { icon: Zap,         title: "Clean Energy",          body: "Solar power integration reducing reliance on combustion-based systems and lowering operational costs." },
+                  { icon: Droplets,    title: "Water Intelligence",     body: "Rainwater harvesting, water-efficient fixtures, and sustainable drainage tailored to each site." },
+                  { icon: Wind,        title: "Responsible Materials",  body: "Locally sourced, low-waste materials that minimise environmental impact and lifecycle costs." },
+                  { icon: BrainCircuit,title: "Smart Systems",          body: "Building technologies for real-time monitoring and efficiency, aligned with global LEED benchmarks." },
+                ].map((pillar, i) => {
+                  const Icon = pillar.icon;
+                  return (
+                    <motion.div
+                      key={pillar.title}
+                      initial={{ opacity: 0, x: -16 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.1 + i * 0.1 }}
+                      className="group flex items-start gap-4 py-5 hover:bg-white/[0.03] px-2 -mx-2 transition-colors duration-200"
+                    >
+                      <div className="w-9 h-9 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0 mt-0.5">
+                        <Icon size={16} className="text-primary" />
+                      </div>
+                      <div>
+                        <p className="font-display text-sm font-bold text-white mb-1">{pillar.title}</p>
+                        <p className="text-sm text-white/50 font-body leading-relaxed">{pillar.body}</p>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+
+              {/* Commitment tagline */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="mt-10 flex items-center gap-4"
+              >
+                <div className="h-px flex-1 gold-gradient rounded-full opacity-30" />
+                <p className="text-[10px] tracking-[0.25em] uppercase font-body font-semibold text-primary/70 whitespace-nowrap">
+                  LEED Aligned · Low Carbon · Future-Ready
+                </p>
+                <div className="h-px flex-1 gold-gradient rounded-full opacity-30" />
+              </motion.div>
             </div>
-            <div className="relative z-10 flex items-center gap-2 shrink-0">
-              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-sm font-body font-semibold text-green-500 tracking-wide">LEED Aligned</span>
-            </div>
-          </motion.div>
+
+            {/* Right: animated SVG illustration */}
+            <motion.div
+              initial={{ opacity: 0, x: 32 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="flex items-center justify-center"
+            >
+              <SustainabilityVector />
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -865,14 +843,18 @@ export default function HomePageClient() {
           <div className="-mx-6 md:mx-0">
           <div className="flex md:grid md:grid-cols-2 gap-6 overflow-x-auto md:overflow-visible px-6 md:px-0 pb-4 md:pb-0 snap-x snap-mandatory scroll-smooth no-scrollbar">
             {projects.map((project, i) => (
-              <motion.div
+              <TiltCard
                 key={project.title}
+                maxTilt={6}
+                className="snap-start shrink-0 w-[85vw] sm:w-[70vw] md:w-auto"
+              >
+              <motion.div
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ y: -6 }}
+                whileHover={{ y: -5 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.7, delay: i * 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="group bg-card border border-border rounded-2xl md:rounded-sm overflow-hidden hover:shadow-2xl hover:shadow-black/10 hover:border-primary/30 transition-all duration-500 snap-start shrink-0 w-[85vw] sm:w-[70vw] md:w-auto"
+                className="group bg-card border border-border rounded-2xl md:rounded-sm overflow-hidden hover:shadow-2xl hover:shadow-black/10 hover:border-primary/30 transition-all duration-500 h-full"
               >
                 {/* Image */}
                 <div className="relative overflow-hidden aspect-[16/10]">
@@ -932,6 +914,7 @@ export default function HomePageClient() {
                   </Link>
                 </div>
               </motion.div>
+              </TiltCard>
             ))}
           </div>
           </div>
