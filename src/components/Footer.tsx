@@ -12,6 +12,7 @@ const companyLinks = [
   { label: "Leadership",     path: "/leadership" },
   { label: "Why Zithelo",    path: "/why-zithelo" },
   { label: "Africa Vision",  path: "/africa-vision" },
+  { label: "Sustainability", path: "/sustainability" },
   { label: "Partnership",    path: "/partnership" },
   { label: "Projects",       path: "/projects" },
   { label: "Services",       path: "/services" },
@@ -310,8 +311,9 @@ const Footer = () => {
                   { label: "About",         path: "/about" },
                   { label: "Leadership",    path: "/leadership" },
                   { label: "Why Zithelo",   path: "/why-zithelo" },
-                  { label: "Africa Vision", path: "/africa-vision" },
-                  { label: "Partnership",   path: "/partnership" },
+                  { label: "Africa Vision",  path: "/africa-vision" },
+                  { label: "Sustainability", path: "/sustainability" },
+                  { label: "Partnership",    path: "/partnership" },
                 ].map((l) => (
                   <Link key={l.path} href={l.path} className="text-sm text-muted-foreground hover:text-foreground transition-colors font-body">{l.label}</Link>
                 ))}

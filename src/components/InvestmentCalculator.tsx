@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useRef } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Calculator, TrendingUp, Wallet, BarChart3,
@@ -8,14 +8,6 @@ import {
   RefreshCw, ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
-
-// ── Types ──────────────────────────────────────────────────────────────────
-interface YearPoint {
-  year: number;
-  propValue: number;
-  cumRental: number;
-  total: number;
-}
 
 // ── Projects data ──────────────────────────────────────────────────────────
 const PROJECTS = [
@@ -57,83 +49,6 @@ function fmt(n: number, currency: "NGN" | "USD", rate = DEFAULT_RATE): string {
   }).format(n);
 }
 
-function fmtShort(n: number, currency: "NGN" | "USD", rate = DEFAULT_RATE): string {
-  const val = currency === "NGN" ? n * rate : n;
-  const sym = currency === "NGN" ? "₦" : "$";
-  if (val >= 1_000_000_000) return `${sym}${(val / 1_000_000_000).toFixed(1)}B`;
-  if (val >= 1_000_000) return `${sym}${(val / 1_000_000).toFixed(1)}M`;
-  if (val >= 1_000) return `${sym}${(val / 1_000).toFixed(0)}K`;
-  return `${sym}${val.toFixed(0)}`;
-}
-
-// ── Growth Chart ───────────────────────────────────────────────────────────
-function GrowthChart({
-  data, currency, rate,
-}: { data: YearPoint[]; currency: "NGN" | "USD"; rate: number }) {
-  const W = 400, H = 140, PAD = { t: 10, r: 10, b: 28, l: 42 };
-  const innerW = W - PAD.l - PAD.r;
-  const innerH = H - PAD.t - PAD.b;
-
-  const maxVal = Math.max(...data.map((d) => d.total));
-  const minVal = 0;
-  const scale = (v: number) => innerH - ((v - minVal) / (maxVal - minVal || 1)) * innerH;
-  const xPos = (i: number) => (i / (data.length - 1)) * innerW;
-
-  const propPath = data.map((d, i) => `${i === 0 ? "M" : "L"}${xPos(i).toFixed(1)},${scale(d.propValue).toFixed(1)}`).join(" ");
-  const totalPath = data.map((d, i) => `${i === 0 ? "M" : "L"}${xPos(i).toFixed(1)},${scale(d.total).toFixed(1)}`).join(" ");
-  const areaPath = `${totalPath} L${xPos(data.length - 1).toFixed(1)},${innerH.toFixed(1)} L0,${innerH.toFixed(1)} Z`;
-
-  const G = "hsl(43,81%,61%)";
-  const yLabels = [0, 0.5, 1].map((frac) => ({
-    val: maxVal * frac,
-    y: scale(maxVal * frac),
-  }));
-
-  return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ overflow: "visible" }}>
-      <defs>
-        <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={G} stopOpacity="0.18" />
-          <stop offset="100%" stopColor={G} stopOpacity="0.01" />
-        </linearGradient>
-        <clipPath id="chartClip">
-          <rect x="0" y="0" width={innerW} height={innerH + 1} />
-        </clipPath>
-      </defs>
-      <g transform={`translate(${PAD.l},${PAD.t})`}>
-        {/* Y grid + labels */}
-        {yLabels.map(({ val, y }) => (
-          <g key={val}>
-            <line x1="0" y1={y} x2={innerW} y2={y} stroke="white" strokeOpacity="0.07" strokeWidth="0.7" />
-            <text x="-6" y={y + 4} fontSize="8" fill="white" fillOpacity="0.35" textAnchor="end" fontFamily="sans-serif">
-              {fmtShort(val, currency, rate)}
-            </text>
-          </g>
-        ))}
-        {/* X labels */}
-        {data.map((d, i) => {
-          if (i !== 0 && i !== data.length - 1 && i % 3 !== 0) return null;
-          return (
-            <text key={d.year} x={xPos(i)} y={innerH + 16} fontSize="8" fill="white" fillOpacity="0.4" textAnchor="middle" fontFamily="sans-serif">
-              Yr {d.year}
-            </text>
-          );
-        })}
-
-        <g clipPath="url(#chartClip)">
-          {/* area fill under total line */}
-          <path d={areaPath} fill="url(#areaGrad)" />
-          {/* property value line */}
-          <path d={propPath} fill="none" stroke={G} strokeOpacity="0.4" strokeWidth="1.4" strokeDasharray="4 3" />
-          {/* total return line */}
-          <path d={totalPath} fill="none" stroke={G} strokeWidth="2" strokeLinecap="round" />
-          {/* endpoint dot */}
-          <circle cx={xPos(data.length - 1)} cy={scale(data[data.length - 1].total)} r="3.5" fill={G} />
-        </g>
-      </g>
-    </svg>
-  );
-}
 
 // ── Main Component ─────────────────────────────────────────────────────────
 export default function InvestmentCalculator() {
@@ -170,18 +85,6 @@ export default function InvestmentCalculator() {
   const roi           = (totalReturn / amount) * 100;
   const cagr          = (Math.pow((deflate(capitalValue, years) + deflate(totalRental, years)) / amount, 1 / years) - 1) * 100;
   const breakEvenYear = effYield > 0 ? Math.ceil(1 / effYield) : null;
-
-  // ── Yearly data for chart ────────────────────────────────────────────────
-  const yearlyData = useMemo<YearPoint[]>(() => {
-    const maxYr = Math.max(years, 15);
-    return Array.from({ length: maxYr + 1 }, (_, yr) => ({
-      year: yr,
-      propValue: deflate(amount * Math.pow(1 + effApp, yr), yr),
-      cumRental:  deflate(amount * effYield * yr, yr),
-      total:      deflate(amount * Math.pow(1 + effApp, yr) + amount * effYield * yr, yr),
-    }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [amount, effYield, effApp, inflationOn, inflationPct]);
 
   // ── Compare project data ─────────────────────────────────────────────────
   const otherIdx  = 1 - projectIdx;
@@ -638,24 +541,6 @@ export default function InvestmentCalculator() {
               </div>
             </div>
 
-            {/* Growth Chart */}
-            <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-5">
-              <div className="flex items-center justify-between mb-4">
-                <p className="text-[11px] tracking-[0.12em] uppercase text-primary font-body font-semibold">Growth Projection</p>
-                <div className="flex items-center gap-4 text-[10px] text-white/40 font-body">
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-8 h-px bg-primary/40 block border-t border-dashed border-primary/40" /> Property value
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-8 h-[2px] bg-primary block rounded" /> Total return
-                  </span>
-                </div>
-              </div>
-              <GrowthChart data={yearlyData} currency={currency} rate={rate} />
-              {inflationOn && (
-                <p className="text-[10px] text-white/25 font-body mt-2 text-center">Values shown in real terms (inflation-adjusted)</p>
-              )}
-            </div>
 
             {/* Comparison panel */}
             <AnimatePresence>
