@@ -953,9 +953,9 @@ export default function HomePageClient() {
       {/* ══════════════════════════════════════════
           WHAT SETS US APART — GLOBAL DIFFERENTIATORS
       ══════════════════════════════════════════ */}
-      <section className="relative overflow-hidden bg-[hsl(var(--charcoal))]">
+      <section className="relative overflow-hidden bg-black">
         {/* Dot texture */}
-        <div className="absolute inset-0 opacity-[0.04] pointer-events-none"
+        <div className="absolute inset-0 opacity-[0.06] pointer-events-none"
           style={{ backgroundImage: "radial-gradient(hsl(43 81% 61%) 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
         {/* Ambient glow */}
         <motion.div
