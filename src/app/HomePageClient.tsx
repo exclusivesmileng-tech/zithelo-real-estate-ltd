@@ -411,81 +411,131 @@ export default function HomePageClient() {
       {/* ══════════════════════════════════════════
           WHO WE ARE
       ══════════════════════════════════════════ */}
-      <section className="section-padding bg-card">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-20 items-center">
+      <section className="relative overflow-hidden bg-card">
+        {/* Subtle diagonal texture */}
+        <div className="absolute inset-0 pointer-events-none opacity-40"
+          style={{ backgroundImage: `repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(212,170,83,0.03) 40px,rgba(212,170,83,0.03) 41px)` }} />
+
+        <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24 py-20 md:py-28">
+
+          {/* ── Top label row ── */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="relative"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="flex items-center gap-4 mb-16 md:mb-20"
           >
-            <div className="aspect-[16/10] lg:aspect-[4/5] overflow-hidden rounded-2xl md:rounded-sm">
-              <img
-                src="/images/about-hero.jpg"
-                alt="Zithelo development"
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-              />
-            </div>
+            <div className="h-px w-10 gold-gradient rounded-full" />
+            <p className="text-[11px] tracking-[0.3em] uppercase text-primary font-body font-semibold">Who We Are</p>
+          </motion.div>
+
+          {/* ── Two-column layout ── */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+
+            {/* ── Left: image stack ── */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.4 }}
-            className="absolute -bottom-6 -right-2 md:-right-10 bg-background border border-border p-4 md:p-6 shadow-xl max-w-[180px] md:max-w-[220px] rounded-xl md:rounded-none"
+              initial={{ opacity: 0, x: -32 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.85, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="relative"
             >
-              <p className="text-[10px] tracking-[0.2em] uppercase text-primary font-body font-semibold mb-1">Pan-African</p>
-              <p className="font-display text-xl md:text-2xl font-bold text-foreground">Vision 2030</p>
-              <p className="mt-2 text-xs text-muted-foreground font-body leading-relaxed hidden md:block">Africa&apos;s urban population doubles by 2050. We&apos;re building for it.</p>
+              {/* Main image */}
+              <div className="relative aspect-[4/5] overflow-hidden rounded-none">
+                <img
+                  src="/images/about-hero.jpg"
+                  alt="Zithelo development"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                />
+                {/* Gradient overlay at bottom */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+              </div>
+
+              {/* Floating stat card — bottom right */}
+              <motion.div
+                initial={{ opacity: 0, y: 20, scale: 0.96 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.45 }}
+                className="absolute -bottom-8 -right-4 md:-right-10 bg-background border border-border shadow-2xl shadow-black/15 p-5 md:p-6 w-44 md:w-52"
+              >
+                <p className="text-[10px] tracking-[0.22em] uppercase text-primary font-body font-semibold mb-2">Pan-African</p>
+                <p className="font-display text-2xl md:text-3xl font-bold text-foreground leading-none mb-2">Vision 2030</p>
+                <p className="text-[11px] text-muted-foreground font-body leading-relaxed">Africa&apos;s urban population doubles by 2050. We&apos;re building for it.</p>
+              </motion.div>
+
+              {/* Gold corner accent top-left */}
+              <div className="absolute -top-3 -left-3 w-12 h-12 pointer-events-none">
+                <div className="absolute top-0 left-0 w-full h-[2px] gold-gradient" />
+                <div className="absolute top-0 left-0 h-full w-[2px] gold-gradient" />
+              </div>
             </motion.div>
-          </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
-          >
-            <p className="text-sm tracking-[0.12em] uppercase text-primary mb-5 font-body font-semibold">Who We Are</p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold leading-tight">
-              More Than a Company.<br />
-              <span className="gold-gradient-text">A Continental Vision.</span>
-            </h2>
-            <p className="mt-8 text-lg text-muted-foreground font-body leading-relaxed">
-              Zithelo is an urban development and real estate investment company focused on delivering well-structured, high-quality developments within prime city locations — combining functionality, contemporary design, and long-term investment value.
-            </p>
-            <p className="mt-5 text-lg text-muted-foreground font-body leading-relaxed">
-              We develop connected spaces for modern professionals, remote workers, and diaspora investors — built with fibre optic infrastructure and structured investment models that generate strong rental income and long-term capital growth.
-            </p>
-
-            <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {[
-                { label: "Vision", text: "Leading urban investment platform across Africa's fastest-growing cities." },
-                { label: "Mission", text: "High-quality developments generating long-term value for investors." },
-                { label: "Philosophy", text: "Every decision guided by lasting value — for investors, residents, and cities." },
-              ].map((item, i) => (
-                <motion.div
-                  key={item.label}
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.2 + i * 0.12 }}
-                  className="border-l-2 border-primary/40 pl-4 py-1"
-                >
-                  <p className="text-sm tracking-[0.1em] uppercase text-primary font-body font-semibold mb-1">{item.label}</p>
-                  <p className="text-sm text-muted-foreground font-body leading-relaxed">{item.text}</p>
-                </motion.div>
-              ))}
-            </div>
-
-            <Link
-              href="/about"
-              className="group inline-flex items-center gap-2 mt-10 text-sm tracking-[0.15em] uppercase font-body font-semibold text-foreground hover:text-primary transition-colors duration-300"
+            {/* ── Right: content ── */}
+            <motion.div
+              initial={{ opacity: 0, x: 32 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.85, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="lg:pt-4"
             >
-              Our Story
-              <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
-          </motion.div>
+              <h2 className="font-display text-4xl md:text-5xl lg:text-[3.25rem] font-bold leading-[1.06] mb-8">
+                More Than a Company.<br />
+                <span className="gold-gradient-text">A Continental Vision.</span>
+              </h2>
+
+              <p className="text-base md:text-lg text-muted-foreground font-body leading-relaxed mb-5">
+                Zithelo is an urban development and real estate investment company focused on delivering well-structured, high-quality developments within prime city locations — combining functionality, contemporary design, and long-term investment value.
+              </p>
+              <p className="text-base md:text-lg text-muted-foreground font-body leading-relaxed">
+                We develop connected spaces for modern professionals, remote workers, and diaspora investors — built with fibre optic infrastructure and structured investment models that generate strong rental income and long-term capital growth.
+              </p>
+
+              {/* Vision / Mission / Philosophy pillars */}
+              <div className="mt-12 space-y-0 divide-y divide-border border-y border-border">
+                {[
+                  { num: "01", label: "Vision",     text: "The leading urban investment platform across Africa's fastest-growing cities." },
+                  { num: "02", label: "Mission",    text: "High-quality developments generating long-term value for investors and communities." },
+                  { num: "03", label: "Philosophy", text: "Every decision guided by lasting value — for investors, residents, and cities." },
+                ].map((item, i) => (
+                  <motion.div
+                    key={item.label}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
+                    className="group flex items-start gap-5 py-5 hover:bg-muted/30 px-2 -mx-2 transition-colors duration-200"
+                  >
+                    <span className="text-[11px] tracking-[0.15em] font-body font-bold text-primary/50 mt-0.5 shrink-0 w-6">{item.num}</span>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[11px] tracking-[0.2em] uppercase text-primary font-body font-semibold mb-1">{item.label}</p>
+                      <p className="text-sm text-muted-foreground font-body leading-relaxed">{item.text}</p>
+                    </div>
+                    <ArrowRight size={14} className="text-primary/0 group-hover:text-primary/40 shrink-0 mt-0.5 transition-all duration-200 translate-x-0 group-hover:translate-x-1" />
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* CTA row */}
+              <div className="mt-10 flex items-center gap-6">
+                <Link
+                  href="/about"
+                  className="group inline-flex items-center gap-2.5 bg-foreground text-background px-7 py-3.5 font-display font-bold text-sm tracking-[0.1em] uppercase hover:bg-primary transition-colors duration-300"
+                >
+                  Our Story
+                  <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+                <Link
+                  href="/why-zithelo"
+                  className="group inline-flex items-center gap-2 text-sm tracking-[0.12em] uppercase font-body font-semibold text-muted-foreground hover:text-primary transition-colors duration-300"
+                >
+                  Why Zithelo
+                  <ArrowRight size={13} className="transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
