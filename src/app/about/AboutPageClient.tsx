@@ -374,10 +374,19 @@ export default function AboutPageClient() {
                 Institutional Thinking.<br className="hidden md:block" /> Global Execution.
               </p>
             </div>
-            <p className="text-white/65 font-body text-base md:text-lg leading-relaxed max-w-[780px]">
+            <p className="text-white/65 font-body text-base md:text-lg leading-relaxed max-w-[780px] mb-5">
               With an expanding international footprint, our group operates through Zithelo Homes LLC,
-              headquartered in Atlanta, Georgia, USA — advancing our mission to connect institutional-quality
-              thinking with high-growth real estate markets.
+              headquartered in Atlanta, a strategic hub for accessing one of the world&apos;s most stable
+              and transparent real estate markets.
+            </p>
+            <p className="text-white/65 font-body text-base md:text-lg leading-relaxed max-w-[780px] mb-5">
+              We go beyond traditional property transactions. Our platform is built on a disciplined
+              investment approach, combining rigorous asset selection, structured acquisition, and
+              professional-grade asset management.
+            </p>
+            <p className="text-white/65 font-body text-base md:text-lg leading-relaxed max-w-[780px]">
+              From origination to long-term portfolio optimization, we deliver end-to-end real estate
+              solutions tailored to investors seeking security, scalability, and consistent returns.
             </p>
           </AnimatedSection>
 
