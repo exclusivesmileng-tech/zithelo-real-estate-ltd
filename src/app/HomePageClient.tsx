@@ -514,35 +514,6 @@ export default function HomePageClient() {
                 </div>
               </motion.div>
 
-              {/* Vision / Mission / Philosophy cards */}
-              <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {[
-                  { num: "01", label: "Vision",     text: "The leading urban investment platform across Africa's fastest-growing cities." },
-                  { num: "02", label: "Mission",    text: "High-quality developments generating long-term value for investors and communities." },
-                  { num: "03", label: "Philosophy", text: "Every decision guided by lasting value — for investors, residents, and cities." },
-                ].map((item, i) => (
-                  <motion.div
-                    key={item.label}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
-                    className="group relative flex flex-col p-6 bg-card border border-border rounded-xl overflow-hidden hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
-                  >
-                    {/* Gold top accent bar */}
-                    <div className="absolute top-0 left-0 right-0 h-[3px] gold-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    {/* Background glow */}
-                    <div className="absolute -bottom-8 -right-8 w-24 h-24 rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                      style={{ background: "radial-gradient(circle, rgba(212,170,83,0.08) 0%, transparent 70%)" }} />
-
-                    <span className="font-display text-3xl font-black text-foreground/[0.06] mb-3 select-none leading-none group-hover:text-foreground/10 transition-colors duration-300">{item.num}</span>
-                    <p className="text-[10px] tracking-[0.28em] uppercase text-primary font-body font-semibold mb-2">{item.label}</p>
-                    <div className="h-[2px] w-8 gold-gradient rounded-full mb-4" />
-                    <p className="text-sm text-muted-foreground font-body leading-relaxed flex-1">{item.text}</p>
-                  </motion.div>
-                ))}
-              </div>
-
               {/* CTA row */}
               <div className="mt-10 flex items-center gap-6">
                 <Link
@@ -561,6 +532,32 @@ export default function HomePageClient() {
                 </Link>
               </div>
             </motion.div>
+          </div>
+
+          {/* Vision / Mission / Philosophy — full-width row */}
+          <div className="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {[
+              { num: "01", label: "Vision",     text: "The leading urban investment platform across Africa's fastest-growing cities." },
+              { num: "02", label: "Mission",    text: "High-quality developments generating long-term value for investors and communities." },
+              { num: "03", label: "Philosophy", text: "Every decision guided by lasting value — for investors, residents, and cities." },
+            ].map((item, i) => (
+              <motion.div
+                key={item.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="group relative flex flex-col p-6 bg-card border border-border rounded-xl overflow-hidden hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
+              >
+                <div className="absolute top-0 left-0 right-0 h-[3px] gold-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute -bottom-8 -right-8 w-24 h-24 rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{ background: "radial-gradient(circle, rgba(212,170,83,0.08) 0%, transparent 70%)" }} />
+                <span className="font-display text-3xl font-black text-foreground/[0.06] mb-3 select-none leading-none group-hover:text-foreground/10 transition-colors duration-300">{item.num}</span>
+                <p className="text-[10px] tracking-[0.28em] uppercase text-primary font-body font-semibold mb-2">{item.label}</p>
+                <div className="h-[2px] w-8 gold-gradient rounded-full mb-4" />
+                <p className="text-sm text-muted-foreground font-body leading-relaxed flex-1">{item.text}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
