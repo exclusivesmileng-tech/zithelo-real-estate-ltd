@@ -5,12 +5,12 @@ import { ALL_PROJECTS_QUERY } from "@/sanity/queries";
 export const metadata: Metadata = {
   title: "Projects | Premium Developments in Lagos",
   description:
-    "Explore Zithelo's active developments — Andoyi House in Yaba and Signature Homes Lagos. Smart, fibre-ready apartments with verified title and 25-year lease security.",
+    "Browse featured developments from Zithelo's growing portfolio — premium, fibre-ready urban projects across Africa's fastest-growing cities. Verified title. 25-year lease.",
   alternates: { canonical: "/projects" },
   openGraph: {
     title: "Projects | Zithelo Real Estate",
     description:
-      "Smart, fibre-ready apartments with verified title and 25-year lease. Explore Andoyi House and Signature Homes.",
+      "Premium smart developments from Zithelo's expanding pan-African portfolio. Verified title. 25-year lease. Full management support.",
     images: [{ url: "/images/andoyi/2.png", width: 1200, height: 630, alt: "Andoyi House, Yaba Lagos" }],
   },
 };
@@ -82,7 +82,7 @@ export default async function ProjectsPage() {
     <>
       <PageHero
         title="Our Projects"
-        subtitle="Premium urban developments designed for modern professionals and investors."
+        subtitle="A curated selection from our growing portfolio — premium urban developments currently open for investment."
         image="/images/andoyi/2.png"
         breadcrumb="Portfolio"
         vector={<ProjectsHeroVector />}
@@ -92,10 +92,13 @@ export default async function ProjectsPage() {
         <div className="max-w-[1400px] mx-auto">
 
           <AnimatedSection>
-            <p className="text-[11px] tracking-[0.3em] uppercase text-primary font-body font-semibold mb-2">Portfolio</p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground leading-tight mb-16">
-              All Developments
+            <p className="text-[11px] tracking-[0.3em] uppercase text-primary font-body font-semibold mb-2">Our Portfolio</p>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground leading-tight mb-4">
+              Featured Projects
             </h2>
+            <p className="text-base text-muted-foreground font-body leading-relaxed mb-16 max-w-2xl">
+              A selection of flagship projects from our growing pan-African portfolio — currently open for investment.
+            </p>
           </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

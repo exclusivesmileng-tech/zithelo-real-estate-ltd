@@ -19,7 +19,7 @@ const highlights = [
   { figure: "25-Year", label: "Structured Lease", sub: "Long-term income security" },
   { figure: "Fibre", label: "Ready Infrastructure", sub: "Premium tenant attraction" },
   { figure: "Title", label: "Verified & Secured", sub: "Full legal due diligence" },
-  { figure: "2027", label: "Delivery Target", sub: "Current active portfolio" },
+  { figure: "2027", label: "Delivery Target", sub: "Featured portfolio delivery" },
 ];
 
 export default function BecomeAnInvestorPageClient() {

@@ -748,12 +748,12 @@ export default function HomePageClient() {
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              <p className="text-sm tracking-[0.12em] uppercase text-primary mb-4 font-body font-semibold">Our Flagship Estates</p>
+              <p className="text-sm tracking-[0.12em] uppercase text-primary mb-4 font-body font-semibold">Featured from Our Portfolio</p>
               <h2 className="font-display text-4xl md:text-5xl font-bold leading-tight">
                 Prime <span className="gold-gradient-text">Investment</span> Opportunities
               </h2>
               <p className="mt-5 text-lg text-muted-foreground font-body max-w-xl mx-auto leading-relaxed">
-                Discover our most sought-after developments offering exceptional value, security, and growth potential.
+                Two flagship developments handpicked from our growing pan-African pipeline — currently open for investment.
               </p>
             </motion.div>
           </div>
@@ -850,7 +850,7 @@ export default function HomePageClient() {
               href="/projects"
               className="group inline-flex items-center gap-2 text-sm tracking-[0.15em] uppercase font-body font-semibold text-muted-foreground hover:text-primary transition-colors duration-300"
             >
-              View All Projects
+              Explore Our Full Portfolio
               <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </motion.div>

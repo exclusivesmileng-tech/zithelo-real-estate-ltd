@@ -75,7 +75,7 @@ export default async function WhyZitheloPage() {
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
             {[
-              { figure: "2",        label: "Active Developments", sub: "Lagos, Nigeria" },
+              { figure: "5+",       label: "Target Cities",       sub: "Across sub-Saharan Africa" },
               { figure: "88+",      label: "Residential Units",   sub: "In current pipeline" },
               { figure: "25yr",     label: "Lease Structure",     sub: "Long-term income model" },
               { figure: "2027",     label: "Delivery Target",     sub: "Current active builds" },

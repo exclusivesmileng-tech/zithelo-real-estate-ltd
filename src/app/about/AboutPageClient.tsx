@@ -68,7 +68,7 @@ const principles = [
 ];
 
 const keyMetrics = [
-  { value: "2", label: "Active Properties" },
+  { value: "Lagos+", label: "Active Markets" },
   { value: "2025", label: "Current Delivery Cycle" },
   { value: "25-Year", label: "Structured Lease Model" },
   { value: "2050", label: "Urban Demand Horizon" },
