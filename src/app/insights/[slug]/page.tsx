@@ -171,9 +171,14 @@ export default async function InsightArticlePage({ params }: { params: Promise<{
                 {renderBody(article.body)}
               </div>
             ) : (
-              <div className="py-16 text-center">
-                <p className="text-muted-foreground font-body text-lg">Full article coming soon.</p>
-                <p className="text-muted-foreground font-body text-sm mt-2">Subscribe below to be notified when it's published.</p>
+              <div className="py-20 flex flex-col items-center text-center border border-dashed border-border rounded-sm bg-card">
+                <div className="w-12 h-12 rounded-full gold-gradient flex items-center justify-center mb-5">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary-foreground"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                </div>
+                <p className="font-display text-xl font-bold text-foreground mb-2">Full article coming soon</p>
+                <p className="text-muted-foreground font-body text-sm max-w-xs leading-relaxed">
+                  This piece is being prepared by our editorial team. Subscribe below to be notified when it goes live.
+                </p>
               </div>
             )}
           </AnimatedSection>
