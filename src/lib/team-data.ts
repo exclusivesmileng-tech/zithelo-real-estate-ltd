@@ -20,10 +20,10 @@ export const TEAM: TeamMember[] = [
     photo: "/images/team/Dr. Akinbobola Oluwaseun (Board Executive Chairman).jpg",
     tagline:
       "Healthcare entrepreneur and strategic investor providing governance and long-term direction across the Zithelo Group.",
-    bio: "Dr. Oluwaseun Akinbobola is a healthcare entrepreneur, business strategist, and investor with a proven track record of building and scaling multi-sector businesses across healthcare, real estate, and consumer markets. As Chairman, he provides strategic direction and governance oversight, ensuring the Group's growth is anchored in disciplined execution, structured expansion, and long-term value creation. He is the Co-Founder of Beaconhill Smile Group and Co-Founder of Zithelo Homes USA, a property acquisition and management company based in Atlanta. He has undertaken executive education at the Wharton School and Strathmore Business School, and is an alumnus of the Owner-Manager Programme at Lagos Business School.",
+    bio: "Dr. Oluwaseun Akinbobola is a healthcare entrepreneur, business strategist, and investor with a proven track record of building and scaling multi-sector businesses across healthcare, real estate, and consumer markets. As Chairman, he provides strategic direction and governance oversight, ensuring the Group's growth is anchored in disciplined execution, structured expansion, and long-term value creation. He is the Co-Founder of Beaconhill Smile Group and Co-Founder of Zithelo Homes USA, a property acquisition and management company based in Atlanta. He has completed executive education at The Wharton School, University of Pennsylvania, USA, and Strathmore Business School, Kenya, and is an alumnus of the Owner-Manager Programme at Lagos Business School.",
     credentials: [
-      "Wharton School Executive Education",
-      "Strathmore Business School",
+      "Executive Education — The Wharton School, University of Pennsylvania, USA",
+      "Executive Education — Strathmore Business School, Kenya",
       "Lagos Business School — Owner-Manager Programme",
       "Co-Founder, Beaconhill Smile Group",
       "Co-Founder, Zithelo Homes USA (Atlanta)",
