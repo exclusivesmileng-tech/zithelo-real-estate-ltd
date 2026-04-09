@@ -141,8 +141,8 @@ function SectionCard({ section, index }: { section: Section; index: number }) {
 
         {section.contact && (
           <div className="mt-4 ml-14 flex flex-col gap-2 pt-4 border-t border-border">
-            <a href="mailto:info@zithelo.com" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors font-body">
-              <Mail size={13} className="text-primary shrink-0" /> info@zithelo.com
+            <a href="mailto:info@zithelorealestate.com" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors font-body">
+              <Mail size={13} className="text-primary shrink-0" /> info@zithelorealestate.com
             </a>
             <a href="tel:+2349110222323" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors font-body">
               <Phone size={13} className="text-primary shrink-0" /> +234 9110 222 323

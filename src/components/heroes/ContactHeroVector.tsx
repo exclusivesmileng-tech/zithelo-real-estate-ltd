@@ -9,7 +9,7 @@ const TX = 220, TY = 178; // transmission origin
 // Outbound connection nodes
 const NODES = [
   { cx: 390, cy:  88, label: "LAGOS",   sub: "HEAD OFFICE",   delay: 2.0 },
-  { cx: 405, cy: 178, label: "EMAIL",   sub: "info@zithelo",  delay: 2.2 },
+  { cx: 405, cy: 178, label: "EMAIL",   sub: "info@zithelorealestate.com",  delay: 2.2 },
   { cx: 388, cy: 268, label: "PHONE",   sub: "DIRECT LINE",   delay: 2.4 },
 ];
 

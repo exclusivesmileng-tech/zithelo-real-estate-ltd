@@ -8,7 +8,7 @@ import { useSaved } from "@/contexts/SavedPropertiesContext";
 import BookCallbackModal from "@/components/BookCallbackModal";
 
 const PHONE = "tel:+2349110222323";
-const EMAIL = "mailto:info@zithelo.com";
+const EMAIL = "mailto:info@zithelorealestate.com";
 
 const PROJECT_MESSAGES: Record<string, string> = {
   "/projects/andoyi-house": "Hello, I'm interested in Andoyi House by Zithelo Real Estate. Please share more details.",

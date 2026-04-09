@@ -18,7 +18,7 @@ const ENQUIRY_TYPES = [
 
 const CONTACT_ITEMS = [
   { icon: MapPin,     label: "Head Office", value: "Victoria Island, Lagos, Nigeria" },
-  { icon: Mail,       label: "Email",       value: "info@zithelo.com" },
+  { icon: Mail,       label: "Email",       value: "info@zithelorealestate.com" },
   { icon: Phone,      label: "Phone",       value: "+234 9110 222 323" },
   { icon: Share2,  label: "Instagram",   value: "@zithelohomes" },
   { icon: Clock,      label: "Response",    value: "Within 24 – 48 business hours" },
@@ -50,7 +50,7 @@ export default function ContactPageClient() {
 
   const contactItems = [
     { icon: MapPin,    label: "Head Office", value: settings?.address  ?? "Victoria Island, Lagos, Nigeria" },
-    { icon: Mail,      label: "Email",       value: settings?.email    ?? "info@zithelo.com" },
+    { icon: Mail,      label: "Email",       value: settings?.email    ?? "info@zithelorealestate.com" },
     { icon: Phone,     label: "Phone",       value: settings?.phone    ?? "+234 9110 222 323" },
     { icon: Share2,    label: "Instagram",   value: "@zithelohomes" },
     { icon: Clock,     label: "Response",    value: "Within 24 – 48 business hours" },
@@ -308,7 +308,7 @@ export default function ContactPageClient() {
               <h3 className="font-display text-xl font-bold text-foreground mb-1">Lagos, Nigeria</h3>
               <p className="text-sm text-muted-foreground font-body mb-5">Victoria Island, Lagos</p>
               <div className="space-y-1.5">
-                <p className="text-sm text-muted-foreground font-body">info@zithelo.com</p>
+                <p className="text-sm text-muted-foreground font-body">info@zithelorealestate.com</p>
                 <p className="text-sm text-muted-foreground font-body">+234 9110 222 323</p>
               </div>
             </AnimatedCard>

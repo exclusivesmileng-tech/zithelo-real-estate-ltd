@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
   try {
     const vapidPublic = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
     const vapidPrivate = process.env.VAPID_PRIVATE_KEY;
-    const vapidEmail = process.env.VAPID_EMAIL ?? "mailto:info@zithelo.com";
+    const vapidEmail = process.env.VAPID_EMAIL ?? "mailto:info@zithelorealestate.com";
 
     if (!vapidPublic || !vapidPrivate) {
       return NextResponse.json({ error: "VAPID keys not configured" }, { status: 500 });

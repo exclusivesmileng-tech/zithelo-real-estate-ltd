@@ -248,8 +248,8 @@ function SectionCard({ section, index }: { section: Section; index: number }) {
 
         {section.contact && (
           <div className="mt-4 flex flex-col gap-2 pt-4 border-t border-border">
-            <a href="mailto:info@zithelo.com" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors font-body">
-              <Mail size={13} className="text-primary shrink-0" /> info@zithelo.com
+            <a href="mailto:info@zithelorealestate.com" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors font-body">
+              <Mail size={13} className="text-primary shrink-0" /> info@zithelorealestate.com
             </a>
             <a href="tel:+2349110222323" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors font-body">
               <Phone size={13} className="text-primary shrink-0" /> +234 9110 222 323
@@ -463,7 +463,7 @@ function LegalPageInner() {
               Contact Us <ArrowRight size={14} />
             </Link>
             <a
-              href="mailto:info@zithelo.com"
+              href="mailto:info@zithelorealestate.com"
               className="inline-flex items-center justify-center gap-2 border border-border text-foreground px-6 py-3 font-display font-bold text-sm tracking-[0.08em] uppercase hover:bg-muted transition-colors rounded-none"
             >
               <Mail size={14} /> Email Us
