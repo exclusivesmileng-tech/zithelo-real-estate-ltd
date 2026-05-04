@@ -319,7 +319,7 @@ export default function ContactPageClient() {
               <h3 className="font-display text-xl font-bold text-foreground mb-1">Atlanta, Georgia</h3>
               <p className="text-sm text-muted-foreground font-body mb-5">Zithelo Homes LLC</p>
               <div className="space-y-1.5">
-                <p className="text-sm text-muted-foreground font-body">us@zithelo.com</p>
+                <p className="text-sm text-muted-foreground font-body">us@zithelorealestate.com</p>
               </div>
             </AnimatedCard>
           </div>
