@@ -57,7 +57,7 @@ export default function ContactPageClient() {
   ];
 
   const nextSteps = settings?.contactNextSteps?.length ? settings.contactNextSteps : NEXT_STEPS;
-  const partnerEmail = settings?.partnershipEmail ?? "partnerships@zithelo.com";
+  const partnerEmail = settings?.partnershipEmail ?? "partnerships@zithelorealestate.com";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

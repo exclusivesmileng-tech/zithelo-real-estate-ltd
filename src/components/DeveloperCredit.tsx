@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const PHONE = "2347069716822";
+const PHONE = "+2347069716822";
 const MESSAGE = encodeURIComponent(
-  "Hey Harzotech 👋🏽, I saw the amazing job you did on the Zithelo Real Estate website — I'd love to discuss a project with you."
+  "Hi Harzotech, i saw a website you built for Zithelo real Estate and will like to discuss a project with you."
 );
 const WA_LINK = `https://wa.me/${PHONE}?text=${MESSAGE}`;
 

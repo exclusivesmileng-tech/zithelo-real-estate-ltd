@@ -63,7 +63,7 @@ await upsert({
   address: "Victoria Island, Lagos, Nigeria",
   email: "info@zithelorealestate.com",
   phone: "+234 9110 222 323",
-  partnershipEmail: "partnerships@zithelo.com",
+  partnershipEmail: "partnerships@zithelorealestate.com",
   aboutIntro1: "Zithelo is an urban development and real estate investment company focused on delivering well-structured, high-quality developments within prime city locations — combining functionality, contemporary design, and long-term investment value.",
   aboutIntro2: "We develop connected spaces for modern professionals, remote workers, and diaspora investors — built with fibre optic infrastructure and structured investment models that generate strong rental income and long-term capital growth.",
   aboutVision: "Build The Leading Pan-African Urban Platform",

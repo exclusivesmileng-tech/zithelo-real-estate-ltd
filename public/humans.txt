@@ -1,0 +1,21 @@
+/* TEAM */
+Developer & Designer: Azeez Agbona O.
+Online handle: agbonaazeez
+Agency: Harzotech Nig Ltd
+Agency site: harzotech.com.ng
+Contact: +2347069716822
+GitHub: github.com/agbonaazeez
+Location: Nigeria
+
+/* CLIENT */
+Company: Zithelo Real Estate Limited
+Site: zithelo.com
+Location: Victoria Island, Lagos, Nigeria
+
+/* SITE */
+Last update: 2026/05/04
+Language: English
+Doctype: HTML5
+Technology: Next.js, React, TypeScript, Tailwind CSS, Sanity CMS
+Framework: Next.js App Router
+Hosting: Vercel

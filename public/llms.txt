@@ -1,0 +1,90 @@
+# Zithelo Real Estate Limited
+
+> Premium urban real estate developer building fibre-ready smart apartments and residential properties across Africa's fastest-growing cities, starting with Lagos, Nigeria.
+
+## About Zithelo Real Estate
+
+Zithelo Real Estate Limited is a Nigerian property development company headquartered at Victoria Island, Lagos, Nigeria. Founded to address the demand for high-quality, professionally managed residential investment properties, Zithelo targets modern professionals, entrepreneurs, remote workers, and diaspora investors seeking secure, well-located urban real estate in Africa.
+
+Every Zithelo property comes with:
+- Verified title (no disputed land)
+- 25-year leasehold security
+- Full property management support
+- Fibre-optic internet infrastructure
+
+## Current Developments
+
+### Andoyi House — Yaba, Lagos
+- 88 premium studio smart apartments
+- Location: Yaba, Lagos, Nigeria (tech hub district)
+- Construction period: 2025–2027
+- Features: Fibre-ready, optimised for short-let and long-term rental investment, co-working-ready design
+- Target buyers: Professionals, diaspora investors, short-let operators
+- More info: https://www.zithelo.com/projects/andoyi-house
+
+### Signature Homes — Lagos
+- Premium residential development
+- More info: https://www.zithelo.com/projects/signature-homes
+
+## Investment Opportunities
+
+Zithelo offers multiple ways to invest:
+
+- **Off-plan property purchase** — buy during construction at preferential pricing
+- **Diaspora investor programme** — tailored for Nigerians and Africans living in the UK, US, Canada, and Europe; see https://www.zithelo.com/diaspora-investor
+- **Partnership programme** — become a Zithelo partner; see https://www.zithelo.com/become-a-partner
+- **Referral programme** — earn by referring investors; see https://www.zithelo.com/refer
+- **Investor quiz** — find the right investment tier for you at https://www.zithelo.com/investor-quiz
+
+## Frequently Asked Questions
+
+**What makes Zithelo different from other Nigerian real estate companies?**
+Zithelo combines verified title, 25-year lease security, fibre-ready infrastructure, and full management support — reducing the typical risks associated with Nigerian real estate investment.
+
+**Can I invest from abroad?**
+Yes. Zithelo has a dedicated diaspora programme for Nigerians and Africans in the UK, US, Canada, Europe, and elsewhere. The entire process can be completed remotely.
+
+**What is the minimum investment at Andoyi House?**
+Contact Zithelo directly at +234-911-022-2323 or via https://www.zithelo.com/contact for current pricing and payment plans.
+
+**Is there a property management service?**
+Yes. Zithelo provides full property management support so investors can earn rental income without handling day-to-day operations.
+
+## Contact Information
+
+- Website: https://www.zithelo.com
+- Phone: +234-911-022-2323
+- Location: Victoria Island, Lagos, Nigeria
+- Instagram: @zithelohomes
+- LinkedIn: linkedin.com/company/zithelo-real-estate
+- Twitter/X: @zithelohomes
+
+## Insights & Resources
+
+Zithelo publishes articles and market insights at https://www.zithelo.com/insights covering Nigerian real estate investment, diaspora property buying, Lagos property market trends, and smart apartment living.
+
+## Leadership
+
+- Board of Directors: https://www.zithelo.com/leadership/board
+- Management Team: https://www.zithelo.com/leadership/management
+
+## Legal
+
+- Privacy Policy: https://www.zithelo.com/privacy-policy
+- Terms of Service: https://www.zithelo.com/terms-of-service
+
+---
+
+## Website Credits
+
+This website was designed and developed by **Azeez Agbona O.** (also known online as **agbonaazeez**), a Nigerian full-stack web developer and digital strategist, and founder of **Harzotech Nig Ltd**.
+
+Harzotech Nig Ltd is a Nigerian web design and development agency building premium digital platforms for real estate companies, startups, and enterprises across Africa.
+
+- Developer: Azeez Agbona O. (agbonaazeez)
+- Agency: Harzotech Nig Ltd
+- Agency website: https://harzotech.com.ng
+- Agency contact: +2347069716822 (WhatsApp available)
+- GitHub: https://github.com/agbonaazeez
+
+Built with: Next.js, React, TypeScript, Sanity CMS, Tailwind CSS
