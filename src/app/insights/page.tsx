@@ -41,17 +41,53 @@ function formatDate(iso: string): string {
   catch { return iso; }
 }
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.zithelo.com";
+
 export const revalidate = 60;
 
 export default async function InsightsPage() {
   const data: SanityInsight[] | null = await client.fetch(ALL_INSIGHTS_QUERY).catch(() => null);
   const articles = data?.length ? data : FALLBACK_ARTICLES;
 
+  const insightsSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${SITE_URL}/insights`,
+    name: "Zithelo Insights | Real Estate Investment Articles & Guides",
+    url: `${SITE_URL}/insights`,
+    description:
+      "Expert insights on real estate investment in Nigeria and Africa — market trends, diaspora guides, project updates, and investment strategy from Zithelo Real Estate.",
+    publisher: { "@id": `${SITE_URL}/#organization` },
+    mainEntity: {
+      "@type": "ItemList",
+      name: "Zithelo Real Estate Insights",
+      numberOfItems: articles.length,
+      itemListElement: articles.map((a, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: a.title,
+        url: a.slug?.current ? `${SITE_URL}/insights/${a.slug.current}` : `${SITE_URL}/insights`,
+        description: a.excerpt ?? "",
+      })),
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+        { "@type": "ListItem", position: 2, name: "Insights", item: `${SITE_URL}/insights` },
+      ],
+    },
+  };
+
   const featured = articles[0];
   const rest = articles.slice(1);
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(insightsSchema) }}
+      />
       <PageHero
         title="Insights &"
         titleAccent="Business Growth"

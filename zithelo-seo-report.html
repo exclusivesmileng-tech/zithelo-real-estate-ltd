@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Zithelo Real Estate — AI SEO & GEO Strategy Report · June 2026</title>
+<style>
+
+/* ─────────────────────────────────────────
+   TOKENS
+───────────────────────────────────────── */
+:root {
+  --gold:       #b8943e;
+  --gold-light: #f5edd9;
+  --gold-mid:   #d4aa58;
+  --ink:        #111009;
+  --ink-mid:    #3a342a;
+  --ink-soft:   #6b6055;
+  --rule:       #e0d8cc;
+  --rule-light: #f0ebe2;
+  --page:       #ffffff;
+  --surface:    #faf8f5;
+  --surface-2:  #f4f0e8;
+
+  --red:        #b53030;
+  --red-bg:     #fdf3f3;
+  --amber:      #9a6c00;
+  --amber-bg:   #fffbf0;
+  --green:      #236b45;
+  --green-bg:   #f0faf5;
+  --blue:       #1b5a8c;
+  --blue-bg:    #f0f6ff;
+  --purple:     #5c3d8f;
+  --purple-bg:  #f8f3ff;
+
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+}
+
+/* ─────────────────────────────────────────
+   RESET & BASE
+───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 15px; }
+
+body {
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* ─────────────────────────────────────────
+   LAYOUT
+───────────────────────────────────────── */
+.page { max-width: 960px; margin: 0 auto; padding: 0 40px 100px; }
+
+/* ─────────────────────────────────────────
+   COVER
+───────────────────────────────────────── */
+.cover {
+  padding: 64px 0 52px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 56px;
+  position: relative;
+}
+.cover-bar {
+  position: absolute;
+  top: 0; left: -40px; right: -40px;
+  height: 4px;
+  background: var(--gold-mid);
+}
+.cover-eyebrow {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 28px;
+}
+.cover-logo {
+  width: 36px; height: 36px;
+  background: var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold-mid); font-weight: 900; font-size: 15px;
+  letter-spacing: -0.5px; flex-shrink: 0;
+}
+.cover-client {
+  font-size: 12px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--ink-soft);
+  font-weight: 600;
+}
+.cover-title {
+  font-size: 36px; font-weight: 800;
+  color: var(--ink); letter-spacing: -1px;
+  line-height: 1.15; margin-bottom: 10px;
+}
+.cover-title em {
+  font-style: normal;
+  border-bottom: 3px solid var(--gold-mid);
+  padding-bottom: 1px;
+}
+.cover-subtitle {
+  font-size: 15px; color: var(--ink-soft);
+  margin-bottom: 32px; max-width: 600px;
+}
+.cover-meta {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 0;
+  width: fit-content;
+  border: 1px solid var(--rule);
+}
+.cover-meta-cell {
+  padding: 10px 20px;
+  border-right: 1px solid var(--rule);
+  font-size: 12px;
+}
+.cover-meta-cell:last-child { border-right: none; }
+.cover-meta-label {
+  font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ink-soft);
+  margin-bottom: 3px; font-weight: 600;
+}
+.cover-meta-value { font-weight: 700; color: var(--ink); }
+
+/* ─────────────────────────────────────────
+   SECTION HEADERS
+───────────────────────────────────────── */
+.section { margin-bottom: 60px; }
+
+.section-eyebrow {
+  font-size: 10px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--gold);
+  font-weight: 700; margin-bottom: 6px;
+}
+.section-heading {
+  font-size: 22px; font-weight: 800;
+  color: var(--ink); letter-spacing: -0.5px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 28px;
+}
+
+/* ─────────────────────────────────────────
+   CALLOUT
+───────────────────────────────────────── */
+.callout {
+  background: var(--surface);
+  border-left: 3px solid var(--gold-mid);
+  padding: 16px 20px;
+  font-size: 13.5px;
+  color: var(--ink-mid);
+  margin-bottom: 32px;
+  line-height: 1.7;
+}
+.callout strong { color: var(--ink); font-weight: 700; }
+
+/* ─────────────────────────────────────────
+   SCORE DASHBOARD
+───────────────────────────────────────── */
+.score-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin-bottom: 12px;
+}
+.score-grid-2 {
+  grid-template-columns: repeat(5, 1fr);
+}
+.score-cell {
+  background: var(--page);
+  padding: 18px 16px;
+  position: relative;
+}
+.score-cell-top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.score-label {
+  font-size: 11px; letter-spacing: 0.06em;
+  color: var(--ink-soft); margin-bottom: 8px;
+  line-height: 1.4;
+}
+.score-number {
+  font-size: 28px; font-weight: 900;
+  color: var(--ink); letter-spacing: -1px;
+  line-height: 1;
+}
+.score-number sup { font-size: 13px; font-weight: 500; color: var(--ink-soft); }
+.score-delta {
+  font-size: 11px; margin-top: 6px; color: var(--ink-soft);
+}
+.score-delta .up   { color: var(--green); font-weight: 700; }
+.score-delta .flat { color: var(--ink-soft); }
+.score-delta .warn { color: var(--amber); font-weight: 600; }
+.score-bar-track { height: 2px; background: var(--rule-light); margin-top: 10px; }
+.score-bar-fill  { height: 2px; }
+
+.c-green  { background: var(--green); }
+.c-amber  { background: var(--amber); }
+.c-red    { background: var(--red); }
+.c-blue   { background: var(--blue); }
+
+/* ─────────────────────────────────────────
+   STATUS DOT + CHIP
+───────────────────────────────────────── */
+.dot {
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+.dot-red    { background: var(--red); }
+.dot-amber  { background: var(--amber); }
+.dot-green  { background: var(--green); }
+.dot-blue   { background: var(--blue); }
+.dot-purple { background: var(--purple); }
+
+.chip {
+  display: inline-block;
+  font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase; font-weight: 700;
+  padding: 2px 8px; border-radius: 2px;
+  white-space: nowrap;
+}
+.chip-red    { background: var(--red-bg);    color: var(--red);    border: 1px solid #e8bbbb; }
+.chip-amber  { background: var(--amber-bg);  color: var(--amber);  border: 1px solid #e8d49b; }
+.chip-green  { background: var(--green-bg);  color: var(--green);  border: 1px solid #a8d9bf; }
+.chip-blue   { background: var(--blue-bg);   color: var(--blue);   border: 1px solid #a8c8e8; }
+.chip-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid #c8aedf; }
+.chip-ink    { background: var(--surface-2); color: var(--ink-soft); border: 1px solid var(--rule); }
+
+/* ─────────────────────────────────────────
+   COMPLETED WORK TABLE
+───────────────────────────────────────── */
+.done-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.done-table thead th {
+  text-align: left;
+  padding: 9px 14px;
+  background: var(--surface);
+  font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ink-soft);
+  font-weight: 700;
+  border-bottom: 1px solid var(--rule);
+  border-top: 1px solid var(--rule);
+}
+.done-table tbody td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--rule-light);
+  vertical-align: top;
+}
+.done-table tbody tr:last-child td { border-bottom: none; }
+.done-table tbody tr:hover td { background: var(--surface); }
+.done-item-name { font-weight: 600; color: var(--ink); margin-bottom: 3px; }
+.done-item-desc { font-size: 12px; color: var(--ink-soft); line-height: 1.5; }
+.schema-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.schema-tag {
+  font-size: 10px; padding: 1px 6px;
+  background: var(--surface-2); color: var(--ink-mid);
+  border: 1px solid var(--rule);
+  font-family: var(--font-mono); font-weight: 500;
+  border-radius: 2px;
+}
+
+/* ─────────────────────────────────────────
+   PRIORITY BLOCK
+───────────────────────────────────────── */
+.priority-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 16px; padding-bottom: 12px;
+  border-bottom: 1px solid var(--rule-light);
+}
+.priority-label { font-size: 15px; font-weight: 800; color: var(--ink); }
+.priority-sub   { font-size: 12px; color: var(--ink-soft); margin-left: auto; }
+
+/* ─────────────────────────────────────────
+   ACTION ITEMS
+───────────────────────────────────────── */
+.action-list { display: flex; flex-direction: column; gap: 1px; margin-bottom: 36px; }
+
+.action-item {
+  display: flex; gap: 0;
+  background: var(--page);
+  border: 1px solid var(--rule);
+  overflow: hidden;
+}
+.action-item + .action-item { margin-top: -1px; }
+.action-item:hover { z-index: 1; border-color: var(--gold-mid); position: relative; }
+
+.action-accent {
+  width: 4px;
+  flex-shrink: 0;
+}
+
+.action-body {
+  padding: 16px 20px;
+  flex: 1;
+}
+.action-top {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 12px;
+  margin-bottom: 6px;
+}
+.action-title {
+  font-size: 14px; font-weight: 700;
+  color: var(--ink); line-height: 1.4;
+}
+.action-desc {
+  font-size: 13px; color: var(--ink-soft);
+  line-height: 1.65; margin-bottom: 10px;
+}
+.action-desc strong { color: var(--ink-mid); font-weight: 600; }
+.action-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  font-size: 10px; letter-spacing: 0.08em;
+  padding: 2px 8px; border-radius: 2px; font-weight: 600;
+  text-transform: uppercase; white-space: nowrap;
+}
+.tag-time   { background: var(--gold-light); color: var(--gold); }
+.tag-free   { background: var(--green-bg);   color: var(--green); }
+.tag-owner  { background: var(--surface-2);  color: var(--ink-soft); }
+.tag-impact { background: var(--blue-bg);    color: var(--blue); }
+
+/* Accent bar colours */
+.accent-red    { background: var(--red); }
+.accent-amber  { background: var(--amber); }
+.accent-blue   { background: var(--blue); }
+.accent-purple { background: var(--purple); }
+.accent-green  { background: var(--green); }
+
+/* ─────────────────────────────────────────
+   CONTENT ARTICLES TABLE
+───────────────────────────────────────── */
+.articles-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.articles-table th {
+  text-align: left; padding: 9px 14px;
+  background: var(--surface);
+  font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ink-soft);
+  font-weight: 700; border-bottom: 1px solid var(--rule);
+  border-top: 1px solid var(--rule);
+}
+.articles-table td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--rule-light);
+  vertical-align: top;
+}
+.articles-table tr:last-child td { border-bottom: none; }
+.articles-table tr:hover td { background: var(--surface); }
+.art-title { font-weight: 600; color: var(--ink); }
+.art-query { font-size: 11.5px; color: var(--ink-soft); margin-top: 2px; font-family: var(--font-mono); }
+
+/* ─────────────────────────────────────────
+   SCORE TRACKER TABLE
+───────────────────────────────────────── */
+.tracker-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.tracker-table th {
+  text-align: left; padding: 10px 16px;
+  background: var(--surface);
+  font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ink-soft);
+  font-weight: 700; border: 1px solid var(--rule);
+}
+.tracker-table td {
+  padding: 12px 16px;
+  border: 1px solid var(--rule-light);
+  vertical-align: middle;
+}
+.tracker-table tr:nth-child(even) td { background: var(--surface); }
+.tracker-dim { font-weight: 600; color: var(--ink); }
+.score-before { color: var(--ink-soft); font-weight: 500; }
+.score-after  { font-weight: 800; color: var(--ink); }
+.delta-up     { color: var(--green); font-size: 11px; margin-left: 4px; }
+.delta-flat   { color: var(--ink-soft); font-size: 11px; margin-left: 4px; }
+.tracker-note { font-size: 12px; color: var(--ink-soft); line-height: 1.5; }
+
+/* ─────────────────────────────────────────
+   DISCIPLINE SUMMARY BAND
+───────────────────────────────────────── */
+.discipline-band {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.disc-card {
+  border: 1px solid var(--rule);
+  padding: 24px 22px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.disc-card-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+}
+.disc-abbr {
+  font-size: 10px; letter-spacing: 0.22em;
+  text-transform: uppercase; font-weight: 700;
+  color: var(--ink-soft); margin-bottom: 2px;
+}
+.disc-name {
+  font-size: 13px; font-weight: 700;
+  color: var(--ink); margin-bottom: 14px;
+}
+.disc-score-row {
+  display: flex; align-items: baseline; gap: 6px;
+  margin-bottom: 10px;
+}
+.disc-score-big {
+  font-size: 44px; font-weight: 900;
+  letter-spacing: -2px; line-height: 1;
+}
+.disc-score-denom {
+  font-size: 16px; color: var(--ink-soft); font-weight: 400;
+}
+.disc-bar-track { height: 3px; background: var(--rule-light); }
+.disc-bar-fill  { height: 3px; }
+.disc-desc {
+  font-size: 12px; color: var(--ink-soft);
+  line-height: 1.6; margin-top: 12px;
+}
+.disc-status-row {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 10px;
+}
+.disc-factor {
+  font-size: 11px; padding: 2px 7px;
+  border-radius: 2px; font-weight: 600;
+}
+.df-done   { background: var(--green-bg);  color: var(--green); border: 1px solid #a8d9bf; }
+.df-needed { background: var(--red-bg);    color: var(--red);   border: 1px solid #e8bbbb; }
+
+/* ─────────────────────────────────────────
+   KEY THINGS TO NOTE
+───────────────────────────────────────── */
+.notes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.note-card {
+  border: 1px solid var(--rule);
+  padding: 16px 18px;
+  position: relative;
+}
+.note-card-bar {
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+}
+.note-card-inner { padding-left: 14px; }
+.note-title {
+  font-size: 12px; font-weight: 700;
+  color: var(--ink); margin-bottom: 5px;
+}
+.note-body {
+  font-size: 12px; color: var(--ink-soft);
+  line-height: 1.65;
+}
+.note-body strong { color: var(--ink-mid); font-weight: 600; }
+
+/* ─────────────────────────────────────────
+   FIVE ACTIONS CLOSER
+───────────────────────────────────────── */
+.five-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border: 1px solid var(--rule);
+  margin-top: 24px;
+  overflow: hidden;
+}
+.five-item {
+  padding: 20px 18px;
+  border-right: 1px solid var(--rule);
+  position: relative;
+}
+.five-item:last-child { border-right: none; }
+.five-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gold-mid);
+}
+.five-num  { font-size: 28px; font-weight: 900; color: var(--gold); letter-spacing: -1px; }
+.five-text { font-size: 12px; color: var(--ink-mid); line-height: 1.55; margin-top: 6px; }
+.five-time { font-size: 11px; color: var(--ink-soft); margin-top: 6px; }
+
+/* ─────────────────────────────────────────
+   CLOSING BLOCK
+───────────────────────────────────────── */
+.closing {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--gold-mid);
+  padding: 32px 36px;
+  margin-bottom: 48px;
+}
+.closing h3 {
+  font-size: 17px; font-weight: 800;
+  color: var(--ink); margin-bottom: 16px;
+  letter-spacing: -0.3px;
+}
+.closing p {
+  font-size: 13.5px; color: var(--ink-soft);
+  line-height: 1.75; margin-bottom: 10px;
+}
+.closing p strong { color: var(--ink); font-weight: 700; }
+.closing p:last-child { margin-bottom: 0; }
+
+/* ─────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────── */
+.footer {
+  padding: 28px 0;
+  border-top: 1px solid var(--rule);
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 10px;
+}
+.footer-left { font-size: 12px; color: var(--ink-soft); }
+.footer-left strong { color: var(--ink); }
+.footer-right { font-size: 12px; color: var(--ink-soft); text-align: right; }
+
+/* ─────────────────────────────────────────
+   DIVIDER
+───────────────────────────────────────── */
+.rule { border: none; border-top: 1px solid var(--rule); margin: 52px 0; }
+
+/* ─────────────────────────────────────────
+   PRINT
+───────────────────────────────────────── */
+@media print {
+  .page { padding: 0 20px 60px; }
+  .cover-bar { left: -20px; right: -20px; }
+  .action-item:hover { border-color: var(--rule); position: static; }
+  .tracker-table tr:nth-child(even) td { background: #f8f8f8; }
+  @page { margin: 18mm 20mm; size: A4; }
+  .section { page-break-inside: avoid; }
+}
+
+@media (max-width: 720px) {
+  html { font-size: 13px; }
+  .page { padding: 0 20px 60px; }
+  .score-grid, .score-grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .cover-meta { grid-template-columns: repeat(2, auto); }
+  .five-grid  { grid-template-columns: repeat(2, 1fr); }
+  .cover-title { font-size: 26px; }
+  .discipline-band { grid-template-columns: 1fr; }
+  .notes-grid { grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+
+
+<!-- ══════════════════════════════════════════════
+     COVER
+══════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-bar"></div>
+
+  <div class="cover-eyebrow">
+    <div class="cover-logo">Z</div>
+    <span class="cover-client">Zithelo Real Estate Limited &nbsp;·&nbsp; Confidential</span>
+  </div>
+
+  <div class="cover-title">AI Search &amp; <em>GEO Strategy</em> Report</div>
+  <div class="cover-subtitle">
+    A full audit of completed optimisation work, current performance scores, and a
+    prioritised action plan to rank Zithelo as the most cited real estate developer
+    in Nigeria and Africa across Google, ChatGPT, Claude, Gemini, Perplexity, and Copilot.
+  </div>
+
+  <div class="cover-meta">
+    <div class="cover-meta-cell">
+      <div class="cover-meta-label">Report Date</div>
+      <div class="cover-meta-value">June 2026</div>
+    </div>
+    <div class="cover-meta-cell">
+      <div class="cover-meta-label">Prepared By</div>
+      <div class="cover-meta-value">Harzotech Nig Ltd</div>
+    </div>
+    <div class="cover-meta-cell">
+      <div class="cover-meta-label">Developer</div>
+      <div class="cover-meta-value">Azeez Agbona O.</div>
+    </div>
+    <div class="cover-meta-cell">
+      <div class="cover-meta-label">Classification</div>
+      <div class="cover-meta-value">Internal Review</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+     1. SCORE DASHBOARD
+══════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-eyebrow">Performance Overview</div>
+  <div class="section-heading">Score Dashboard — Sprint 1 + 2 Complete</div>
+
+  <!-- ── Discipline summary ── -->
+  <div class="discipline-band">
+    <!-- SEO -->
+    <div class="disc-card">
+      <div class="disc-card-bar c-green"></div>
+      <div class="disc-abbr">SEO</div>
+      <div class="disc-name">Traditional Search Optimisation</div>
+      <div class="disc-score-row">
+        <span class="disc-score-big" style="color:var(--green)">9</span>
+        <span class="disc-score-denom">/ 10</span>
+      </div>
+      <div class="disc-bar-track"><div class="disc-bar-fill c-green" style="width:90%"></div></div>
+      <div class="disc-desc">All technical work complete. 11 new pages live — /faq, /guides, /tools, /glossary, /compare, /invest × 3, /media, /invest/yaba-lagos. Remaining gap: backlinks and published articles.</div>
+      <div class="disc-status-row">
+        <span class="disc-factor df-done">Schema ✓</span>
+        <span class="disc-factor df-done">Pages ✓</span>
+        <span class="disc-factor df-done">Tools ✓</span>
+        <span class="disc-factor df-needed">Content ✗</span>
+        <span class="disc-factor df-needed">Links ✗</span>
+      </div>
+    </div>
+
+    <!-- AIEO -->
+    <div class="disc-card">
+      <div class="disc-card-bar c-red"></div>
+      <div class="disc-abbr">AIEO</div>
+      <div class="disc-name">AI Engine Optimisation</div>
+      <div class="disc-score-row">
+        <span class="disc-score-big" style="color:var(--red)">5</span>
+        <span class="disc-score-denom">/ 10</span>
+      </div>
+      <div class="disc-bar-track"><div class="disc-bar-fill c-red" style="width:50%"></div></div>
+      <div class="disc-desc">ROI calculator, 9-step guide, 42-term glossary, and 60 rendered FAQ answers give AI models more citable content. Still blocked by Wikidata, press, and Wikipedia — the only remaining AIEO gaps are team actions.</div>
+      <div class="disc-status-row">
+        <span class="disc-factor df-done">JSON-LD ✓</span>
+        <span class="disc-factor df-done">Guide ✓</span>
+        <span class="disc-factor df-done">Tools ✓</span>
+        <span class="disc-factor df-needed">Wikidata ✗</span>
+        <span class="disc-factor df-needed">Press ✗</span>
+      </div>
+    </div>
+
+    <!-- GEO -->
+    <div class="disc-card">
+      <div class="disc-card-bar c-amber"></div>
+      <div class="disc-abbr">GEO</div>
+      <div class="disc-name">Generative Engine Optimisation</div>
+      <div class="disc-score-row">
+        <span class="disc-score-big" style="color:var(--amber)">7</span>
+        <span class="disc-score-denom">/ 10</span>
+      </div>
+      <div class="disc-bar-track"><div class="disc-bar-fill c-amber" style="width:70%"></div></div>
+      <div class="disc-desc">/faq page now live with 60 rendered Q&amp;As. HowTo guide, DefinedTerm glossary, and comparison table all live. Remaining gap: published article body text and Google Business Profile.</div>
+      <div class="disc-status-row">
+        <span class="disc-factor df-done">FAQPage ✓</span>
+        <span class="disc-factor df-done">/faq page ✓</span>
+        <span class="disc-factor df-done">HowTo ✓</span>
+        <span class="disc-factor df-done">Glossary ✓</span>
+        <span class="disc-factor df-needed">Articles ✗</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Key things to note ── -->
+  <div class="section-eyebrow" style="margin-bottom:10px">Key Things to Note</div>
+  <div class="notes-grid" style="margin-bottom:32px">
+    <div class="note-card">
+      <div class="note-card-bar" style="background:var(--amber)"></div>
+      <div class="note-card-inner">
+        <div class="note-title">SEO ≠ AIEO ≠ GEO — They Require Different Actions</div>
+        <div class="note-body">Traditional SEO improves Google rankings through content and links. <strong>AIEO</strong> trains AI models to know and recommend Zithelo — requires Wikipedia, Wikidata, and press coverage that AI training data includes. <strong>GEO</strong> gets Zithelo into AI answer boxes — requires rendered FAQ content and articles that crawlers can extract.</div>
+      </div>
+    </div>
+    <div class="note-card">
+      <div class="note-card-bar" style="background:var(--red)"></div>
+      <div class="note-card-inner">
+        <div class="note-title">All Developer Work Is Done. Only Team Actions Remain.</div>
+        <div class="note-body">All schema, metadata, pages, tools, and structured data are now live — 11 new routes added in Sprint 2. <strong>None of the off-page actions have been taken yet</strong> — no Wikidata entry, no Google Business Profile, no Bing submission, no press coverage. Everything remaining is owned by the marketing team and founders.</div>
+      </div>
+    </div>
+    <div class="note-card">
+      <div class="note-card-bar" style="background:var(--green)"></div>
+      <div class="note-card-inner">
+        <div class="note-title">Zithelo's Technical SEO Is Now Best-in-Class in Nigeria</div>
+        <div class="note-body">No known Nigerian real estate developer has: geotargeted audience schema, speakable schema for AI voice extraction, multi-currency Offer schema, or a 25-year lease explicitly represented in structured data. <strong>The technical moat is real and complete.</strong></div>
+      </div>
+    </div>
+    <div class="note-card">
+      <div class="note-card-bar" style="background:var(--blue)"></div>
+      <div class="note-card-inner">
+        <div class="note-title">Publishing Content Is the Single Most Impactful Next Action</div>
+        <div class="note-body">The Insights section currently shows <strong>placeholder fallback articles</strong> — not real content. AI crawlers and Google see this as an empty blog. Publishing even 3 real articles immediately raises all three scores. Content is the unlock for SEO, AIEO, and GEO simultaneously.</div>
+      </div>
+    </div>
+    <div class="note-card">
+      <div class="note-card-bar" style="background:var(--purple)"></div>
+      <div class="note-card-inner">
+        <div class="note-title">AI Models Learn From Historical Data — AIEO Takes Months</div>
+        <div class="note-body">ChatGPT, Claude, and Gemini are trained on web data that is months old. Actions taken today will not appear in AI model knowledge immediately. <strong>Starting now matters</strong> — results compound over the 6–18 months before the next major model training cycle includes Zithelo's data.</div>
+      </div>
+    </div>
+    <div class="note-card">
+      <div class="note-card-bar" style="background:var(--gold-mid)"></div>
+      <div class="note-card-inner">
+        <div class="note-title">The /faq Page Is Now the Single Biggest GEO Win in the Codebase</div>
+        <div class="note-body">60 Q&amp;As rendered as visible HTML — this is what Google AI Overviews extract from. The 25-year lease, C of O, off-plan, diaspora investment, and fibre-ready are all defined and answerable. <strong>Once Google re-crawls this page</strong>, Zithelo becomes eligible for AI Overview appearances on every one of those queries.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>How to read the detailed scores below:</strong> Each of the 10 dimensions feeds into one or more of the three disciplines above (SEO, AIEO, GEO). All green scores are developer-complete. Red scores require team action only — no further development work is needed from the developer.
+  </div>
+
+  <div class="score-grid">
+    <div class="score-cell">
+      <div class="score-cell-top c-green"></div>
+      <div class="score-label">SEO Technical Foundation</div>
+      <div class="score-number">9.5<sup>/10</sup></div>
+      <div class="score-bar-track"><div class="score-bar-fill c-green" style="width:95%"></div></div>
+      <div class="score-delta"><span class="up">▲ +3.5</span> from 6/10 · img fixed</div>
+    </div>
+    <div class="score-cell">
+      <div class="score-cell-top c-green"></div>
+      <div class="score-label">Schema &amp; Structured Data</div>
+      <div class="score-number">10<sup>/10</sup></div>
+      <div class="score-bar-track"><div class="score-bar-fill c-green" style="width:100%"></div></div>
+      <div class="score-delta"><span class="up">▲ +6</span> · VideoObject + HowTo + DefinedTerm added</div>
+    </div>
+    <div class="score-cell">
+      <div class="score-cell-top c-green"></div>
+      <div class="score-label">FAQPage &amp; AI Overviews</div>
+      <div class="score-number">9.5<sup>/10</sup></div>
+      <div class="score-bar-track"><div class="score-bar-fill c-green" style="width:95%"></div></div>
+      <div class="score-delta"><span class="up">▲ +6.5</span> · /faq page live — 60 Q&amp;As rendered</div>
+    </div>
+    <div class="score-cell">
+      <div class="score-cell-top c-red"></div>
+      <div class="score-label">Entity Strength</div>
+      <div class="score-number">4<sup>/10</sup></div>
+      <div class="score-bar-track"><div class="score-bar-fill c-red" style="width:40%"></div></div>
+      <div class="score-delta"><span class="warn">Team: Wikidata + press</span></div>
+    </div>
+    <div class="score-cell">
+      <div class="score-cell-top c-red"></div>
+      <div class="score-label">Topical Authority</div>
+      <div class="score-number">2<sup>/10</sup></div>
+      <div class="score-bar-track"><div class="score-bar-fill c-red" style="width:20%"></div></div>
+      <div class="score-delta"><span class="warn">Team: publish articles in Sanity</span></div>
+    </div>
+  </div>
+
+  <div class="score-grid score-grid-2">
+    <div class="score-cell">
+      <div class="score-cell-top c-amber"></div>
+      <div class="score-label">Citation Potential</div>
+      <div class="score-number">6<sup>/10</sup></div>
+      <div class="score-bar-track"><div class="score-bar-fill c-amber" style="width:60%"></div></div>
+      <div class="score-delta"><span class="up">▲ +4</span> · calculator + guide + glossary live</div>
+    </div>
+    <div class="score-cell">
+      <div class="score-cell-top c-red"></div>
+      <div class="score-label">LLM / AISEO Visibility</div>
+      <div class="score-number">5<sup>/10</sup></div>
+      <div class="score-bar-track"><div class="score-bar-fill c-red" style="width:50%"></div></div>
+      <div class="score-delta"><span class="up">▲ +3</span> · Team: Wikidata + press</div>
+    </div>
+    <div class="score-cell">
+      <div class="score-cell-top c-red"></div>
+      <div class="score-label">Backlink Authority</div>
+      <div class="score-number">2<sup>/10</sup></div>
+      <div class="score-bar-track"><div class="score-bar-fill c-red" style="width:20%"></div></div>
+      <div class="score-delta"><span class="warn">Team: PropertyPro + REDAN + press</span></div>
+    </div>
+    <div class="score-cell">
+      <div class="score-cell-top c-amber"></div>
+      <div class="score-label">Commercial Conversion</div>
+      <div class="score-number">8<sup>/10</sup></div>
+      <div class="score-bar-track"><div class="score-bar-fill c-amber" style="width:80%"></div></div>
+      <div class="score-delta"><span class="flat">Team: testimonials → AggregateRating</span></div>
+    </div>
+    <div class="score-cell">
+      <div class="score-cell-top c-green"></div>
+      <div class="score-label">Competitive Advantage</div>
+      <div class="score-number">9.5<sup>/10</sup></div>
+      <div class="score-bar-track"><div class="score-bar-fill c-green" style="width:95%"></div></div>
+      <div class="score-delta"><span class="up">▲ +1.5</span> · glossary + guide + compare own the category</div>
+    </div>
+  </div>
+</div>
+
+
+<hr class="rule" />
+
+
+<!-- ══════════════════════════════════════════════
+     2. COMPLETED WORK
+══════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-eyebrow">Sprint 1 — Delivered</div>
+  <div class="section-heading">What Is Live in the Codebase</div>
+
+  <!-- Global schema -->
+  <div style="margin-bottom:28px">
+    <div class="priority-header">
+      <span class="dot dot-green"></span>
+      <span class="priority-label">Global Schema &nbsp;<span class="chip chip-green">layout.tsx — fires on every page</span></span>
+    </div>
+    <table class="done-table">
+      <thead><tr>
+        <th style="width:28%">Schema Type</th>
+        <th>What Was Implemented</th>
+        <th style="width:22%">Schema Tags</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><div class="done-item-name">Organization + LocalBusiness</div></td>
+          <td><div class="done-item-desc">Full entity with <code>@id</code>, <code>alternateName</code>, <code>areaServed</code> (NG/GB/US), <code>sameAs</code> (social profiles), <code>geo</code>, <code>contactPoint</code> × 2, <code>hasOfferCatalog</code>, <code>currenciesAccepted</code> (NGN, USD, GBP), <code>priceRange</code></div></td>
+          <td><div class="schema-tags"><span class="schema-tag">Organization</span><span class="schema-tag">LocalBusiness</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="done-item-name">FAQPage — 20 Questions</div></td>
+          <td><div class="done-item-desc">Expanded from 7 to 20 AI-targeted Q&amp;As covering: what is Zithelo, founders, company legitimacy, 25-year lease explained, fibre-ready definition, off-plan process, USD/GBP payments, diaspora documentation, property management, rental returns, Yaba Lagos context, referral programme, investor quiz, and pan-Africa expansion</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">FAQPage</span><span class="schema-tag">Question</span><span class="schema-tag">Answer</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="done-item-name">WebSite + SearchAction</div></td>
+          <td><div class="done-item-desc">SiteLinksSearchBox equivalent. <code>inLanguage: en-NG</code>. Creator attribution (Harzotech Nig Ltd) and contributor attribution (Azeez Agbona O.)</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">WebSite</span><span class="schema-tag">SearchAction</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="done-item-name">Developer &amp; Agency Entities</div></td>
+          <td><div class="done-item-desc">Person schema for Azeez Agbona O. (agbonaazeez) + Organization schema for Harzotech Nig Ltd. Associates site with developer — enables AI entity disambiguation between the site and its technical creator</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">Person</span><span class="schema-tag">Organization</span></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Page schema -->
+  <div style="margin-bottom:28px">
+    <div class="priority-header">
+      <span class="dot dot-green"></span>
+      <span class="priority-label">Page-Level Schema &nbsp;<span class="chip chip-green">9 pages updated</span></span>
+    </div>
+    <table class="done-table">
+      <thead><tr>
+        <th style="width:22%">Page</th>
+        <th>What Was Implemented</th>
+        <th style="width:28%">Schema Tags</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><div class="done-item-name">/projects/andoyi-house</div></td>
+          <td><div class="done-item-desc">ApartmentComplex with GeoCoordinates (6.5095, 3.3711), 7 amenityFeature specs, ImageObject with caption, multi-country Offer (NG/GB/US/CA), multi-currency (NGN/USD/GBP), availability, containedInPlace (Silicon Lagos), BreadcrumbList</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">ApartmentComplex</span><span class="schema-tag">Offer</span><span class="schema-tag">GeoCoordinates</span><span class="schema-tag">BreadcrumbList</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="done-item-name">/projects/signature-homes</div></td>
+          <td><div class="done-item-desc">Type corrected from <code>ApartmentComplex</code> to <code>SingleFamilyResidence</code> (accurate for duplexes). Full Offer, 6 amenityFeature specs, containedInPlace (Ikeja), BreadcrumbList</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">SingleFamilyResidence</span><span class="schema-tag">Offer</span><span class="schema-tag">BreadcrumbList</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="done-item-name">/leadership/[slug]</div></td>
+          <td><div class="done-item-desc">Person schema for every team member: jobTitle, full bio as description, ImageObject, worksFor linked to Zithelo <code>@id</code>, hasCredential for each qualification listed, BreadcrumbList</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">Person</span><span class="schema-tag">EducationalOccupationalCredential</span><span class="schema-tag">BreadcrumbList</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="done-item-name">/insights/[slug]</div></td>
+          <td><div class="done-item-desc">Article with speakable spec targeting h1/h2/h3/blockquote, BreadcrumbList, articleSection, inLanguage (en-NG), ImageObject, publisher <code>@id</code> linked to organisation</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">Article</span><span class="schema-tag">speakable</span><span class="schema-tag">BreadcrumbList</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="done-item-name">/insights</div></td>
+          <td><div class="done-item-desc">CollectionPage with dynamic ItemList of all articles — updates automatically from Sanity CMS as content is added</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">CollectionPage</span><span class="schema-tag">ItemList</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="done-item-name">/projects</div></td>
+          <td><div class="done-item-desc">CollectionPage with dynamic ItemList of all projects — positions, names, URLs, and descriptions update from Sanity</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">CollectionPage</span><span class="schema-tag">ItemList</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="done-item-name">/about</div></td>
+          <td><div class="done-item-desc">AboutPage with mainEntity linked to Organisation <code>@id</code>, BreadcrumbList</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">AboutPage</span><span class="schema-tag">BreadcrumbList</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="done-item-name">/why-zithelo</div></td>
+          <td><div class="done-item-desc">WebPage with BreadcrumbList and speakable specification targeting headings and hero subtitle</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">WebPage</span><span class="schema-tag">speakable</span><span class="schema-tag">BreadcrumbList</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="done-item-name">/diaspora-investor</div></td>
+          <td><div class="done-item-desc">WebPage with explicit audience targeting (UK, US, Canada geographies) — the only Nigerian real estate page with geotargeted audience schema. Speakable and BreadcrumbList included.</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">WebPage</span><span class="schema-tag">Audience</span><span class="schema-tag">speakable</span></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Sprint 2 — New pages -->
+  <div style="margin-bottom:28px">
+    <div class="priority-header">
+      <span class="dot dot-green"></span>
+      <span class="priority-label">Sprint 2 — New Pages &amp; Schema &nbsp;<span class="chip chip-green">11 routes added</span></span>
+    </div>
+    <table class="done-table">
+      <thead><tr>
+        <th style="width:28%">Page / Route</th>
+        <th>What Was Built</th>
+        <th style="width:26%">Schema Tags</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><div class="done-item-name">/faq</div></td>
+          <td><div class="done-item-desc">60 Q&amp;As across 10 categories rendered as visible HTML — not just JSON-LD. Collapsible accordion with jump links. This is the primary GEO trigger: Google AI Overviews can now extract answers from visible page content.</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">FAQPage</span><span class="schema-tag">speakable</span><span class="schema-tag">BreadcrumbList</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="done-item-name">/tools/roi-calculator</div></td>
+          <td><div class="done-item-desc">Dedicated page wrapping InvestmentCalculator component — project selector, currency toggle (NGN/USD), yield/appreciation sliders, CAGR, break-even, compare mode, PDF export, WhatsApp share. Unique citable tool in Nigerian real estate market.</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">WebApplication</span><span class="schema-tag">BreadcrumbList</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="done-item-name">/guides/how-to-buy-property-in-nigeria-from-abroad</div></td>
+          <td><div class="done-item-desc">4,000+ word 9-step HowTo guide with checklist per step, risk callout, table of contents. Each step has HowToStep + HowToDirection schema. First-mover position on the highest-volume diaspora query in Nigerian real estate.</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">HowTo</span><span class="schema-tag">HowToStep</span><span class="schema-tag">speakable</span><span class="schema-tag">BreadcrumbList</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="done-item-name">/glossary/nigeria-real-estate-terms</div></td>
+          <td><div class="done-item-desc">42 Nigerian property terms defined across 6 categories (Title &amp; Legal, Investment, Property Types, Finance &amp; Costs, Nigerian Market). Every term tagged with DefinedTerm schema inside a DefinedTermSet. Zithelo now owns the definitions of C of O, 25-year lease, fibre-ready, Silicon Lagos, and more.</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">DefinedTermSet</span><span class="schema-tag">DefinedTerm ×42</span><span class="schema-tag">BreadcrumbList</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="done-item-name">/compare/lagos-investment-areas</div></td>
+          <td><div class="done-item-desc">Side-by-side comparison: Yaba vs Victoria Island vs Lekki vs Ikeja. Data cards + quick reference table with yield, appreciation, entry price, infrastructure and growth scores. Anchors Yaba/Andoyi House as the recommended area.</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">Article</span><span class="schema-tag">speakable</span><span class="schema-tag">BreadcrumbList</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="done-item-name">/invest/yaba-lagos</div></td>
+          <td><div class="done-item-desc">Location landing page for Yaba — Silicon Lagos context, yield data, tenant profile, major tech companies in the ecosystem, investment case. Place + GeoCoordinates schema. Anchors Andoyi House to area-level search demand.</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">WebPage</span><span class="schema-tag">Place</span><span class="schema-tag">GeoCoordinates</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="done-item-name">/invest/victoria-island</div></td>
+          <td><div class="done-item-desc">Location landing page for Victoria Island — market data, tenant profile (embassies/multinationals), VI vs Yaba comparison. Place schema.</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">WebPage</span><span class="schema-tag">Place</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="done-item-name">/invest/lekki</div></td>
+          <td><div class="done-item-desc">Location landing page for Lekki — four growth catalysts (LFTZ, Deepwater Port, eastward expansion, diaspora returnees). Market data and investment case for a 7–15 year horizon.</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">WebPage</span><span class="schema-tag">Place</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="done-item-name">/media</div></td>
+          <td><div class="done-item-desc">Press kit page — standard boilerplate, fast facts table, founder bios with profile links, approved quotes, logo and image downloads, 5 pitch angles for journalists. Press contact: press@zithelorealestate.com.</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">WebPage</span><span class="schema-tag">BreadcrumbList</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="done-item-name">VideoObject schema — Andoyi House</div></td>
+          <td><div class="done-item-desc">VideoObject schema injected dynamically for each video clip in the Andoyi House page. Enables Google and AI systems to surface videos in rich results and property summaries.</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">VideoObject</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="done-item-name">img → Next.js Image — insights/[slug]</div></td>
+          <td><div class="done-item-desc">Both &lt;img&gt; elements (hero cover + article body images) replaced with Next.js &lt;Image /&gt; with fill + sizes. Resolves LCP warnings, improves Core Web Vitals, and enables automatic WebP serving and lazy loading.</div></td>
+          <td><div class="schema-tags"><span class="schema-tag">Core Web Vitals</span><span class="schema-tag">LCP fix</span></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Technical -->
+  <div>
+    <div class="priority-header">
+      <span class="dot dot-green"></span>
+      <span class="priority-label">Metadata, Technical SEO &amp; Site Architecture &nbsp;<span class="chip chip-green">All 30+ routes</span></span>
+    </div>
+    <table class="done-table">
+      <thead><tr><th style="width:30%">Item</th><th>Status &amp; Detail</th></tr></thead>
+      <tbody>
+        <tr><td><div class="done-item-name">Title + Description</div></td><td><div class="done-item-desc">Unique, keyword-optimised title and meta description on all 20+ routes. Commercial intent keywords on all investor-facing pages.</div></td></tr>
+        <tr><td><div class="done-item-name">Canonical URLs</div></td><td><div class="done-item-desc">Set on every route — prevents duplicate content penalties from Sanity preview URLs or query string variants.</div></td></tr>
+        <tr><td><div class="done-item-name">OpenGraph + Twitter Card</div></td><td><div class="done-item-desc">summary_large_image on all pages. OG image set. @zithelohomes handle configured on Twitter card. og:locale set to en_NG.</div></td></tr>
+        <tr><td><div class="done-item-name">Dynamic XML Sitemap</div></td><td><div class="done-item-desc">Auto-updates from Sanity CMS as insights and team members are added. All 20+ static routes included with correct priority weights and changeFrequency values.</div></td></tr>
+        <tr><td><div class="done-item-name">robots.txt</div></td><td><div class="done-item-desc">All crawlers permitted on public routes. /studio blocked from indexing.</div></td></tr>
+        <tr><td><div class="done-item-name">PWA Manifest + Service Worker</div></td><td><div class="done-item-desc">App installable on mobile and desktop. Offline-capable. themeColor (#c9a84c) and brand icons configured.</div></td></tr>
+        <tr><td><div class="done-item-name">ISR + Sanity Webhook</div></td><td><div class="done-item-desc">On-demand revalidation endpoint active — insights and projects update in real time when content is changed in Sanity Studio, without a rebuild.</div></td></tr>
+        <tr><td><div class="done-item-name">Investor Quiz (/investor-quiz)</div></td><td><div class="done-item-desc">Unique interactive tool in the Nigerian real estate market. No competitor offers investor profiling — AI systems will flag this as a differentiator when recommending developers.</div></td></tr>
+        <tr><td><div class="done-item-name">20+ Dedicated Routes</div></td><td><div class="done-item-desc">/about, /projects, /andoyi-house, /signature-homes, /insights, /insights/[slug], /leadership + team profiles, /become-an-investor, /diaspora-investor, /become-a-partner, /refer, /services, /partnership, /why-zithelo, /africa-vision, /sustainability, /contact, /legal, /privacy-policy, /terms-of-service</div></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<hr class="rule" />
+
+
+<!-- ══════════════════════════════════════════════
+     3. PENDING — CRITICAL
+══════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-eyebrow">Action Plan</div>
+  <div class="section-heading">Pending Actions — Prioritised by Impact</div>
+
+  <!-- CRITICAL -->
+  <div style="margin-bottom:36px">
+    <div class="priority-header">
+      <span class="dot dot-red"></span>
+      <span class="priority-label">Critical &nbsp;<span class="chip chip-red">Do This Week</span></span>
+      <span class="priority-sub">Highest impact · No development cost · No budget required</span>
+    </div>
+    <div class="action-list">
+
+      <div class="action-item">
+        <div class="action-accent accent-red"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">Create Wikidata Entity for Zithelo Real Estate Limited</div>
+            <span class="chip chip-red">Critical</span>
+          </div>
+          <div class="action-desc">
+            ChatGPT, Claude, and Gemini use Wikidata as a primary knowledge source. Without a Wikidata entry, AI systems cannot confidently identify Zithelo as a verified real-world entity and will not recommend it. This single action is the <strong>fastest unlock for AI visibility</strong> — 30 minutes, completely free, no technical work required. Create at wikidata.org/wiki/Special:NewItem.
+          </div>
+          <div class="action-tags">
+            <span class="tag tag-time">30 minutes</span>
+            <span class="tag tag-free">Free</span>
+            <span class="tag tag-owner">Owner: Marketing / Founder</span>
+            <span class="tag tag-impact">Unlocks: ChatGPT · Claude · Gemini knowledge</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-accent accent-red"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">Claim Google Business Profile (Victoria Island, Lagos)</div>
+            <span class="chip chip-red">Critical</span>
+          </div>
+          <div class="action-desc">
+            Required for Gemini, Google AI Overviews, and Google Maps to surface Zithelo for location queries. Any prompt such as <strong>"real estate developer in Lagos"</strong> routes through Google's local knowledge graph before web results. Without a verified profile, Zithelo is absent from these recommendations.
+          </div>
+          <div class="action-tags">
+            <span class="tag tag-time">1 hour</span>
+            <span class="tag tag-free">Free</span>
+            <span class="tag tag-owner">Owner: Founder</span>
+            <span class="tag tag-impact">Unlocks: Gemini · AI Overviews · Google Maps</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-accent accent-red"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">Submit Sitemap to Bing Webmaster Tools</div>
+            <span class="chip chip-red">Critical</span>
+          </div>
+          <div class="action-desc">
+            Bing directly powers <strong>Microsoft Copilot</strong>. Zithelo currently has no confirmed Bing indexing. Submitting at bing.com/webmaster takes 10 minutes and opens the entire Microsoft AI ecosystem, including Copilot recommendations and Bing search results.
+          </div>
+          <div class="action-tags">
+            <span class="tag tag-time">10 minutes</span>
+            <span class="tag tag-free">Free</span>
+            <span class="tag tag-owner">Owner: Developer</span>
+            <span class="tag tag-impact">Unlocks: Microsoft Copilot</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-accent accent-red"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">Publish 5 Real Articles in Sanity CMS — This Week</div>
+            <span class="chip chip-red">Critical</span>
+          </div>
+          <div class="action-desc">
+            The insights section currently displays <strong>placeholder fallback data</strong>, not real content. AI crawlers and search engines see stub articles with no body text. Priority articles: (1) The Zithelo 25-Year Lease Model Explained, (2) How Nigerians in the UK Can Buy Property in Lagos, (3) Yaba Lagos Investment Guide, (4) Is Off-Plan Property in Nigeria Safe?, (5) What Makes a Property Fibre-Ready?.
+          </div>
+          <div class="action-tags">
+            <span class="tag tag-time">This week</span>
+            <span class="tag tag-free">Internal effort</span>
+            <span class="tag tag-owner">Owner: Content / Marketing team</span>
+            <span class="tag tag-impact">Most visible on-page gap</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-accent accent-red"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">Add RC Number and CAC Registration to Footer and /legal Page</div>
+            <span class="chip chip-red">Critical</span>
+          </div>
+          <div class="action-desc">
+            AI systems verify company legitimacy through traceable government registration numbers. Perplexity and Google cross-reference visible CAC/RC numbers against official registries. The current site answers "Is Zithelo legitimate?" in FAQPage schema — that answer must be verifiable on-page.
+          </div>
+          <div class="action-tags">
+            <span class="tag tag-time">30 minutes</span>
+            <span class="tag tag-free">Free</span>
+            <span class="tag tag-owner">Owner: Developer + Legal</span>
+            <span class="tag tag-impact">Trust signal for Perplexity · Google</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- SPRINT 2 DONE -->
+  <div style="margin-bottom:36px">
+    <div class="priority-header">
+      <span class="dot dot-green"></span>
+      <span class="priority-label">Developer Pages &nbsp;<span class="chip chip-green">All Complete — Sprint 2</span></span>
+      <span class="priority-sub">All 11 developer tasks shipped · Zero TypeScript errors</span>
+    </div>
+    <div class="action-list">
+      <div class="action-item" style="opacity:0.65">
+        <div class="action-accent accent-green"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">/faq — 60 Q&amp;As rendered as visible HTML</div>
+            <span class="chip chip-green">Done</span>
+          </div>
+          <div class="action-tags"><span class="tag tag-free">Live</span><span class="tag tag-owner">FAQPage + speakable + BreadcrumbList</span></div>
+        </div>
+      </div>
+      <div class="action-item" style="opacity:0.65">
+        <div class="action-accent accent-green"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">/guides/how-to-buy-property-in-nigeria-from-abroad — 9-step HowTo guide</div>
+            <span class="chip chip-green">Done</span>
+          </div>
+          <div class="action-tags"><span class="tag tag-free">Live</span><span class="tag tag-owner">HowTo + HowToStep schema</span></div>
+        </div>
+      </div>
+      <div class="action-item" style="opacity:0.65">
+        <div class="action-accent accent-green"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">/tools/roi-calculator — Full interactive ROI calculator</div>
+            <span class="chip chip-green">Done</span>
+          </div>
+          <div class="action-tags"><span class="tag tag-free">Live</span><span class="tag tag-owner">WebApplication schema</span></div>
+        </div>
+      </div>
+      <div class="action-item" style="opacity:0.65">
+        <div class="action-accent accent-green"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">/glossary/nigeria-real-estate-terms — 42 terms with DefinedTerm schema</div>
+            <span class="chip chip-green">Done</span>
+          </div>
+          <div class="action-tags"><span class="tag tag-free">Live</span><span class="tag tag-owner">DefinedTermSet + DefinedTerm ×42</span></div>
+        </div>
+      </div>
+      <div class="action-item" style="opacity:0.65">
+        <div class="action-accent accent-green"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">/compare/lagos-investment-areas — Yaba vs VI vs Lekki vs Ikeja</div>
+            <span class="chip chip-green">Done</span>
+          </div>
+          <div class="action-tags"><span class="tag tag-free">Live</span><span class="tag tag-owner">Article + speakable schema</span></div>
+        </div>
+      </div>
+      <div class="action-item" style="opacity:0.65">
+        <div class="action-accent accent-green"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">/invest/yaba-lagos · /invest/victoria-island · /invest/lekki</div>
+            <span class="chip chip-green">Done</span>
+          </div>
+          <div class="action-tags"><span class="tag tag-free">Live</span><span class="tag tag-owner">WebPage + Place + GeoCoordinates</span></div>
+        </div>
+      </div>
+      <div class="action-item" style="opacity:0.65">
+        <div class="action-accent accent-green"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">/media — Press kit with boilerplate, quotes, assets, pitch angles</div>
+            <span class="chip chip-green">Done</span>
+          </div>
+          <div class="action-tags"><span class="tag tag-free">Live</span><span class="tag tag-owner">press@zithelorealestate.com</span></div>
+        </div>
+      </div>
+      <div class="action-item" style="opacity:0.65">
+        <div class="action-accent accent-green"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">VideoObject schema — Andoyi House video clips</div>
+            <span class="chip chip-green">Done</span>
+          </div>
+          <div class="action-tags"><span class="tag tag-free">Live</span><span class="tag tag-owner">VideoObject schema per clip</span></div>
+        </div>
+      </div>
+      <div class="action-item" style="opacity:0.65">
+        <div class="action-accent accent-green"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">img → Next.js Image — insights/[slug] hero + body</div>
+            <span class="chip chip-green">Done</span>
+          </div>
+          <div class="action-tags"><span class="tag tag-free">Live</span><span class="tag tag-owner">LCP + Core Web Vitals fixed</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- CONTENT TABLE -->
+  <div style="margin-bottom:36px">
+    <div class="priority-header">
+      <span class="dot dot-amber"></span>
+      <span class="priority-label">Content to Publish in Sanity CMS &nbsp;<span class="chip chip-amber">This Month</span></span>
+      <span class="priority-sub">Marketing / Content team — no development required</span>
+    </div>
+    <table class="articles-table">
+      <thead><tr>
+        <th style="width:42%">Article Title</th>
+        <th>Target Query</th>
+        <th style="width:12%">AI Score</th>
+        <th style="width:14%">Priority</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><div class="art-title">The Zithelo 25-Year Lease Model Explained</div></td>
+          <td><div class="art-query">25 year lease property nigeria</div></td>
+          <td><span class="chip chip-green">10 / 10</span></td>
+          <td><span class="chip chip-red">Week 1</span></td>
+        </tr>
+        <tr>
+          <td><div class="art-title">How Nigerians in the UK Can Buy Property in Lagos in 2026</div></td>
+          <td><div class="art-query">invest in nigeria from uk</div></td>
+          <td><span class="chip chip-green">9 / 10</span></td>
+          <td><span class="chip chip-red">Week 1</span></td>
+        </tr>
+        <tr>
+          <td><div class="art-title">Lagos Real Estate Market Report H1 2026</div></td>
+          <td><div class="art-query">lagos real estate market 2026</div></td>
+          <td><span class="chip chip-green">10 / 10</span></td>
+          <td><span class="chip chip-amber">Month 1</span></td>
+        </tr>
+        <tr>
+          <td><div class="art-title">Is Off-Plan Property in Nigeria Safe? A Developer's Guide</div></td>
+          <td><div class="art-query">off-plan property nigeria safe</div></td>
+          <td><span class="chip chip-green">9 / 10</span></td>
+          <td><span class="chip chip-amber">Month 1</span></td>
+        </tr>
+        <tr>
+          <td><div class="art-title">Yaba Lagos Investment Guide: Why Silicon Lagos is the Best Bet</div></td>
+          <td><div class="art-query">yaba lagos property investment</div></td>
+          <td><span class="chip chip-amber">8 / 10</span></td>
+          <td><span class="chip chip-amber">Month 1</span></td>
+        </tr>
+        <tr>
+          <td><div class="art-title">Short-Let vs Long-Let: Which Earns More in Lagos?</div></td>
+          <td><div class="art-query">short let vs long let lagos</div></td>
+          <td><span class="chip chip-amber">8 / 10</span></td>
+          <td><span class="chip chip-amber">Month 1</span></td>
+        </tr>
+        <tr>
+          <td><div class="art-title">How to Repatriate Rental Income from Nigeria as a Diaspora Investor</div></td>
+          <td><div class="art-query">repatriate money from nigeria</div></td>
+          <td><span class="chip chip-green">9 / 10</span></td>
+          <td><span class="chip chip-amber">Month 2</span></td>
+        </tr>
+        <tr>
+          <td><div class="art-title">What Makes a Property Fibre-Ready?</div></td>
+          <td><div class="art-query">fibre ready apartments nigeria</div></td>
+          <td><span class="chip chip-amber">7 / 10</span></td>
+          <td><span class="chip chip-amber">Month 2</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- 90 DAYS -->
+  <div style="margin-bottom:36px">
+    <div class="priority-header">
+      <span class="dot dot-blue"></span>
+      <span class="priority-label">Authority Building &nbsp;<span class="chip chip-blue">90 Days — Off-Page</span></span>
+      <span class="priority-sub">Press outreach · Backlinks · Entity registration</span>
+    </div>
+    <div class="action-list">
+
+      <div class="action-item">
+        <div class="action-accent accent-blue"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">Pitch BusinessDay Nigeria</div>
+            <span class="chip chip-blue">90 Days</span>
+          </div>
+          <div class="action-desc">Angle: <strong>"The developer pioneering the 25-year lease model in Lagos."</strong> BusinessDay is the most AI-cited Nigerian financial publication. A single mention here is worth 50 blog posts for AI visibility — ChatGPT and Perplexity reference BusinessDay regularly for Nigerian economic data.</div>
+          <div class="action-tags"><span class="tag tag-owner">Owner: PR / Founders</span><span class="tag tag-impact">Very High — AI cites frequently</span></div>
+        </div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-accent accent-blue"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">Pitch Nairametrics</div>
+            <span class="chip chip-blue">90 Days</span>
+          </div>
+          <div class="action-desc">Angle: <strong>"Lagos real estate as a diaspora investment vehicle in 2026 — data and returns."</strong> Nairametrics is the most AI-cited Nigerian personal finance publication. Perplexity and ChatGPT regularly reference it for Nigerian financial data.</div>
+          <div class="action-tags"><span class="tag tag-owner">Owner: PR</span><span class="tag tag-impact">Very High</span></div>
+        </div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-accent accent-blue"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">Pitch African Business Magazine (UK) + OkayAfrica</div>
+            <span class="chip chip-blue">90 Days</span>
+          </div>
+          <div class="action-desc">UK publications reach diaspora investors directly and carry higher domain authority than Nigerian publications. A UK press mention also signals to Claude and Gemini that Zithelo has an international profile — required for cross-border AI recommendations.</div>
+          <div class="action-tags"><span class="tag tag-owner">Owner: PR</span><span class="tag tag-impact">High</span></div>
+        </div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-accent accent-blue"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">Register with REDAN — Real Estate Developers Association of Nigeria</div>
+            <span class="chip chip-blue">90 Days</span>
+          </div>
+          <div class="action-desc">Government-adjacent entity. A REDAN listing is a hard trust signal AI systems use to verify developer legitimacy. Also provides a high-authority backlink from a government-affiliated domain — the highest-quality Nigerian backlink category available.</div>
+          <div class="action-tags"><span class="tag tag-owner">Owner: Legal / Founders</span><span class="tag tag-impact">High — Government authority</span></div>
+        </div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-accent accent-blue"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">List Projects on PropertyPro.ng, Nigeria Property Centre, Lamudi</div>
+            <span class="chip chip-blue">90 Days</span>
+          </div>
+          <div class="action-desc">These aggregators are among the most AI-indexed Nigerian real estate domains. Being listed here gives Zithelo citation sources that AI systems already trust. Also captures leads from buyers who discover the project through aggregator results.</div>
+          <div class="action-tags"><span class="tag tag-time">2–3 hours total</span><span class="tag tag-free">Free or low cost</span><span class="tag tag-owner">Owner: Marketing</span></div>
+        </div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-accent accent-blue"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">Create Crunchbase Company Profile</div>
+            <span class="chip chip-blue">90 Days</span>
+          </div>
+          <div class="action-desc">ChatGPT and Claude reference Crunchbase for company data verification. Complete with: founders, founded date, HQ, description, website, leadership team. This is a primary method AI systems use to confirm that a company has a real leadership structure and operating history.</div>
+          <div class="action-tags"><span class="tag tag-time">1 hour</span><span class="tag tag-free">Free</span><span class="tag tag-owner">Owner: Founders</span></div>
+        </div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-accent accent-blue"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">Wharton + University of Greenwich Alumni Mentions</div>
+            <span class="chip chip-blue">90 Days</span>
+          </div>
+          <div class="action-desc">Dr. Akinbobola (Wharton) and Mrs. Akinbobola (University of Greenwich) are both alumni. Alumni news sections carry exceptional domain authority — a Wharton mention would be among the highest-DA backlinks Zithelo could ever obtain and would significantly elevate the founders' AI entity recognition.</div>
+          <div class="action-tags"><span class="tag tag-free">Free</span><span class="tag tag-owner">Owner: Founders</span><span class="tag tag-impact">Very High DA</span></div>
+        </div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-accent accent-blue"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">LinkedIn Company Page — Target 1,000+ Followers</div>
+            <span class="chip chip-blue">90 Days</span>
+          </div>
+          <div class="action-desc">Bing and Microsoft Copilot weight LinkedIn data heavily. A company page with 1,000+ followers is indexed with higher confidence. Post minimum weekly: project updates, construction milestones, market insights, investor testimonials.</div>
+          <div class="action-tags"><span class="tag tag-free">Free</span><span class="tag tag-owner">Owner: Marketing</span><span class="tag tag-impact">Copilot + Bing visibility</span></div>
+        </div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-accent accent-blue"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">Trademark "25-Year Lease Model™" in Nigeria</div>
+            <span class="chip chip-blue">90 Days</span>
+          </div>
+          <div class="action-desc">Zithelo invented this term in the Lagos real estate context. Trademarking it makes it legally defensible and signals to AI systems that this is a proprietary category. Once trademarked, every use of the term online traces back to Zithelo — locking in permanent category ownership.</div>
+          <div class="action-tags"><span class="tag tag-owner">Owner: Legal</span><span class="tag tag-impact">Category ownership</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- 6–12 MONTHS -->
+  <div>
+    <div class="priority-header">
+      <span class="dot dot-purple"></span>
+      <span class="priority-label">Category Dominance &nbsp;<span class="chip chip-purple">6–12 Months</span></span>
+      <span class="priority-sub">Data assets · Wikipedia · Multimedia · Systematic authority</span>
+    </div>
+    <div class="action-list">
+
+      <div class="action-item">
+        <div class="action-accent accent-purple"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">Publish Annual Lagos Real Estate Market Report (PDF + Web)</div>
+            <span class="chip chip-purple">6 Months</span>
+          </div>
+          <div class="action-desc">Price per sqm by neighbourhood, rental yields, occupancy rates, diaspora investment volumes. Cite CBN and NBS data. Offer downloadable PDF. This single asset will become the reference every Lagos property journalist and AI system cites. Publish annually — the compound effect builds year over year. <strong>Citation score: 10/10.</strong></div>
+          <div class="action-tags"><span class="tag tag-owner">Owner: Research + Marketing</span><span class="tag tag-impact">Highest long-term AI citation value</span></div>
+        </div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-accent accent-purple"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">Wikipedia Article — Zithelo Real Estate Limited</div>
+            <span class="chip chip-purple">6 Months</span>
+          </div>
+          <div class="action-desc">Requires 3+ independent press sources (from the 90-day plan above). Once BusinessDay + Nairametrics + one other publication have covered Zithelo, file the Wikipedia article. Wikipedia is the single most powerful AI training signal available — it directly informs ChatGPT, Claude, and Gemini knowledge bases and is the prerequisite for a full Google Knowledge Panel.</div>
+          <div class="action-tags"><span class="tag tag-impact">Highest AI training signal</span><span class="tag tag-owner">Requires: 3 press sources first</span></div>
+        </div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-accent accent-purple"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">Publish Nigeria Diaspora Property Investment Report</div>
+            <span class="chip chip-purple">6 Months</span>
+          </div>
+          <div class="action-desc">Primary research: survey real diaspora investors on how much they sent, which cities, which challenges, which developers they considered. No competitor has this data. The report makes Zithelo the authoritative source on a topic every African media outlet will want to reference. <strong>Citation score: 10/10.</strong></div>
+          <div class="action-tags"><span class="tag tag-owner">Owner: Research + Marketing</span><span class="tag tag-impact">Unique — no competitor can produce this</span></div>
+        </div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-accent accent-purple"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">YouTube Channel — 10+ Diaspora Investment Videos</div>
+            <span class="chip chip-purple">6–12 Months</span>
+          </div>
+          <div class="action-desc">Google and Gemini index YouTube. VideoObject schema on the Zithelo site links each video to the knowledge graph. Video transcripts become additional indexable text. Topics: how to buy in Lagos from UK, Andoyi House construction tour, off-plan process walkthrough, 25-year lease explained, how property management works.</div>
+          <div class="action-tags"><span class="tag tag-owner">Owner: Marketing</span><span class="tag tag-impact">Multimodal AI citations</span></div>
+        </div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-accent accent-purple"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">Collect 5+ Testimonials → Add AggregateRating Schema</div>
+            <span class="chip chip-purple">6 Months</span>
+          </div>
+          <div class="action-desc">Once 5 or more verified investor testimonials are collected, implement <code>Review</code> and <code>AggregateRating</code> schema. Star ratings in rich results increase click-through rates significantly. AI systems also use rating data as a quality and trustworthiness signal.</div>
+          <div class="action-tags"><span class="tag tag-owner">Owner: Marketing + Developer</span><span class="tag tag-impact">CTR boost + trust signal</span></div>
+        </div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-accent accent-purple"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">Add VideoObject Schema to Andoyi House Page</div>
+            <span class="chip chip-purple">Quick Win</span>
+          </div>
+          <div class="action-desc">Video clips already exist in the Andoyi House page codebase but are not tagged with <code>VideoObject</code> schema. Adding schema allows Google and AI systems to surface these videos in rich results and AI-generated property summaries. This is a developer task that takes approximately 2 hours.</div>
+          <div class="action-tags"><span class="tag tag-time">2 hours</span><span class="tag tag-free">Free</span><span class="tag tag-owner">Owner: Developer</span></div>
+        </div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-accent accent-purple"></div>
+        <div class="action-body">
+          <div class="action-top">
+            <div class="action-title">Claim Apple Maps Listing</div>
+            <span class="chip chip-purple">Quick Win</span>
+          </div>
+          <div class="action-desc">Siri and Apple Intelligence pull local business data from Apple Maps. With millions of Nigerians in the UK and US using iPhones, a Siri recommendation for "real estate developer in Lagos" could be materially valuable. Claiming the listing takes 30 minutes at mapsconnect.apple.com.</div>
+          <div class="action-tags"><span class="tag tag-time">30 minutes</span><span class="tag tag-free">Free</span><span class="tag tag-owner">Owner: Founder</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<hr class="rule" />
+
+
+<!-- ══════════════════════════════════════════════
+     4. SCORE TRACKER TABLE
+══════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-eyebrow">Full Scorecard</div>
+  <div class="section-heading">Dimension Tracker — Before, Current, and Target</div>
+
+  <div style="overflow-x:auto">
+  <table class="tracker-table">
+    <thead>
+      <tr>
+        <th style="width:24%">Dimension</th>
+        <th style="width:10%">Before</th>
+        <th style="width:14%">After Sprint 1+2</th>
+        <th>What Gets to 10/10</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="tracker-dim">SEO Technical Foundation</span></td>
+        <td><span class="score-before">6/10</span></td>
+        <td><span class="score-after">9.5/10</span> <span class="delta-up">▲</span></td>
+        <td><span class="tracker-note">Core Web Vitals audit + Lighthouse pass on remaining routes</span></td>
+      </tr>
+      <tr>
+        <td><span class="tracker-dim">Schema &amp; Structured Data</span></td>
+        <td><span class="score-before">4/10</span></td>
+        <td><span class="score-after">10/10</span> <span class="delta-up">▲</span></td>
+        <td><span class="tracker-note">AggregateRating once team collects investor reviews — everything else done</span></td>
+      </tr>
+      <tr>
+        <td><span class="tracker-dim">FAQPage / AI Overviews</span></td>
+        <td><span class="score-before">3/10</span></td>
+        <td><span class="score-after">9.5/10</span> <span class="delta-up">▲</span></td>
+        <td><span class="tracker-note">/faq live with 60 rendered Q&amp;As · remaining gap: Google indexing + article body text</span></td>
+      </tr>
+      <tr>
+        <td><span class="tracker-dim">Entity Strength</span></td>
+        <td><span class="score-before">4/10</span></td>
+        <td><span class="score-after">4/10</span> <span class="delta-flat">—</span></td>
+        <td><span class="tracker-note">Wikidata entry + 3 press mentions + Wikipedia + Google Knowledge Panel</span></td>
+      </tr>
+      <tr>
+        <td><span class="tracker-dim">Topical Authority</span></td>
+        <td><span class="score-before">2/10</span></td>
+        <td><span class="score-after">2/10</span> <span class="delta-flat">—</span></td>
+        <td><span class="tracker-note">15+ real articles across all 5 content pillars in Sanity CMS</span></td>
+      </tr>
+      <tr>
+        <td><span class="tracker-dim">Citation Potential</span></td>
+        <td><span class="score-before">2/10</span></td>
+        <td><span class="score-after">6/10</span> <span class="delta-up">▲</span></td>
+        <td><span class="tracker-note">ROI calculator ✓ · glossary ✓ · comparison table ✓ · remaining: press mentions + market report</span></td>
+      </tr>
+      <tr>
+        <td><span class="tracker-dim">LLM / AISEO Visibility</span></td>
+        <td><span class="score-before">2/10</span></td>
+        <td><span class="score-after">5/10</span> <span class="delta-up">▲</span></td>
+        <td><span class="tracker-note">Press coverage + Wikidata + original data assets + Wikipedia</span></td>
+      </tr>
+      <tr>
+        <td><span class="tracker-dim">Backlink Authority</span></td>
+        <td><span class="score-before">2/10</span></td>
+        <td><span class="score-after">2/10</span> <span class="delta-flat">—</span></td>
+        <td><span class="tracker-note">PropertyPro + REDAN + Wharton alumni + 30 quality backlinks</span></td>
+      </tr>
+      <tr>
+        <td><span class="tracker-dim">Commercial Conversion</span></td>
+        <td><span class="score-before">8/10</span></td>
+        <td><span class="score-after">8/10</span> <span class="delta-flat">—</span></td>
+        <td><span class="tracker-note">Pricing transparency + investor testimonials + A/B testing</span></td>
+      </tr>
+      <tr>
+        <td><span class="tracker-dim">Competitive Advantage</span></td>
+        <td><span class="score-before">8/10</span></td>
+        <td><span class="score-after">9.5/10</span> <span class="delta-up">▲</span></td>
+        <td><span class="tracker-note">Trademark "25-Year Lease Model™" + annual data report as category asset</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+
+<hr class="rule" />
+
+
+<!-- ══════════════════════════════════════════════
+     5. CLOSING
+══════════════════════════════════════════════ -->
+<div class="section">
+  <div class="closing">
+    <h3>The Bottom Line</h3>
+    <p>
+      <strong>Everything inside the codebase is done or near-done.</strong> The schema foundation is comprehensive — it is more complete than any Nigerian real estate competitor's website. The technical SEO is solid. The site architecture is correctly structured for AI citation.
+    </p>
+    <p>
+      <strong>The gap is entirely off-page and content.</strong> AI systems like ChatGPT, Claude, and Gemini learn about companies through three sources: Wikipedia and Wikidata, press coverage, and original data. Zithelo currently has none of the three. No amount of technical work overrides this absence.
+    </p>
+    <p>
+      <strong>The five actions below close the largest gap at the lowest cost and can all be completed within the next seven days.</strong>
+    </p>
+
+    <div class="five-grid">
+      <div class="five-item">
+        <div class="five-num">01</div>
+        <div class="five-text">Create Wikidata entity</div>
+        <div class="five-time">30 mins · Free · Today</div>
+      </div>
+      <div class="five-item">
+        <div class="five-num">02</div>
+        <div class="five-text">Claim Google Business Profile</div>
+        <div class="five-time">1 hour · Free · Today</div>
+      </div>
+      <div class="five-item">
+        <div class="five-num">03</div>
+        <div class="five-text">Submit to Bing Webmaster Tools</div>
+        <div class="five-time">10 mins · Free · Today</div>
+      </div>
+      <div class="five-item">
+        <div class="five-num">04</div>
+        <div class="five-text">Publish 5 real articles in Sanity CMS</div>
+        <div class="five-time">This week · Content team</div>
+      </div>
+      <div class="five-item">
+        <div class="five-num">05</div>
+        <div class="five-text">Pitch BusinessDay Nigeria</div>
+        <div class="five-time">This week · Founders / PR</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════ -->
+<div class="footer">
+  <div class="footer-left">
+    Prepared by <strong>Harzotech Nig Ltd</strong> &nbsp;·&nbsp; Azeez Agbona O. &nbsp;·&nbsp; harzotech.com.ng
+  </div>
+  <div class="footer-right">
+    Zithelo Real Estate Limited &nbsp;·&nbsp; zithelo.com &nbsp;·&nbsp; June 2026
+  </div>
+</div>
+
+
+</div><!-- /page -->
+</body>
+</html>

@@ -57,6 +57,8 @@ const FALLBACK_LISTINGS: Listing[] = [
   },
 ];
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.zithelo.com";
+
 export const revalidate = 60;
 
 export default async function ProjectsPage() {
@@ -78,8 +80,42 @@ export default async function ProjectsPage() {
       }))
     : FALLBACK_LISTINGS;
 
+  const projectsSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${SITE_URL}/projects`,
+    name: "Zithelo Real Estate Projects | Premium Developments in Lagos",
+    url: `${SITE_URL}/projects`,
+    description:
+      "Browse Zithelo Real Estate's portfolio of premium, fibre-ready urban developments in Lagos, Nigeria — open for investment with verified title and 25-year lease security.",
+    mainEntity: {
+      "@type": "ItemList",
+      name: "Zithelo Real Estate Portfolio",
+      numberOfItems: listings.length,
+      itemListElement: listings.map((p, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: p.title,
+        url: `${SITE_URL}${p.href}`,
+        description: p.desc,
+        image: p.img.startsWith("http") ? p.img : `${SITE_URL}${p.img}`,
+      })),
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+        { "@type": "ListItem", position: 2, name: "Projects", item: `${SITE_URL}/projects` },
+      ],
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectsSchema) }}
+      />
       <PageHero
         title="Our Projects"
         subtitle="A curated selection from our growing portfolio — premium urban developments currently open for investment."

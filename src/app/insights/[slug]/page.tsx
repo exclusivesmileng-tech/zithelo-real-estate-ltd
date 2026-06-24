@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { client, urlFor } from "@/sanity/client";
 import { INSIGHT_BY_SLUG_QUERY, ALL_INSIGHTS_QUERY } from "@/sanity/queries";
 import ReadingProgressBar from "@/components/ReadingProgressBar";
@@ -65,7 +66,9 @@ function renderBody(body: unknown[]): React.ReactNode {
       const src = urlFor(b.asset).width(900).url();
       return (
         <figure key={i} className="my-8">
-          <img src={src} alt={b.alt ?? ""} className="w-full rounded-xl object-cover" />
+          <div className="relative w-full aspect-video rounded-xl overflow-hidden">
+            <Image src={src} alt={b.alt ?? ""} fill className="object-cover" sizes="(max-width: 860px) 100vw, 860px" />
+          </div>
           {b.alt && <figcaption className="text-center text-xs text-muted-foreground font-body mt-2">{b.alt}</figcaption>}
         </figure>
       );
@@ -113,11 +116,26 @@ export default async function InsightArticlePage({ params }: { params: Promise<{
     author: { "@type": "Organization", name: "Zithelo Real Estate Limited", url: SITE_URL },
     publisher: {
       "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
       name: "Zithelo Real Estate Limited",
       logo: { "@type": "ImageObject", url: `${SITE_URL}/images/zithelo-logo-colored.png` },
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}/insights/${slug}` },
     ...(ogCoverUrl && { image: { "@type": "ImageObject", url: ogCoverUrl, width: 1200, height: 630 } }),
+    ...(article.category && { articleSection: article.category }),
+    inLanguage: "en-NG",
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", "h2", "h3", "blockquote"],
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+        { "@type": "ListItem", position: 2, name: "Insights", item: `${SITE_URL}/insights` },
+        { "@type": "ListItem", position: 3, name: article.title, item: `${SITE_URL}/insights/${slug}` },
+      ],
+    },
   };
 
   return (
@@ -131,7 +149,7 @@ export default async function InsightArticlePage({ params }: { params: Promise<{
       <section className="relative min-h-[420px] md:min-h-[540px] flex items-end overflow-hidden bg-[hsl(var(--charcoal))]">
         {coverUrl && (
           <>
-            <img src={coverUrl} alt={article.title} className="absolute inset-0 w-full h-full object-cover opacity-40" />
+            <Image src={coverUrl} alt={article.title} fill className="object-cover opacity-40" priority sizes="100vw" />
             <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--charcoal))] via-[hsl(var(--charcoal))]/50 to-transparent" />
           </>
         )}

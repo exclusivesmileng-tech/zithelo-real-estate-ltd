@@ -50,31 +50,89 @@ export default async function AndoyiHousePage() {
 
   const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.zithelo.com";
 
+  const videoSchemas = project?.videoClips?.length
+    ? project.videoClips.map((clip, i) => ({
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        "@id": `${SITE_URL}/projects/andoyi-house#video-${i + 1}`,
+        name: clip.label ?? `Andoyi House — Video ${i + 1}`,
+        description: `Video walkthrough of Andoyi House, 88 premium smart studio apartments in Yaba, Lagos. ${clip.label ?? ""}`.trim(),
+        thumbnailUrl: clip.thumbUrl,
+        contentUrl: clip.src,
+        uploadDate: "2024-01-01",
+        publisher: { "@type": "Organization", "@id": `${SITE_URL}/#organization`, name: "Zithelo Real Estate Limited" },
+      }))
+    : null;
+
   const projectSchema = {
     "@context": "https://schema.org",
     "@type": "ApartmentComplex",
+    "@id": `${SITE_URL}/projects/andoyi-house#property`,
     name: "Andoyi House",
+    alternateName: "Andoyi House Yaba Lagos",
     description:
-      "Premium, fibre-ready smart apartment complex in Yaba, Lagos. Verified title, 25-year lease security, and full management support.",
+      "88 premium, fibre-ready smart studio apartments in Yaba, Lagos — Africa's technology corridor. Verified Certificate of Occupancy title, 25-year lease security, and full property management support. Ideal for diaspora investors and modern professionals seeking passive income from Lagos real estate.",
     url: `${SITE_URL}/projects/andoyi-house`,
-    image: `${SITE_URL}/images/andoyi/2.png`,
+    image: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/images/andoyi/2.png`,
+      caption: "Andoyi House — Premium Smart Apartments, Yaba, Lagos",
+    },
     address: {
       "@type": "PostalAddress",
       streetAddress: "Yaba",
       addressLocality: "Lagos",
+      addressRegion: "Lagos State",
       addressCountry: "NG",
     },
-    numberOfRooms: project?.units ?? undefined,
-    yearBuilt: project?.year ?? undefined,
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 6.5095,
+      longitude: 3.3711,
+    },
+    numberOfRooms: 88,
+    petsAllowed: false,
+    starRating: { "@type": "Rating", ratingValue: 5 },
     amenityFeature: [
-      { "@type": "LocationFeatureSpecification", name: "Fibre-ready broadband" },
-      { "@type": "LocationFeatureSpecification", name: "Smart home infrastructure" },
-      { "@type": "LocationFeatureSpecification", name: "Full property management" },
+      { "@type": "LocationFeatureSpecification", name: "Fibre-optic broadband infrastructure", value: true },
+      { "@type": "LocationFeatureSpecification", name: "Smart home infrastructure", value: true },
+      { "@type": "LocationFeatureSpecification", name: "Full property management service", value: true },
+      { "@type": "LocationFeatureSpecification", name: "Verified Certificate of Occupancy title", value: true },
+      { "@type": "LocationFeatureSpecification", name: "25-year lease security", value: true },
+      { "@type": "LocationFeatureSpecification", name: "Off-plan investment pricing", value: true },
+      { "@type": "LocationFeatureSpecification", name: "Short-let and long-let rental strategy", value: true },
     ],
+    containedInPlace: {
+      "@type": "Place",
+      name: "Yaba, Lagos — Silicon Lagos",
+      description: "Yaba is Lagos's technology and innovation hub, home to major tech companies, universities, and co-working spaces. Known as 'Silicon Lagos'.",
+    },
     offers: {
       "@type": "Offer",
-      seller: { "@type": "Organization", name: "Zithelo Real Estate Limited", url: SITE_URL },
-      eligibleRegion: { "@type": "Place", name: "Worldwide" },
+      name: "Andoyi House — Off-Plan Studio Apartment Investment",
+      description: "Off-plan studio apartment investment with verified title, 25-year lease, and full management. Payments accepted in NGN, USD, and GBP.",
+      seller: {
+        "@type": "Organization",
+        "@id": `${SITE_URL}/#organization`,
+        name: "Zithelo Real Estate Limited",
+        url: SITE_URL,
+      },
+      eligibleRegion: [
+        { "@type": "Country", name: "Nigeria" },
+        { "@type": "Country", name: "United Kingdom" },
+        { "@type": "Country", name: "United States" },
+        { "@type": "Country", name: "Canada" },
+      ],
+      priceCurrency: ["NGN", "USD", "GBP"],
+      availability: "https://schema.org/InStock",
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+        { "@type": "ListItem", position: 2, name: "Projects", item: `${SITE_URL}/projects` },
+        { "@type": "ListItem", position: 3, name: "Andoyi House", item: `${SITE_URL}/projects/andoyi-house` },
+      ],
     },
   };
 
@@ -84,6 +142,13 @@ export default async function AndoyiHousePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
       />
+      {videoSchemas?.map((vs, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(vs) }}
+        />
+      ))}
       <AndoyiContent project={project} />
     </>
   );

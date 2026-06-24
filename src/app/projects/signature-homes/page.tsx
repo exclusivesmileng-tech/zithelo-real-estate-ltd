@@ -45,28 +45,64 @@ export default async function SignatureHomesPage() {
 
   const projectSchema = {
     "@context": "https://schema.org",
-    "@type": "ApartmentComplex",
-    name: "Signature Homes Lagos",
+    "@type": "SingleFamilyResidence",
+    "@id": `${SITE_URL}/projects/signature-homes#property`,
+    name: "Zithelo Signature Homes 1",
+    alternateName: ["Signature Homes Lagos", "Zithelo Signature Homes Ikeja"],
     description:
-      "Premium, fibre-ready residence development in Lagos by Zithelo. Verified title, structured returns, and full management support.",
+      "Zithelo Signature Homes 1 — premium semi-detached duplexes off Toyin Street, Ikeja, Lagos. Designed for diaspora returnees and quality-focused professionals. Fibre-ready infrastructure, verified title, structured returns, and full property management support.",
     url: `${SITE_URL}/projects/signature-homes`,
-    image: `${SITE_URL}/images/signature/zsh1.jpg.jpeg`,
+    image: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/images/signature/zsh1.jpg.jpeg`,
+      caption: "Zithelo Signature Homes 1 — Premium Duplexes, Ikeja, Lagos",
+    },
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Lagos",
+      streetAddress: "Off Toyin Street",
+      addressLocality: "Ikeja",
+      addressRegion: "Lagos State",
       addressCountry: "NG",
     },
-    numberOfRooms: project?.units ?? undefined,
-    yearBuilt: project?.year ?? undefined,
     amenityFeature: [
-      { "@type": "LocationFeatureSpecification", name: "Fibre-ready broadband" },
-      { "@type": "LocationFeatureSpecification", name: "Premium finishes" },
-      { "@type": "LocationFeatureSpecification", name: "Full property management" },
+      { "@type": "LocationFeatureSpecification", name: "Fibre-ready broadband infrastructure", value: true },
+      { "@type": "LocationFeatureSpecification", name: "Premium finishes and fittings", value: true },
+      { "@type": "LocationFeatureSpecification", name: "Full property management service", value: true },
+      { "@type": "LocationFeatureSpecification", name: "Verified title documentation", value: true },
+      { "@type": "LocationFeatureSpecification", name: "Structured investor returns", value: true },
+      { "@type": "LocationFeatureSpecification", name: "Diaspora-friendly investment process", value: true },
     ],
+    containedInPlace: {
+      "@type": "Place",
+      name: "Ikeja, Lagos",
+      description: "Ikeja is Lagos State capital and a major commercial and residential hub, with excellent infrastructure, transport links, and proximity to Murtala Muhammed International Airport.",
+    },
     offers: {
       "@type": "Offer",
-      seller: { "@type": "Organization", name: "Zithelo Real Estate Limited", url: SITE_URL },
-      eligibleRegion: { "@type": "Place", name: "Worldwide" },
+      name: "Signature Homes 1 — Premium Duplex Investment",
+      description: "Off-plan semi-detached duplex investment in Ikeja, Lagos. Verified title, structured returns, full management. Payments accepted in NGN, USD, and GBP.",
+      seller: {
+        "@type": "Organization",
+        "@id": `${SITE_URL}/#organization`,
+        name: "Zithelo Real Estate Limited",
+        url: SITE_URL,
+      },
+      eligibleRegion: [
+        { "@type": "Country", name: "Nigeria" },
+        { "@type": "Country", name: "United Kingdom" },
+        { "@type": "Country", name: "United States" },
+        { "@type": "Country", name: "Canada" },
+      ],
+      priceCurrency: ["NGN", "USD", "GBP"],
+      availability: "https://schema.org/InStock",
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+        { "@type": "ListItem", position: 2, name: "Projects", item: `${SITE_URL}/projects` },
+        { "@type": "ListItem", position: 3, name: "Signature Homes", item: `${SITE_URL}/projects/signature-homes` },
+      ],
     },
   };
 

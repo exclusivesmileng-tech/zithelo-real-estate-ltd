@@ -53,6 +53,30 @@ const differentiators = [
   "Diaspora-friendly investment process",
 ];
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.zithelo.com";
+
+const whyZitheloSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${SITE_URL}/why-zithelo`,
+  name: "Why Zithelo Real Estate | What Makes Us Different",
+  url: `${SITE_URL}/why-zithelo`,
+  description:
+    "Discover why diaspora investors and modern professionals choose Zithelo Real Estate — verified title, 25-year lease security, fibre-ready infrastructure, and full property management.",
+  mainEntity: { "@id": `${SITE_URL}/#organization` },
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Why Zithelo", item: `${SITE_URL}/why-zithelo` },
+    ],
+  },
+  speakable: {
+    "@type": "SpeakableSpecification",
+    cssSelector: ["h1", "h2", ".hero-subtitle"],
+  },
+};
+
 export const revalidate = 60;
 
 export default async function WhyZitheloPage() {
@@ -61,6 +85,10 @@ export default async function WhyZitheloPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(whyZitheloSchema) }}
+      />
       <PageHero
         title="Why Zithelo"
         titleAccent="Built Different."

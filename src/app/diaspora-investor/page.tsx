@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import DiasporaInvestorPageClient from "./DiasporaInvestorPageClient";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.zithelo.com";
+
 export const metadata: Metadata = {
   title: "Diaspora Investor | Invest in Nigeria Real Estate From Abroad",
   description:
@@ -22,6 +24,45 @@ export const metadata: Metadata = {
   },
 };
 
+const diasporaSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${SITE_URL}/diaspora-investor`,
+  name: "Diaspora Investor | Own Premium Nigerian Real Estate From Abroad",
+  url: `${SITE_URL}/diaspora-investor`,
+  description:
+    "Zithelo's diaspora investor programme enables Nigerians and Africans abroad to own premium Lagos real estate with verified title, 25-year lease security, and full property management.",
+  audience: {
+    "@type": "Audience",
+    audienceType: "Diaspora investors, Nigerians abroad, African investors in UK US Canada Europe",
+    geographicArea: [
+      { "@type": "Country", name: "United Kingdom" },
+      { "@type": "Country", name: "United States" },
+      { "@type": "Country", name: "Canada" },
+    ],
+  },
+  mainEntity: { "@id": `${SITE_URL}/#organization` },
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Diaspora Investor", item: `${SITE_URL}/diaspora-investor` },
+    ],
+  },
+  speakable: {
+    "@type": "SpeakableSpecification",
+    cssSelector: ["h1", "h2"],
+  },
+};
+
 export default function Page() {
-  return <DiasporaInvestorPageClient />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(diasporaSchema) }}
+      />
+      <DiasporaInvestorPageClient />
+    </>
+  );
 }
