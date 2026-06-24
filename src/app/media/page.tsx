@@ -3,6 +3,7 @@ import PageHero from "@/components/PageHero";
 import AnimatedSection from "@/components/AnimatedSection";
 import Link from "next/link";
 import { ArrowRight, Download } from "lucide-react";
+import CopyButton from "@/components/CopyButton";
 
 export const metadata: Metadata = {
   title: "Media & Press Kit | Zithelo Real Estate",
@@ -104,12 +105,7 @@ export default function MediaPage() {
               <h2 className="font-display text-xl font-bold text-foreground mb-4">Standard Boilerplate</h2>
               <div className="bg-card border border-border rounded-sm p-6">
                 <p className="font-body text-sm leading-relaxed text-muted-foreground">{BOILERPLATE}</p>
-                <button
-                  onClick={() => navigator.clipboard?.writeText(BOILERPLATE)}
-                  className="mt-4 text-[10px] tracking-[0.14em] uppercase text-primary font-body font-bold hover:underline"
-                >
-                  Copy to clipboard
-                </button>
+                <CopyButton text={BOILERPLATE} />
               </div>
             </div>
           </AnimatedSection>
