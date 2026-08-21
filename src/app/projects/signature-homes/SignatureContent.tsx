@@ -51,16 +51,18 @@ const IMAGE_ALT: Record<string, string> = {
   "/images/signature/kitchen-pantry.jpg":   "Kitchen pantry run with open shelving and prep counter",
 };
 
+// Poster frames are stills pulled from the clips themselves, so the thumbnail
+// always matches the first frame the viewer sees on play.
 const VIDEO_CLIPS = [
   {
-    src:      "/videos/signature-homes/zsh1.mp4",
-    thumbUrl: "/images/signature/zsh1.jpg.jpeg",
-    label:    "Exterior & Entrance",
+    src:      "/videos/signature-homes/exterior-interior.mp4",
+    thumbUrl: "/images/signature/video-exterior-interior.jpg",
+    label:    "Exterior & Interior",
   },
   {
-    src:      "/videos/signature-homes/zsh2.mp4",
-    thumbUrl: "/images/signature/zsh2.jpg.jpeg",
-    label:    "Build Progress",
+    src:      "/videos/signature-homes/drone-view.mp4",
+    thumbUrl: "/images/signature/video-drone-view.jpg",
+    label:    "Drone View",
   },
 ];
 
@@ -269,6 +271,7 @@ export default function SignatureContent({ project }: Props) {
                 ref={videoRef}
                 key={VIDEO_CLIPS[activeClip].src}
                 src={VIDEO_CLIPS[activeClip].src}
+                poster={VIDEO_CLIPS[activeClip].thumbUrl}
                 autoPlay muted loop playsInline preload="auto"
                 className="w-full h-full object-cover"
               />
