@@ -46,7 +46,7 @@ const FALLBACK_LISTINGS: Listing[] = [
   },
   {
     href: "/projects/signature-homes",
-    img: "/images/signature/zsh1.jpg.jpeg",
+    img: "/images/signature/exterior-front.jpg",
     status: "Under Construction",
     type: "Semi-Detached Duplexes",
     title: "Zithelo Signature Homes 1",

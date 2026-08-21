@@ -18,7 +18,7 @@ const ALL_PROJECTS = [
     slug: "signature-homes",
     name: "Signature Homes 1",
     location: "Ikeja, Lagos",
-    img: "/images/signature/zsh1.jpg.jpeg",
+    img: "/images/signature/exterior-front.jpg",
     href: "/projects/signature-homes",
     type: "4-Bed Semi-Detached",
   },

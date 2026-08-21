@@ -20,7 +20,7 @@ import MagneticButton from "@/components/MagneticButton";
 // ─── Fallback image map keyed by project slug ─────────────────────────────────
 const PROJECT_IMG: Record<string, string> = {
   "andoyi-house":    "/images/andoyi/2.png",
-  "signature-homes": "/images/signature/zsh1.jpg.jpeg",
+  "signature-homes": "/images/signature/exterior-front.jpg",
 };
 
 // ─── Fallback photo map keyed by team member slug ─────────────────────────────
@@ -57,7 +57,7 @@ const FALLBACK_PROJECTS = [
   },
   {
     slug: "signature-homes",
-    img: "/images/signature/zsh1.jpg.jpeg",
+    img: "/images/signature/exterior-front.jpg",
     badge: "Luxury Living",
     title: "Zithelo Signature Homes 1",
     subtitle: "Where Luxury Meets Legacy — 4 Bed Semi-Detached with BQ",

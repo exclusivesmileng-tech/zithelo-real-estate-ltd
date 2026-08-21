@@ -144,17 +144,19 @@ if (andoyiGallery.length) {
 console.log("\n🏠  Uploading Signature Homes images…");
 
 const sigHero = await uploadImage(
-  resolve(ROOT, "public/images/signature/zsh1.jpg.jpeg"),
+  resolve(ROOT, "public/images/signature/exterior-front.jpg"),
   "Signature Homes hero"
 );
 await patchImage("project-signature-homes", "heroImage", sigHero);
 
-// Gallery — all signature images
+// Gallery — current render set: exteriors first, then interiors.
+// (Supersedes zsh1–5 and the ZH3–ZH14 brochure slides, which had text baked in.)
 const sigFiles = [
-  "zsh1.jpg.jpeg", "zsh2.jpg.jpeg", "zsh3.jpg.jpeg", "zsh4.jpg.jpeg", "zsh5.jpg.jpeg",
-  "1.png", "2.jpeg",
-  "ZH3.jpg", "ZH4.jpg", "ZH5.jpg", "ZH6.jpg", "ZH7.jpg", "ZH8.jpg",
-  "ZH9.jpg", "ZH10.jpg", "ZH11.jpg", "ZH12.jpg", "ZH13.jpg", "ZH14.jpg",
+  "exterior-front.jpg", "exterior-parking.jpg",
+  "living-dining.jpg", "kitchen.jpg", "bedroom-master.jpg",
+  "family-lounge.jpg", "living-room.jpg", "bedroom-guest.jpg",
+  "walk-in-closet.jpg", "bathroom-master.jpg", "bathroom-guest.jpg",
+  "kitchen-pantry.jpg",
 ];
 const sigGallery = [];
 for (const file of sigFiles) {

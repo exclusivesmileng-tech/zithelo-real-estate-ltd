@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: "Signature Homes Lagos | Zithelo Real Estate",
     description:
       "Premium, fibre-ready residences in Lagos. Verified title. Structured returns. Managed for you.",
-    images: [{ url: "/images/signature/zsh1.jpg.jpeg", width: 1200, height: 630, alt: "Signature Homes Lagos" }],
+    images: [{ url: "/images/signature/exterior-front.jpg", width: 1200, height: 630, alt: "Signature Homes Lagos" }],
   },
 };
 
@@ -54,7 +54,7 @@ export default async function SignatureHomesPage() {
     url: `${SITE_URL}/projects/signature-homes`,
     image: {
       "@type": "ImageObject",
-      url: `${SITE_URL}/images/signature/zsh1.jpg.jpeg`,
+      url: `${SITE_URL}/images/signature/exterior-front.jpg`,
       caption: "Zithelo Signature Homes 1 — Premium Duplexes, Ikeja, Lagos",
     },
     address: {

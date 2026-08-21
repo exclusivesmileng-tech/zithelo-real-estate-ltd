@@ -12,15 +12,44 @@ import ImageLightbox from "@/components/ImageLightbox";
 import StickyCTABar from "@/components/StickyCTABar";
 import AvailabilityCounter from "@/components/AvailabilityCounter";
 
-// ─── Gallery images — new primary jpegs ─────────────────────────────────────
+// ─── Hero backdrop — exterior renders ───────────────────────────────────────
+
+const HERO_IMAGES = [
+  "/images/signature/exterior-front.jpg",
+  "/images/signature/exterior-parking.jpg",
+];
+
+// ─── Gallery images — exteriors first, then interiors ───────────────────────
 
 const ALL_IMAGES = [
-  "/images/signature/zsh1.jpg.jpeg",
-  "/images/signature/zsh2.jpg.jpeg",
-  "/images/signature/zsh3.jpg.jpeg",
-  "/images/signature/zsh4.jpg.jpeg",
-  "/images/signature/zsh5.jpg.jpeg",
+  ...HERO_IMAGES,
+  "/images/signature/living-dining.jpg",
+  "/images/signature/kitchen.jpg",
+  "/images/signature/bedroom-master.jpg",
+  "/images/signature/family-lounge.jpg",
+  "/images/signature/living-room.jpg",
+  "/images/signature/bedroom-guest.jpg",
+  "/images/signature/walk-in-closet.jpg",
+  "/images/signature/bathroom-master.jpg",
+  "/images/signature/bathroom-guest.jpg",
+  "/images/signature/kitchen-pantry.jpg",
 ];
+
+// Descriptive alt text per render — falls back to a generic label for Sanity galleries
+const IMAGE_ALT: Record<string, string> = {
+  "/images/signature/exterior-front.jpg":   "Front elevation of the Zithelo Signature Homes 4-bedroom semi-detached duplexes, Ikeja Lagos",
+  "/images/signature/exterior-parking.jpg": "Covered parking bays beneath the Zithelo Signature Homes duplexes",
+  "/images/signature/living-dining.jpg":    "Open-plan living and dining area with recessed cove lighting",
+  "/images/signature/kitchen.jpg":          "Fully fitted modern kitchen with wood cabinetry and stone backsplash",
+  "/images/signature/bedroom-master.jpg":   "Master bedroom with slatted feature wall and fitted dressing area",
+  "/images/signature/family-lounge.jpg":    "Family lounge with built-in media wall and joinery shelving",
+  "/images/signature/living-room.jpg":      "Living room seating area opening onto the dining space",
+  "/images/signature/bedroom-guest.jpg":    "Guest bedroom with floor-to-ceiling curtains and garden outlook",
+  "/images/signature/walk-in-closet.jpg":   "Mirrored walk-in closet with integrated lighting",
+  "/images/signature/bathroom-master.jpg":  "Master bathroom with twin vanity and walk-in rain shower",
+  "/images/signature/bathroom-guest.jpg":   "Guest bathroom with fluted vanity and large-format tiling",
+  "/images/signature/kitchen-pantry.jpg":   "Kitchen pantry run with open shelving and prep counter",
+};
 
 const VIDEO_CLIPS = [
   {
@@ -84,7 +113,10 @@ interface Props { project: SignatureProjectData | null; }
 // ─── Component ───────────────────────────────────────────────────────────────
 
 export default function SignatureContent({ project }: Props) {
+  // Gallery is CMS-driven (Sanity holds the current render set); ALL_IMAGES is the fallback
   const gallery = project?.galleryUrls?.length ? project.galleryUrls : ALL_IMAGES;
+  // Hero stays pinned to the exterior renders regardless of gallery order
+  const heroImages = HERO_IMAGES;
   const stats = project?.stats?.length ? project.stats : DEFAULT_STATS;
   const highlights = project?.highlights?.length ? project.highlights : DEFAULT_HIGHLIGHTS;
 
@@ -107,11 +139,11 @@ export default function SignatureContent({ project }: Props) {
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
-  // Auto-cycle hero background through first 5 images
+  // Auto-cycle hero background through the exterior renders
   useEffect(() => {
-    const t = setInterval(() => setHeroCycle((c) => (c + 1) % Math.min(5, gallery.length)), 5000);
+    const t = setInterval(() => setHeroCycle((c) => (c + 1) % heroImages.length), 5000);
     return () => clearInterval(t);
-  }, [gallery.length]);
+  }, [heroImages.length]);
 
 
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -125,13 +157,20 @@ export default function SignatureContent({ project }: Props) {
     if (videoRef.current) { videoRef.current.load(); videoRef.current.play().catch(() => {}); }
   }
 
-  // Layout: varied sizing for visual hierarchy across 5 images
+  // Layout: varied sizing for visual hierarchy across the gallery
   const gridLayout = [
-    "col-span-2 row-span-2",  // 0 — large hero
+    "col-span-2 row-span-2",  // 0 — exterior feature tile
     "col-span-1 row-span-1",  // 1
     "col-span-1 row-span-1",  // 2
     "col-span-1 row-span-1",  // 3
     "col-span-1 row-span-1",  // 4
+    "col-span-2 row-span-2",  // 5 — second feature tile
+    "col-span-1 row-span-1",  // 6
+    "col-span-1 row-span-1",  // 7
+    "col-span-1 row-span-1",  // 8
+    "col-span-1 row-span-1",  // 9
+    "col-span-1 row-span-1",  // 10
+    "col-span-1 row-span-1",  // 11
   ];
 
   return (
@@ -143,7 +182,7 @@ export default function SignatureContent({ project }: Props) {
         <AnimatePresence mode="sync">
           <motion.img
             key={heroCycle}
-            src={gallery[heroCycle]}
+            src={heroImages[heroCycle]}
             alt={title}
             initial={{ opacity: 0, scale: 1.04 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -208,7 +247,7 @@ export default function SignatureContent({ project }: Props) {
 
         {/* Image counter */}
         <div className="absolute bottom-6 right-8 z-20 flex items-center gap-2">
-          {Array.from({ length: Math.min(5, gallery.length) }).map((_, i) => (
+          {heroImages.map((_, i) => (
             <button
               key={i}
               onClick={() => setHeroCycle(i)}
@@ -499,7 +538,7 @@ export default function SignatureContent({ project }: Props) {
               >
                 <img
                   src={src}
-                  alt={`${title} ${i + 1}`}
+                  alt={IMAGE_ALT[src] ?? `${title} ${i + 1}`}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 {/* Dark overlay */}
