@@ -15,8 +15,11 @@ import {
   Maximize2,
   Minimize2,
   PhoneCall,
+  Volume2,
+  VolumeX,
 } from "lucide-react";
 import BookCallbackModal from "@/components/BookCallbackModal";
+import { playSent, playReceived, soundEnabled, setSoundEnabled } from "@/lib/assistant/chat-feedback";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -132,56 +135,55 @@ const STARTERS = [
   "What returns can I expect?",
 ];
 
+interface ExtractedLink {
+  label: string;
+  href: string;
+  internal: boolean;
+}
+
+/**
+ * Pulls every `[label](url)` out of the assistant's reply and returns the
+ * text with that markdown syntax stripped (just the plain label remains
+ * in-sentence) alongside the deduplicated list of links. Links render as
+ * standalone CTA buttons below the message instead of inline hyperlinks —
+ * easier to tap, and unambiguous about where they lead, rather than a small
+ * underlined word sitting inside a paragraph.
+ */
+function extractLinks(text: string): { text: string; links: ExtractedLink[] } {
+  const links: ExtractedLink[] = [];
+  const seen = new Set<string>();
+
+  const cleaned = text.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_match, label: string, href: string) => {
+    const internal = href.startsWith("/");
+    const safe = internal || /^https?:\/\//i.test(href);
+    if (safe && !seen.has(href)) {
+      seen.add(href);
+      links.push({ label, href, internal });
+    }
+    return label;
+  });
+
+  return { text: cleaned, links };
+}
+
 /* ── Minimal inline renderer ──────────────────────────────────────────────
-   The assistant replies in light markdown — **bold** and [text](/path) links.
-   Rendering those as React elements keeps it safe: no HTML is ever injected.  */
+   The assistant replies in light markdown — only **bold** by the time this
+   runs; links are extracted separately (see extractLinks) before this stage.
+   Rendering as React elements keeps it safe: no HTML is ever injected.      */
 function renderInline(text: string, keyPrefix: string) {
   const nodes: React.ReactNode[] = [];
-  const pattern = /\[([^\]]+)\]\(([^)\s]+)\)|\*\*([^*]+)\*\*/g;
+  const pattern = /\*\*([^*]+)\*\*/g;
   let last = 0;
   let match: RegExpExecArray | null;
   let i = 0;
 
   while ((match = pattern.exec(text)) !== null) {
     if (match.index > last) nodes.push(text.slice(last, match.index));
-
-    const [, linkText, href, boldText] = match;
-    if (linkText && href) {
-      const internal = href.startsWith("/");
-      const safe = internal || /^https?:\/\//i.test(href);
-      if (!safe) {
-        nodes.push(linkText);
-      } else if (internal) {
-        nodes.push(
-          <Link
-            key={`${keyPrefix}-l${i}`}
-            href={href}
-            className="font-semibold text-foreground underline decoration-primary decoration-2 underline-offset-2 hover:text-primary transition-colors duration-150"
-          >
-            {linkText}
-          </Link>
-        );
-      } else {
-        nodes.push(
-          <a
-            key={`${keyPrefix}-l${i}`}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-semibold text-foreground underline decoration-primary decoration-2 underline-offset-2 hover:text-primary transition-colors duration-150"
-          >
-            {linkText}
-          </a>
-        );
-      }
-    } else if (boldText) {
-      nodes.push(
-        <strong key={`${keyPrefix}-b${i}`} className="font-semibold text-foreground">
-          {boldText}
-        </strong>
-      );
-    }
-
+    nodes.push(
+      <strong key={`${keyPrefix}-b${i}`} className="font-semibold text-foreground">
+        {match[1]}
+      </strong>
+    );
     last = pattern.lastIndex;
     i++;
   }
@@ -190,8 +192,27 @@ function renderInline(text: string, keyPrefix: string) {
   return nodes;
 }
 
+function LinkButton({ link }: { link: ExtractedLink }) {
+  const className =
+    "inline-flex items-center gap-1.5 gold-gradient text-primary-foreground font-body text-xs font-bold px-3.5 py-2 rounded-sm hover:opacity-90 transition-opacity";
+
+  return link.internal ? (
+    <Link href={link.href} className={className}>
+      {link.label}
+      <ArrowRight size={12} />
+    </Link>
+  ) : (
+    <a href={link.href} target="_blank" rel="noopener noreferrer" className={className}>
+      {link.label}
+      <ArrowRight size={12} />
+    </a>
+  );
+}
+
 function MessageBody({ text, id }: { text: string; id: string }) {
-  const blocks = text.split(/\n{2,}/);
+  const { text: cleaned, links } = extractLinks(text);
+  const blocks = cleaned.split(/\n{2,}/);
+
   return (
     <>
       {blocks.map((block, bi) => (
@@ -204,6 +225,14 @@ function MessageBody({ text, id }: { text: string; id: string }) {
           ))}
         </p>
       ))}
+
+      {links.length > 0 && (
+        <div className="flex flex-wrap gap-2 mt-3">
+          {links.map((link) => (
+            <LinkButton key={link.href} link={link} />
+          ))}
+        </div>
+      )}
     </>
   );
 }
@@ -286,7 +315,7 @@ function LeadCaptureForm({ context, page, transcript, onDone, onDismiss }: LeadC
           onChange={(e) => setName(e.target.value)}
           placeholder="Name"
           maxLength={200}
-          className="col-span-2 bg-background border border-border rounded-sm px-2.5 py-2 font-body text-xs text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-primary/50 transition-colors"
+          className="col-span-2 bg-background border border-border rounded-sm px-2.5 py-2 font-body text-base text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-primary/50 transition-colors"
         />
         <label className="sr-only" htmlFor="lead-email">
           Email
@@ -298,7 +327,7 @@ function LeadCaptureForm({ context, page, transcript, onDone, onDismiss }: LeadC
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
           maxLength={200}
-          className="bg-background border border-border rounded-sm px-2.5 py-2 font-body text-xs text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-primary/50 transition-colors"
+          className="bg-background border border-border rounded-sm px-2.5 py-2 font-body text-base text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-primary/50 transition-colors"
         />
         <label className="sr-only" htmlFor="lead-phone">
           Phone or WhatsApp
@@ -310,7 +339,7 @@ function LeadCaptureForm({ context, page, transcript, onDone, onDismiss }: LeadC
           onChange={(e) => setPhone(e.target.value)}
           placeholder="Phone / WhatsApp"
           maxLength={60}
-          className="bg-background border border-border rounded-sm px-2.5 py-2 font-body text-xs text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-primary/50 transition-colors"
+          className="bg-background border border-border rounded-sm px-2.5 py-2 font-body text-base text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-primary/50 transition-colors"
         />
         <label className="col-span-2 sr-only" htmlFor="lead-country">
           Country
@@ -321,7 +350,7 @@ function LeadCaptureForm({ context, page, transcript, onDone, onDismiss }: LeadC
           onChange={(e) => setCountry(e.target.value)}
           placeholder="Country (optional)"
           maxLength={100}
-          className="col-span-2 bg-background border border-border rounded-sm px-2.5 py-2 font-body text-xs text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-primary/50 transition-colors"
+          className="col-span-2 bg-background border border-border rounded-sm px-2.5 py-2 font-body text-base text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-primary/50 transition-colors"
         />
       </div>
 
@@ -442,6 +471,9 @@ export default function AIAssistant() {
   // The old floating contact menu's "Book a Call" had no other trigger
   // site-wide, so it moved here rather than being dropped in the FAB merge.
   const [showCallback, setShowCallback] = useState(false);
+  // Mirrors chat-feedback.ts's localStorage preference; starts true so the
+  // toggle icon doesn't flash muted before the client-only read resolves.
+  const [soundOn, setSoundOn] = useState(true);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [streaming, setStreaming] = useState(false);
@@ -476,6 +508,7 @@ export default function AIAssistant() {
       const saved = sessionStorage.getItem(STORAGE_KEY);
       if (saved) setMessages(JSON.parse(saved));
       setWantsAttention(sessionStorage.getItem(SEEN_KEY) !== "1");
+      setSoundOn(soundEnabled());
     } catch {
       /* private mode or blocked storage — start fresh, skip the animation */
     }
@@ -509,6 +542,39 @@ export default function AIAssistant() {
 
   useEffect(() => {
     if (open) inputRef.current?.focus();
+  }, [open]);
+
+  // Lock body scroll behind the chat on mobile, where the panel is a
+  // full-screen takeover. Plain `overflow:hidden` on the body is well known
+  // to still let iOS Safari chain touch-scroll through to the page beneath a
+  // fixed-position overlay — pinning the body's own position is the pattern
+  // that actually holds there. Restores the exact scroll position on close.
+  useEffect(() => {
+    // Desktop: the panel is a small floating widget, not a takeover — the
+    // page behind it must stay scrollable. Only lock below Tailwind's `sm`
+    // breakpoint (640px), where the panel goes full-screen.
+    if (!open || window.innerWidth >= 640) return;
+    const scrollY = window.scrollY;
+    const { body } = document;
+    const prev = {
+      position: body.style.position,
+      top: body.style.top,
+      width: body.style.width,
+      overflow: body.style.overflow,
+    };
+
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
+
+    return () => {
+      body.style.position = prev.position;
+      body.style.top = prev.top;
+      body.style.width = prev.width;
+      body.style.overflow = prev.overflow;
+      window.scrollTo(0, scrollY);
+    };
   }, [open]);
 
   // Proactively greet a first-time visitor a few seconds in — after the cookie
@@ -603,6 +669,8 @@ export default function AIAssistant() {
       if (messages.length === 0) track("assistant_conversation_start", { page: pathname });
       track("assistant_message_sent", { page: pathname });
 
+      playSent();
+
       const history = [...messages, { role: "user" as const, content: trimmed }];
       // Where the new assistant reply will land — any card this turn produces
       // gets anchored here so it stays with the message that introduced it.
@@ -634,6 +702,7 @@ export default function AIAssistant() {
         const decoder = new TextDecoder();
         let buffer = "";
         let answer = "";
+        let playedReceiveTone = false;
 
         while (true) {
           const { done, value } = await reader.read();
@@ -662,6 +731,10 @@ export default function AIAssistant() {
             }
 
             if (event.type === "text" && event.text) {
+              if (!playedReceiveTone) {
+                playedReceiveTone = true;
+                playReceived();
+              }
               answer += event.text;
               setMessages((prev) => {
                 const next = [...prev];
@@ -855,14 +928,19 @@ export default function AIAssistant() {
             role="dialog"
             aria-label="Zithelo AI assistant"
             className={
-              maximized
-                ? // Sized via inset (top/right/bottom/left), not a transform —
-                  // that keeps it conflict-free with this element's own
-                  // framer-motion animate/exit transforms, which write directly
-                  // to the transform style and would silently clobber a
-                  // translate-based centering approach on the same node.
-                  "fixed z-50 bg-card border border-border shadow-2xl rounded-sm flex flex-col overflow-hidden inset-x-1 top-4 bottom-[calc(1rem+env(safe-area-inset-bottom))] sm:inset-8 sm:max-w-3xl sm:max-h-[880px] sm:mx-auto sm:my-auto"
-                : "fixed z-50 bg-card border border-border shadow-2xl rounded-sm flex flex-col overflow-hidden inset-x-3 bottom-[calc(4.5rem+env(safe-area-inset-bottom))] top-20 sm:inset-x-auto sm:top-auto sm:right-6 sm:bottom-[calc(2rem+env(safe-area-inset-bottom))] sm:w-[400px] sm:h-[min(620px,calc(100vh-8rem))]"
+              // Below `sm`, this is always a full-screen takeover — edge to
+              // edge, no border or rounding, covering the site's own bottom
+              // nav — the native-app convention, not a floating widget. The
+              // desktop shape is what actually varies with `maximized`.
+              // Sized via inset (top/right/bottom/left), not a transform —
+              // that keeps it conflict-free with this element's own
+              // framer-motion animate/exit transforms, which write directly
+              // to the transform style and would silently clobber a
+              // translate-based centering approach on the same node.
+              "fixed z-50 bg-card shadow-2xl flex flex-col overflow-hidden inset-0 rounded-none border-0 " +
+              (maximized
+                ? "sm:inset-8 sm:max-w-3xl sm:max-h-[880px] sm:mx-auto sm:my-auto sm:rounded-sm sm:border sm:border-border"
+                : "sm:inset-x-auto sm:top-auto sm:right-6 sm:bottom-[calc(2rem+env(safe-area-inset-bottom))] sm:w-[400px] sm:h-[min(620px,calc(100vh-8rem))] sm:rounded-sm sm:border sm:border-border")
             }
           >
             {/* Header */}
@@ -882,6 +960,17 @@ export default function AIAssistant() {
                 </div>
               </div>
               <div className="flex items-center gap-1">
+                <button
+                  onClick={() => {
+                    const next = !soundOn;
+                    setSoundOn(next);
+                    setSoundEnabled(next);
+                  }}
+                  aria-label={soundOn ? "Mute chat sounds" : "Unmute chat sounds"}
+                  className="w-8 h-8 rounded-sm flex items-center justify-center text-primary-foreground/80 hover:text-primary-foreground hover:bg-black/10 transition-colors"
+                >
+                  {soundOn ? <Volume2 size={15} /> : <VolumeX size={15} />}
+                </button>
                 {messages.length > 0 && (
                   <button
                     onClick={reset}
@@ -911,24 +1000,24 @@ export default function AIAssistant() {
             {/* Transcript */}
             <div
               ref={scrollRef}
-              className="flex-1 overflow-y-auto px-4 py-4 space-y-4"
+              className="flex-1 overflow-y-auto overscroll-contain px-4 py-4 space-y-4"
               aria-live="polite"
               aria-atomic="false"
             >
-              <div className="font-body text-sm leading-relaxed text-muted-foreground bg-muted/40 rounded-sm px-3.5 py-3">
+              <div className="font-body text-base leading-relaxed text-muted-foreground bg-muted/40 rounded-sm px-3.5 py-3">
                 <MessageBody text={GREETING} id="greeting" />
               </div>
 
               {messages.map((m, i) =>
                 m.role === "user" ? (
                   <div key={i} className="flex justify-end">
-                    <div className="max-w-[85%] bg-[hsl(var(--charcoal))] text-white font-body text-sm leading-relaxed rounded-sm px-3.5 py-2.5">
+                    <div className="max-w-[85%] bg-[hsl(var(--charcoal))] text-white font-body text-base leading-relaxed rounded-sm px-3.5 py-2.5">
                       {m.content}
                     </div>
                   </div>
                 ) : (
                   <div key={i}>
-                    <div className="font-body text-sm leading-relaxed text-foreground/90">
+                    <div className="font-body text-base leading-relaxed text-foreground/90">
                       {m.content ? (
                         <MessageBody text={m.content} id={`m${i}`} />
                       ) : (
@@ -1030,7 +1119,7 @@ export default function AIAssistant() {
             </div>
 
             {/* Composer */}
-            <div className="border-t border-border px-3 py-3 shrink-0">
+            <div className="border-t border-border px-3 pt-3 shrink-0 pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -1059,7 +1148,7 @@ export default function AIAssistant() {
                       : "Ask about pricing, yields, buying from abroad…"
                   }
                   maxLength={2000}
-                  className="flex-1 resize-none max-h-28 bg-background border border-border rounded-sm px-3 py-2.5 font-body text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-primary/50 transition-colors"
+                  className="flex-1 resize-none max-h-28 bg-background border border-border rounded-sm px-3 py-2.5 font-body text-base text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-primary/50 transition-colors"
                 />
                 {voiceSupported && (
                   <button
