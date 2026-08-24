@@ -125,9 +125,13 @@ export async function POST(req: NextRequest) {
             tools: ASSISTANT_TOOLS,
             messages: working,
             stream: true,
-            // This is a chat widget, not a research task — trade reasoning
-            // depth for latency so replies start streaming quickly.
-            reasoning_effort: "minimal",
+            // This is a chat widget, not a research task, so we still trade
+            // reasoning depth for latency — but "minimal" proved too low: a
+            // turn that has to answer, link two or three pages correctly,
+            // ask a follow-up, AND call suggest_replies for it all at once
+            // was dropping the link syntax and the tool call under real
+            // traffic. "low" is the cheapest step up from that.
+            reasoning_effort: "low",
             verbosity: "low",
           });
 

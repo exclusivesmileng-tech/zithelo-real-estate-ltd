@@ -58,14 +58,20 @@ Without it, the assistant's API route returns 503 and the widget shows a
 friendly unavailable message — the rest of the site is unaffected.
 
 Lead capture reuses the existing `AIRTABLE_API_KEY`, `AIRTABLE_BASE_ID`, `SMTP_*`
-and `TEAM_EMAIL` variables — no new credentials. It writes to a table named
-**AI Assistant Leads** (`TABLE_NAMES.assistant` in
-[`src/lib/airtable.ts`](src/lib/airtable.ts)) with these fields: `Name`, `Email`,
-`Phone`, `Country`, `Enquiry Type`, `Project`, `Budget`, `Timeline`, `Summary`,
-`Page`, `Source`, `Transcript`, `Submitted At`. Either add that table to the base
-or point `TABLE_NAMES.assistant` at an existing one — Airtable rejects an unknown
-table name, and unknown *field* names are rejected too unless the base has
-typecast/auto-field-creation enabled.
+and `TEAM_EMAIL` variables — no new credentials. It writes to **Contact
+Enquiries** (`TABLE_NAMES.assistant` in [`src/lib/airtable.ts`](src/lib/airtable.ts)) —
+the same table `/api/contact` already writes to — with these fields: `Name`,
+`Email`, `Phone`, `Country`, `Enquiry Type`, `Project`, `Budget`, `Timeline`,
+`Summary`, `Page`, `Source`, `Transcript`, `Submitted At`. Airtable rejects any
+field name that isn't already a column in the table — it will not create one
+on the fly — so **add the columns this table doesn't already have** (`Phone`,
+`Country`, `Project`, `Budget`, `Timeline`, `Summary`, `Page`, `Source`,
+`Transcript`) before chat leads will save successfully. Until then, submissions
+fail with "Please add your name and either an email or phone number" or the
+generic save-failed message, and the visitor is pointed to
+invest@zithelorealestate.com / +234 9110 222 323 instead. Point
+`TABLE_NAMES.assistant` at a different table if you'd rather keep chat leads
+separate.
 
 A lead counts as captured if either Airtable or the team email got through; a
 failure in either channel is logged with the Airtable status and message.

@@ -7,17 +7,15 @@ import { useTheme } from "./ThemeProvider";
 import NewsletterSignup from "./NewsletterSignup";
 import PushNotificationButton from "./PushNotificationButton";
 
-const companyLinks = [
-  { label: "About Us",       path: "/about" },
-  { label: "Leadership",     path: "/leadership" },
-  { label: "Why Zithelo",    path: "/why-zithelo" },
-  { label: "Africa Vision",  path: "/africa-vision" },
-  { label: "Sustainability", path: "/sustainability" },
-  { label: "Partnership",    path: "/partnership" },
-  { label: "Projects",       path: "/projects" },
-  { label: "Services",       path: "/services" },
-  { label: "Insights",       path: "/insights" },
-  { label: "Contact",        path: "/contact" },
+// Mobile gets one short, essential list instead of the desktop footer's full
+// site map split across two — visitors on mobile are scanning, not browsing,
+// and the primary nav already covers everything else.
+const mobileEssentialLinks = [
+  { label: "About Us",         path: "/about" },
+  { label: "Projects",         path: "/projects" },
+  { label: "Diaspora Investor", path: "/diaspora-investor" },
+  { label: "Insights",         path: "/insights" },
+  { label: "Contact",          path: "/contact" },
 ];
 
 const Footer = () => {
@@ -44,47 +42,27 @@ const Footer = () => {
         <div className="absolute inset-0 opacity-[0.07] pointer-events-none"
           style={{ backgroundImage: "radial-gradient(hsl(17 13% 12%) 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
 
-        {/* ── Mobile CTA card layout ── */}
-        <div className="relative z-10 block md:hidden px-5 py-10">
-          <p className="text-[10px] tracking-[0.25em] uppercase text-primary-foreground/60 font-body font-semibold mb-3">
-            The Opportunity is Now
-          </p>
-          <h2 className="font-display text-[1.75rem] font-bold text-primary-foreground leading-[1.1] mb-3">
+        {/* ── Mobile CTA card layout — condensed for a quick glance ── */}
+        <div className="relative z-10 block md:hidden px-5 py-7">
+          <h2 className="font-display text-xl font-bold text-primary-foreground leading-[1.15] mb-2">
             Ready to Invest in Africa&apos;s Urban Future?
           </h2>
-          <p className="text-primary-foreground/70 font-body text-sm leading-relaxed mb-6">
-            Partner with Zithelo for premium real estate opportunities across Nigeria and beyond.
+          <p className="text-primary-foreground/70 font-body text-sm leading-relaxed mb-5">
+            Partner with Zithelo for premium real estate opportunities.
           </p>
 
-          {/* Trust pills — horizontal scroll */}
-          <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1 mb-7">
-            {["Verified Title", "25-Year Lease", "Fibre-Ready", "Diaspora-Trusted"].map((tag) => (
-              <span key={tag} className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary-foreground/15 border border-primary-foreground/20 rounded-full text-[10px] tracking-[0.1em] uppercase font-body font-semibold text-primary-foreground/80 whitespace-nowrap shrink-0">
-                <span className="w-1 h-1 rounded-full bg-primary-foreground/60" />
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          {/* Full-width stacked CTA buttons */}
-          <div className="flex flex-col gap-3">
+          <div className="flex gap-2.5">
             <Link
               href="/become-a-partner"
-              className="group flex items-center justify-between gap-4 bg-[hsl(var(--charcoal))] text-white px-6 py-4 font-display font-bold text-sm tracking-[0.1em] uppercase rounded-2xl shadow-xl shadow-black/20 active:scale-[0.98] transition-transform duration-150"
+              className="flex-1 flex items-center justify-center bg-[hsl(var(--charcoal))] text-white px-4 py-3.5 font-display font-bold text-[11px] tracking-[0.06em] uppercase rounded-xl shadow-lg shadow-black/20 active:scale-[0.98] transition-transform duration-150"
             >
               Become a Partner
-              <span className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center shrink-0">
-                <ArrowRight size={14} />
-              </span>
             </Link>
             <Link
               href="/become-an-investor"
-              className="group flex items-center justify-between gap-4 bg-primary-foreground/10 border border-primary-foreground/30 text-primary-foreground px-6 py-4 font-display font-bold text-sm tracking-[0.1em] uppercase rounded-2xl active:scale-[0.98] transition-transform duration-150"
+              className="flex-1 flex items-center justify-center bg-primary-foreground/10 border border-primary-foreground/30 text-primary-foreground px-4 py-3.5 font-display font-bold text-[11px] tracking-[0.06em] uppercase rounded-xl active:scale-[0.98] transition-transform duration-150"
             >
               Become an Investor
-              <span className="w-8 h-8 rounded-full border border-primary-foreground/30 flex items-center justify-center shrink-0">
-                <ArrowRight size={14} />
-              </span>
             </Link>
           </div>
         </div>
@@ -154,17 +132,17 @@ const Footer = () => {
         <div className="absolute bottom-0 left-0 w-[700px] h-[500px] pointer-events-none hidden md:block"
           style={{ background: "radial-gradient(ellipse at bottom left, rgba(212,170,83,0.22) 0%, transparent 65%)" }} />
 
-        {/* ── Mobile footer: app-style grouped sections ── */}
-        <div className="relative z-10 block md:hidden px-5 pt-8 pb-24">
+        {/* ── Mobile footer: condensed to what visitors actually need ── */}
+        <div className="relative z-10 block md:hidden px-5 pt-7 pb-24">
 
           {/* Brand block */}
-          <div className="flex items-center gap-3 mb-5">
+          <div className="flex items-center gap-3 mb-4">
             <img src={logo} alt="Zithelo Real Estate" className="h-9 w-auto" />
           </div>
           <p className="text-sm text-muted-foreground font-body leading-relaxed mb-4 max-w-xs">
-            A global real estate platform. Developing premium assets in Nigeria and investing cross-border from Atlanta, Georgia.
+            Premium real estate across Nigeria, developed from Lagos and Atlanta.
           </p>
-          <div className="flex flex-col gap-2 mb-8">
+          <div className="flex flex-col gap-2 mb-7">
             <a href="mailto:info@zithelorealestate.com" className="inline-flex items-center gap-2 text-sm text-muted-foreground font-body">
               <Mail size={13} className="text-primary shrink-0" /> info@zithelorealestate.com
             </a>
@@ -173,24 +151,19 @@ const Footer = () => {
               +234 9110 222 323
             </a>
             <div className="inline-flex items-center gap-2 text-sm text-muted-foreground font-body">
-              <MapPin size={13} className="text-primary shrink-0" /> Victoria Island, Lagos, Nigeria
-            </div>
-            <div className="inline-flex items-center gap-2 text-sm text-muted-foreground font-body">
-              <MapPin size={13} className="text-primary shrink-0" /> Atlanta, Georgia, USA
+              <MapPin size={13} className="text-primary shrink-0" /> Lagos, Nigeria &amp; Atlanta, USA
             </div>
           </div>
 
-          {/* iOS-style grouped navigation list */}
-          <p className="text-[10px] tracking-[0.2em] uppercase text-primary font-body font-semibold mb-3 px-1">
-            Navigation
-          </p>
-          <div className="bg-muted/60 rounded-2xl overflow-hidden mb-8">
-            {companyLinks.map((link, i) => (
+          {/* One compact essential-links list — mobile visitors are scanning,
+              not browsing; the primary nav already has everything else. */}
+          <div className="bg-muted/60 rounded-2xl overflow-hidden mb-7">
+            {mobileEssentialLinks.map((link, i) => (
               <Link
                 key={link.path}
                 href={link.path}
                 className={`flex items-center justify-between px-4 py-3.5 active:bg-muted transition-colors duration-150 ${
-                  i < companyLinks.length - 1 ? "border-b border-border/50" : ""
+                  i < mobileEssentialLinks.length - 1 ? "border-b border-border/50" : ""
                 }`}
               >
                 <span className="text-sm font-body font-medium text-foreground">{link.label}</span>
@@ -199,35 +172,8 @@ const Footer = () => {
             ))}
           </div>
 
-          {/* Contact action row */}
-          <p className="text-[10px] tracking-[0.2em] uppercase text-primary font-body font-semibold mb-3 px-1">
-            Get in Touch
-          </p>
-          <div className="bg-muted/60 rounded-2xl overflow-hidden mb-8">
-            <Link href="/contact" className="flex items-center justify-between px-4 py-3.5 border-b border-border/50 active:bg-muted transition-colors">
-              <span className="text-sm font-body font-medium text-foreground">Schedule a Discussion</span>
-              <ChevronRight size={15} className="text-muted-foreground shrink-0" />
-            </Link>
-            <Link href="/partnership" className="flex items-center justify-between px-4 py-3.5 border-b border-border/50 active:bg-muted transition-colors">
-              <span className="text-sm font-body font-medium text-foreground">Partner with Zithelo</span>
-              <ChevronRight size={15} className="text-muted-foreground shrink-0" />
-            </Link>
-            <Link href="/diaspora-investor" className="flex items-center justify-between px-4 py-3.5 border-b border-border/50 active:bg-muted transition-colors">
-              <span className="text-sm font-body font-medium text-foreground">Diaspora Investor Programme</span>
-              <ChevronRight size={15} className="text-muted-foreground shrink-0" />
-            </Link>
-            <Link href="/refer" className="flex items-center justify-between px-4 py-3.5 border-b border-border/50 active:bg-muted transition-colors">
-              <span className="text-sm font-body font-medium text-foreground">Refer &amp; Earn</span>
-              <ChevronRight size={15} className="text-muted-foreground shrink-0" />
-            </Link>
-            <a href="mailto:info@zithelorealestate.com" className="flex items-center justify-between px-4 py-3.5 active:bg-muted transition-colors">
-              <span className="text-sm font-body font-medium text-foreground">Email Us Directly</span>
-              <ChevronRight size={15} className="text-muted-foreground shrink-0" />
-            </a>
-          </div>
-
           {/* Newsletter */}
-          <div className="mb-8">
+          <div className="mb-7">
             <NewsletterSignup variant="inline" />
           </div>
 

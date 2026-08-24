@@ -20,7 +20,12 @@ export const TABLE_NAMES = {
   leadMagnet: "Lead Magnet Signups",
   investorEnquiry: "Investor Enquiries",
   partnerEnquiry: "Partner Enquiries",
-  assistant: "AI Assistant Leads",
+  // Reuses the existing Contact Enquiries table (same one /api/contact writes
+  // to) rather than a dedicated table — but that table needs a few extra
+  // columns added for chat leads' richer fields: Phone, Country, Project,
+  // Budget, Timeline, Summary, Page, Source, Transcript. Airtable rejects any
+  // field name that isn't already a column; it won't create one on the fly.
+  assistant: "Contact Enquiries",
   assistantConversations: "Assistant Conversations",
 } as const;
 

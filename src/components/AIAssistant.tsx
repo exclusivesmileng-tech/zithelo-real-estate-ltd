@@ -135,6 +135,11 @@ const STARTERS = [
   "What returns can I expect?",
 ];
 
+// Pages that render StickyCTABar, and the scroll depth (px) at which it
+// appears — kept in sync with that component's own default `threshold`.
+const STICKY_CTA_PAGES = ["/projects/andoyi-house", "/projects/signature-homes"];
+const STICKY_CTA_SCROLL_THRESHOLD = 400;
+
 interface ExtractedLink {
   label: string;
   href: string;
@@ -474,6 +479,11 @@ export default function AIAssistant() {
   // Mirrors chat-feedback.ts's localStorage preference; starts true so the
   // toggle icon doesn't flash muted before the client-only read resolves.
   const [soundOn, setSoundOn] = useState(true);
+  // Project pages show a StickyCTABar (Get Brochure / Book a Visit) at the
+  // same mobile scroll threshold it uses — bottom-16, roughly 64–136px from
+  // the screen edge. The launcher sits right in that band by default, so it
+  // needs to lift clear of it there, and only there.
+  const [nearStickyCta, setNearStickyCta] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [streaming, setStreaming] = useState(false);
@@ -595,6 +605,17 @@ export default function AIAssistant() {
   useEffect(() => {
     setVoiceSupported(getSpeechRecognitionCtor() !== null);
   }, []);
+
+  useEffect(() => {
+    if (!STICKY_CTA_PAGES.includes(pathname ?? "")) {
+      setNearStickyCta(false);
+      return;
+    }
+    const onScroll = () => setNearStickyCta(window.scrollY > STICKY_CTA_SCROLL_THRESHOLD);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [pathname]);
 
   // Voice input has no business staying hot once the chat is closed.
   useEffect(() => {
@@ -798,6 +819,18 @@ export default function AIAssistant() {
   // Not in the Sanity admin — it's a visitor-facing widget.
   if (pathname?.startsWith("/studio")) return null;
 
+  // Tailwind's arbitrary-value classes are picked up by static analysis of
+  // the source text, not evaluated at runtime — so the lift can't be a
+  // string-interpolated number, it has to be a choice between two literal
+  // class strings the build actually sees. Desktop is untouched either way:
+  // StickyCTABar centers itself there, well clear of this bottom-right corner.
+  const launcherBottomClass = nearStickyCta
+    ? "bottom-[calc(5rem+68px+env(safe-area-inset-bottom))] lg:bottom-[calc(2rem+env(safe-area-inset-bottom))]"
+    : "bottom-[calc(5rem+env(safe-area-inset-bottom))] lg:bottom-[calc(2rem+env(safe-area-inset-bottom))]";
+  const greetingBottomClass = nearStickyCta
+    ? "bottom-[calc(5rem+136px+env(safe-area-inset-bottom))] lg:bottom-[calc(2rem+68px+env(safe-area-inset-bottom))]"
+    : "bottom-[calc(5rem+68px+env(safe-area-inset-bottom))] lg:bottom-[calc(2rem+68px+env(safe-area-inset-bottom))]";
+
   return (
     <>
       {/* ── Proactive greeting bubble from Linda — first-time visitors only ── */}
@@ -808,7 +841,7 @@ export default function AIAssistant() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed z-50 bottom-[calc(5rem+68px+env(safe-area-inset-bottom))] lg:bottom-[calc(2rem+68px+env(safe-area-inset-bottom))] right-4 lg:right-6 w-64 max-w-[calc(100vw-6rem)]"
+            className={`fixed z-50 ${greetingBottomClass} right-4 lg:right-6 w-64 max-w-[calc(100vw-6rem)]`}
           >
             <div className="relative bg-card border border-border rounded-xl shadow-2xl p-3.5">
               <button
@@ -871,7 +904,7 @@ export default function AIAssistant() {
               track("assistant_opened", { page: pathname });
             }}
             aria-label="Chat with Linda, the Zithelo AI assistant"
-            className="group fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] lg:bottom-[calc(2rem+env(safe-area-inset-bottom))] right-4 lg:right-6 z-50 w-[52px] h-[52px] rounded-full gold-gradient flex items-center justify-center shadow-xl shadow-primary/30 hover:opacity-90 hover:scale-110 transition-all duration-200"
+            className={`group fixed ${launcherBottomClass} right-4 lg:right-6 z-50 w-[52px] h-[52px] rounded-full gold-gradient flex items-center justify-center shadow-xl shadow-primary/30 hover:opacity-90 hover:scale-110 transition-all duration-200`}
           >
             {/* A gentle, permanent "online" breathing ring — always on, low-key,
                 the tawk.to-style signal that someone's there. Independent of the
