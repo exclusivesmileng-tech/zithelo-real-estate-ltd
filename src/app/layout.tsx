@@ -5,6 +5,7 @@ import { SavedPropertiesProvider } from "@/contexts/SavedPropertiesContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
+import AIAssistant from "@/components/AIAssistant";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 import SavedDrawer from "@/components/SavedDrawer";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
@@ -536,6 +537,7 @@ export default function RootLayout({
             <main className="flex-1 pb-16 lg:pb-0">{children}</main>
             <Footer />
             <FloatingActions />
+            <AIAssistant />
             <ExitIntentPopup />
             <SavedDrawer />
             <CookieConsentBanner />

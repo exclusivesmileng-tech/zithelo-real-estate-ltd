@@ -20,6 +20,8 @@ export const TABLE_NAMES = {
   leadMagnet: "Lead Magnet Signups",
   investorEnquiry: "Investor Enquiries",
   partnerEnquiry: "Partner Enquiries",
+  assistant: "AI Assistant Leads",
+  assistantConversations: "Assistant Conversations",
 } as const;
 
 export async function airtableInsert(
@@ -37,7 +39,7 @@ export async function airtableInsert(
     if (v !== undefined && v !== "") cleanFields[k] = v;
   }
 
-  await fetch(`${BASE_URL}/${baseId}/${encodeURIComponent(tableName)}`, {
+  const res = await fetch(`${BASE_URL}/${baseId}/${encodeURIComponent(tableName)}`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${apiKey}`,
@@ -45,4 +47,14 @@ export async function airtableInsert(
     },
     body: JSON.stringify({ fields: cleanFields }),
   });
+
+  // Airtable answers a missing table, an unknown field, or a revoked key with a
+  // 4xx and a JSON body. Without this check those failures resolve silently and
+  // the submission is lost with no trace — so surface them to the caller.
+  if (!res.ok) {
+    const detail = await res.text().catch(() => "");
+    throw new Error(
+      `Airtable insert into "${tableName}" failed (${res.status}): ${detail.slice(0, 300)}`
+    );
+  }
 }
