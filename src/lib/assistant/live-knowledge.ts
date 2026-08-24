@@ -15,7 +15,7 @@
  */
 
 import { groq } from "next-sanity";
-import { client } from "@/sanity/client";
+import { client, urlFor } from "@/sanity/client";
 import { SITE_URL } from "@/lib/assistant/config";
 
 /** How long the rendered CMS content is reused. Also the cache-warm interval. */
@@ -191,6 +191,66 @@ function renderSettings(s: LiveSettings): string {
   return `## Current contact details (live from the CMS — use these if they differ from the summary above)\n\n${lines.join(
     "\n"
   )}`;
+}
+
+const PROJECT_CARD_QUERY = groq`
+  *[_type == "project" && slug.current == $slug][0] {
+    title, "slug": slug.current, badge, type, location, shortDesc, heroImage,
+    stats[] { label, value }
+  }
+`;
+
+export interface ProjectCard {
+  title: string;
+  slug: string;
+  image: string | null;
+  badge?: string;
+  type?: string;
+  location?: string;
+  shortDesc?: string;
+  stats: { label: string; value: string }[];
+}
+
+/**
+ * Fetches the visual-card data for one development, for the assistant's
+ * `show_project_card` tool. Uses the same cache window as the rest of the live
+ * knowledge base, so calling it doesn't cost an extra round trip in practice.
+ * Returns null (never throws) if the slug doesn't exist or Sanity is down —
+ * the tool falls back to a plain-text answer in that case.
+ */
+export async function getProjectCard(slug: string): Promise<ProjectCard | null> {
+  try {
+    const data = await client.fetch<{
+      title: string;
+      slug: string;
+      badge?: string;
+      type?: string;
+      location?: string;
+      shortDesc?: string;
+      heroImage?: unknown;
+      stats?: { label: string; value: string }[];
+    } | null>(
+      PROJECT_CARD_QUERY,
+      { slug },
+      { next: { revalidate: KB_REVALIDATE_SECONDS, tags: ["assistant-kb"] } }
+    );
+
+    if (!data) return null;
+
+    return {
+      title: data.title,
+      slug: data.slug,
+      image: data.heroImage ? urlFor(data.heroImage).width(640).height(480).fit("crop").url() : null,
+      badge: data.badge,
+      type: data.type,
+      location: data.location,
+      shortDesc: data.shortDesc,
+      stats: (data.stats ?? []).filter((s) => s?.label && s?.value).slice(0, 3),
+    };
+  } catch (err) {
+    console.error("[assistant] Sanity project card fetch failed", err);
+    return null;
+  }
 }
 
 /**

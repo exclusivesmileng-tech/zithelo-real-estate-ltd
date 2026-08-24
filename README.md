@@ -48,8 +48,11 @@ qualified leads into the same Airtable + email pipeline the site forms use.
 Add to `.env.local` (and to the hosting provider's environment):
 
 ```bash
-ANTHROPIC_API_KEY=sk-ant-...
+OPENAI_API_KEY=sk-...
 ```
+
+Get one at [platform.openai.com/api-keys](https://platform.openai.com/api-keys).
+Runs on **GPT-5** (`MODEL` in [`src/app/api/assistant/route.ts`](src/app/api/assistant/route.ts)) via the standard Chat Completions API with function calling — swap the model string there to change tier.
 
 Without it, the assistant's API route returns 503 and the widget shows a
 friendly unavailable message — the rest of the site is unaffected.
@@ -74,11 +77,42 @@ failure in either channel is logged with the Airtable status and message.
 | [`src/lib/assistant/faq-data.ts`](src/lib/assistant/faq-data.ts) | Canonical FAQ — shared by `/faq` and the assistant |
 | [`src/lib/assistant/knowledge.ts`](src/lib/assistant/knowledge.ts) | Curated half: company profile + team + FAQ |
 | [`src/lib/assistant/live-knowledge.ts`](src/lib/assistant/live-knowledge.ts) | Live half: projects, insights, services, contact details from Sanity |
-| [`src/lib/assistant/prompt.ts`](src/lib/assistant/prompt.ts) | System prompt: tone, boundaries, lead-generation behaviour |
-| [`src/lib/assistant/tools.ts`](src/lib/assistant/tools.ts) | `capture_lead` tool → Airtable + team email |
+| [`src/lib/assistant/prompt.ts`](src/lib/assistant/prompt.ts) | System prompt: tone, boundaries, lead-generation and quick-reply behaviour |
+| [`src/lib/assistant/tools.ts`](src/lib/assistant/tools.ts) | `request_lead_form` + `suggest_replies` tool definitions, and `captureLead()` (Airtable + team email) |
+| [`src/lib/assistant/rate-limit.ts`](src/lib/assistant/rate-limit.ts) | Shared in-memory rate limiter for both assistant routes |
 | [`src/lib/assistant/conversation-log.ts`](src/lib/assistant/conversation-log.ts) | Per-turn conversation logging |
-| [`src/app/api/assistant/route.ts`](src/app/api/assistant/route.ts) | Streaming (SSE) endpoint, tool loop, rate limiting |
-| [`src/components/AIAssistant.tsx`](src/components/AIAssistant.tsx) | The chat widget |
+| [`src/app/api/assistant/route.ts`](src/app/api/assistant/route.ts) | Streaming (SSE) chat endpoint, tool loop |
+| [`src/app/api/assistant/lead/route.ts`](src/app/api/assistant/lead/route.ts) | Plain JSON endpoint the lead form submits to directly |
+| [`src/components/AIAssistant.tsx`](src/components/AIAssistant.tsx) | The chat widget, lead form, quick-reply chips, voice input |
+
+### Contact details are a form, not a chat answer
+
+The assistant never asks for a name, email or phone number in chat text. When a
+visitor shows real buying interest, it calls `request_lead_form` with the
+context the conversation has established (enquiry type, project, budget,
+timeline, summary) — the widget renders an actual inline form for that, the
+visitor fills it in, and it POSTs straight to `/api/assistant/lead`, which calls
+`captureLead()` directly. The model never sees or writes the contact details
+themselves, so there's nothing for it to mishear (this matters especially for
+voice input), mistype, or paraphrase.
+
+### Quick replies
+
+Many of the assistant's questions are really multiple choice — which
+development, which country, yes or no. When that's the case it calls
+`suggest_replies` with 2–4 short options; the widget renders them as tappable
+chips under its message. Tapping one sends it exactly as if typed. This is
+separate from the four starter prompts shown before the first message.
+
+### Voice input
+
+A mic button next to the composer uses the browser's native Web Speech API — no
+extra dependency, no server round-trip. It's feature-detected, so it simply
+doesn't appear in browsers that lack it. One tap starts listening (with a live
+transcript and a "Listening…" placeholder), it auto-stops after a pause in
+speech, and it always stops when a message sends, the chat closes, or the
+component unmounts. Speech recognition happens entirely in the browser; the
+server never sees audio.
 
 ### What the assistant knows
 
@@ -100,9 +134,12 @@ fact that is not written down will not be invented.
 ### Conversation logging
 
 Every exchange writes a row to the **Assistant Conversations** Airtable table:
-`Conversation ID`, `Turn`, `Page`, `Question`, `Answer`, `Lead Captured`,
+`Conversation ID`, `Turn`, `Page`, `Question`, `Answer`, `Form Shown`,
 `Needs Review`, `Logged At`. Sort by **Needs Review** to see the questions the
 assistant could not answer — that list is the backlog for `faq-data.ts`.
+`Form Shown` means the lead form was displayed that turn, not that a lead was
+actually captured — the form submission is a separate request this per-turn log
+has no view into; a captured lead is its own row in **AI Assistant Leads**.
 
 `Needs Review` is a keyword heuristic over the reply, not a classifier; it errs
 toward flagging, so expect some false positives. Logging is best-effort and can
@@ -110,13 +147,15 @@ never affect a visitor's reply.
 
 The widget also emits GA events — `assistant_opened`,
 `assistant_conversation_start`, `assistant_message_sent`,
-`assistant_lead_captured` — which only fire after cookie consent, since `gtag`
-does not exist before then.
+`assistant_lead_form_shown`, `assistant_lead_captured` — which only fire after
+cookie consent, since `gtag` does not exist before then.
 
-**Cost control:** the ~10k-token knowledge base sits behind a prompt-cache
-breakpoint, so repeat turns read it at roughly a tenth of the input price. The
-CMS half is cached for an hour (`KB_REVALIDATE_SECONDS`), which keeps the prompt
-byte-stable between refreshes — the cache re-warms once per revalidation, so
-raising that interval trades freshness for a few more cache misses. The route
+**Cost control:** the ~10k-token knowledge base is sent as the first system
+message on every request, so OpenAI's automatic prompt caching (prefixes ≥1024
+tokens, no configuration needed) discounts the repeated portion on follow-up
+turns. The CMS half is cached for an hour (`KB_REVALIDATE_SECONDS`), which keeps
+that prefix byte-stable between refreshes — the cache re-warms once per
+revalidation, so raising that interval trades freshness for a few more cache
+misses. The route
 runs at `effort: "low"` for snappy replies and rate-limits to 30 requests per IP
 per 10 minutes (in-memory — move to Redis if you scale beyond one instance).

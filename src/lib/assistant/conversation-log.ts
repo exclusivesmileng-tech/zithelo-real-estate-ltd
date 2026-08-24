@@ -31,7 +31,12 @@ export interface TurnLog {
   page?: string;
   question: string;
   answer: string;
-  leadCaptured: boolean;
+  /**
+   * Whether the lead-capture form was shown this turn. Not the same as a lead
+   * actually being captured — that happens in a separate request when the
+   * visitor submits the form, which this per-chat-turn log has no view into.
+   */
+  formShown: boolean;
 }
 
 export function looksUnanswered(answer: string): boolean {
@@ -47,7 +52,7 @@ export async function logTurn(entry: TurnLog): Promise<void> {
       Page: entry.page,
       Question: entry.question.slice(0, 4000),
       Answer: entry.answer.slice(0, 20_000),
-      "Lead Captured": entry.leadCaptured,
+      "Form Shown": entry.formShown,
       "Needs Review": looksUnanswered(entry.answer),
       "Logged At": new Date().toISOString(),
     });

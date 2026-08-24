@@ -1,12 +1,22 @@
 /**
  * Tools the Zithelo assistant can call.
  *
- * Currently one: capture_lead. It runs the same fan-out as the site's contact
- * forms — an Airtable row plus a team email — so chat leads land in exactly the
- * places the team already watches.
+ * - `request_lead_form` — surfaces an inline contact form in the widget rather
+ *   than asking for name/email/phone in chat prose. Free-text contact details
+ *   are slow to type and easy to mishear (especially over voice input) or
+ *   mis-transcribe; a real form field is faster and cannot be misheard. The
+ *   tool itself writes nothing — it only tells the widget what to show. The
+ *   actual Airtable + email write happens in `captureLead`, called from the
+ *   dedicated `/api/assistant/lead` route once the visitor submits the form.
+ * - `suggest_replies` — offers 2–4 tappable quick-reply chips for the
+ *   visitor's next message, for the many turns that are really a multiple
+ *   choice question (which project, which country, yes/no).
+ * - `show_project_card` — surfaces a visual card (photo + key facts) for a
+ *   development, rather than describing it at length in prose. The card data
+ *   itself comes from Sanity via `getProjectCard` in live-knowledge.ts.
  */
 
-import type Anthropic from "@anthropic-ai/sdk";
+import type OpenAI from "openai";
 import { sendTeamEmail, emailTemplate } from "@/lib/mailer";
 import { airtableInsert, TABLE_NAMES } from "@/lib/airtable";
 
@@ -28,66 +38,114 @@ export const PROJECTS = [
   "Undecided",
 ] as const;
 
-export const ASSISTANT_TOOLS: Anthropic.Tool[] = [
+/** Slugs matching /projects/[slug] — kept in sync with the Sanity project docs. */
+export const PROJECT_SLUGS = ["andoyi-house", "signature-homes"] as const;
+
+export const ASSISTANT_TOOLS: OpenAI.Chat.Completions.ChatCompletionTool[] = [
   {
-    name: "capture_lead",
-    description:
-      "Record an interested visitor as a lead and notify the Zithelo investment team. " +
-      "Call this only after the visitor has agreed to be contacted and has given you " +
-      "an email address or a phone number. Use only details the visitor actually " +
-      "provided — never invent, infer or placeholder a name, email or phone number. " +
-      "Call it at most once per conversation unless the visitor corrects their details.",
-    input_schema: {
-      type: "object",
-      properties: {
-        name: {
-          type: "string",
-          description: "The visitor's name, exactly as they gave it.",
+    type: "function",
+    function: {
+      name: "request_lead_form",
+      description:
+        "Show the visitor a short on-screen form to collect their name and email or phone, " +
+        "so the Zithelo investment team can follow up. Call this once the visitor has shown " +
+        "genuine buying interest and has agreed to be contacted — never before that, and never " +
+        "more than once per conversation unless they explicitly ask to fill it in again. Pass " +
+        "only what the conversation has actually established; never invent a budget, timeline or " +
+        "project. Do not ask the visitor for their name, email or phone number in chat — the form " +
+        "collects those directly, which is faster and cannot be mistyped or mistranscribed.",
+      parameters: {
+        type: "object",
+        properties: {
+          enquiry_type: {
+            type: "string",
+            enum: ENQUIRY_TYPES as unknown as string[],
+            description: "What the visitor is asking the team for.",
+          },
+          project_interest: {
+            type: "string",
+            enum: PROJECTS as unknown as string[],
+            description: "Which development the visitor is interested in, if established.",
+          },
+          budget: {
+            type: "string",
+            description:
+              "Budget or investment amount, in the visitor's own words and currency, if mentioned.",
+          },
+          timeline: {
+            type: "string",
+            description:
+              "When they are looking to invest, in their own words, if mentioned.",
+          },
+          summary: {
+            type: "string",
+            description:
+              "One or two sentences for the team: what this visitor asked about and what they need next.",
+          },
         },
-        email: {
-          type: "string",
-          description: "Email address, if the visitor gave one.",
-        },
-        phone: {
-          type: "string",
-          description:
-            "Phone or WhatsApp number including country code, if the visitor gave one.",
-        },
-        country: {
-          type: "string",
-          description: "Country the visitor is based in, if mentioned.",
-        },
-        enquiry_type: {
-          type: "string",
-          enum: ENQUIRY_TYPES as unknown as string[],
-          description: "What the visitor is asking the team for.",
-        },
-        project_interest: {
-          type: "string",
-          enum: PROJECTS as unknown as string[],
-          description: "Which development the visitor is interested in.",
-        },
-        budget: {
-          type: "string",
-          description:
-            "Budget or investment amount, in the visitor's own words and currency, if mentioned.",
-        },
-        timeline: {
-          type: "string",
-          description:
-            "When they are looking to invest, in their own words, if mentioned.",
-        },
-        summary: {
-          type: "string",
-          description:
-            "One or two sentences for the team: what this visitor asked about and what they need next.",
-        },
+        required: ["enquiry_type", "summary"],
+        additionalProperties: false,
       },
-      required: ["enquiry_type", "summary"],
-      additionalProperties: false,
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "suggest_replies",
+      description:
+        "Offer 2 to 4 short tappable reply options for the visitor's next message, whenever the " +
+        "natural next step is really a multiple-choice pick rather than free typing — choosing a " +
+        "development, confirming yes/no, picking a country or budget band. Each option must be " +
+        "phrased as something the visitor would say (e.g. \"Andoyi House\", \"Not right now\"), " +
+        "under 5 words. Skip this for genuinely open-ended questions.",
+      parameters: {
+        type: "object",
+        properties: {
+          options: {
+            type: "array",
+            items: { type: "string" },
+            minItems: 2,
+            maxItems: 4,
+            description: "2 to 4 short reply options, each phrased as the visitor's own words.",
+          },
+        },
+        required: ["options"],
+        additionalProperties: false,
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "show_project_card",
+      description:
+        "Show a visual card for one development — photo, key facts, and a link to its page — " +
+        "when discussing it in enough detail that seeing it would help, not for a passing mention. " +
+        "Property buyers decide visually, so prefer this over describing a development at length in " +
+        "text. Call at most once per development per conversation.",
+      parameters: {
+        type: "object",
+        properties: {
+          project_slug: {
+            type: "string",
+            enum: PROJECT_SLUGS as unknown as string[],
+            description: "Which development to show a card for.",
+          },
+        },
+        required: ["project_slug"],
+        additionalProperties: false,
+      },
     },
   },
 ];
+
+export interface LeadFormContext {
+  enquiry_type: string;
+  project_interest?: string;
+  budget?: string;
+  timeline?: string;
+  summary: string;
+}
 
 export interface LeadInput {
   name?: string;
@@ -101,13 +159,22 @@ export interface LeadInput {
   summary: string;
 }
 
-/** Result string handed back to the model as the tool_result. */
+export interface CaptureLeadResult {
+  ok: boolean;
+  /** Human-readable outcome — shown directly to the visitor by the form. */
+  message: string;
+}
+
+/** Writes a submitted lead form to Airtable and notifies the team by email. */
 export async function captureLead(
   input: LeadInput,
   meta: { page?: string; transcript: string }
-): Promise<string> {
+): Promise<CaptureLeadResult> {
   if (!input.email && !input.phone) {
-    return "Not saved: a lead needs at least an email address or a phone number. Ask the visitor for one before trying again.";
+    return {
+      ok: false,
+      message: "Please add an email address or a phone number so the team can reach you.",
+    };
   }
 
   const submittedAt = new Date().toISOString();
@@ -141,7 +208,7 @@ export async function captureLead(
         ["Timeline", input.timeline],
         ["Summary", input.summary],
         ["Captured on page", meta.page],
-        ["Source", "AI Assistant chat"],
+        ["Source", "AI Assistant chat — lead form"],
       ])
     ),
   ]);
@@ -158,8 +225,15 @@ export async function captureLead(
   // The lead still counts as captured if either channel got through — the team
   // sees it. Only a total failure is worth telling the visitor about.
   if (failures.length === results.length) {
-    return "Could not reach the team's systems just now. Apologise, and give the visitor invest@zithelorealestate.com and +234 9110 222 323 so they can reach the team directly.";
+    return {
+      ok: false,
+      message:
+        "We couldn't save your details just now — please email invest@zithelorealestate.com or call +234 9110 222 323 directly.",
+    };
   }
 
-  return "Lead saved and the investment team has been notified. Confirm to the visitor that someone will be in touch within one business day.";
+  return {
+    ok: true,
+    message: "Thanks — the investment team will be in touch within one business day.",
+  };
 }
