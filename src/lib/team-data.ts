@@ -66,23 +66,6 @@ export const TEAM: TeamMember[] = [
     ],
   },
   {
-    slug: "ibikunle-iwalewa",
-    name: "Mr. Ibikunle Iwalewa",
-    initials: "II",
-    role: "Group Head, Human Resources & Administration",
-    category: "Management",
-    photo: "/images/team/Mr Ibikunle Iwalewa.png",
-    tagline:
-      "Human capital leader with over three decades of experience building institutional people frameworks across telecoms, banking, and real estate.",
-    bio: "Mr. Ibikunle Iwalewa is a highly experienced human capital and corporate services leader with over three decades of professional experience across telecommunications, banking, real estate, and multinational organizations. He leads Human Resources and Administration at Zithelo, responsible for building strong institutional frameworks, aligning people strategy with business objectives, and driving operational efficiency across the Group. His career includes senior roles at Laplace Technologies, Pentagon Real Estate, City Express Bank, and SGS Inspection Services Nigeria. He holds an MBA in Human Resource Management and a Bachelor's degree in English Studies, and is a member of SHRM.",
-    credentials: [
-      "MBA Human Resource Management",
-      "BA English Studies",
-      "SHRM Member",
-      "Former: Laplace Technologies, Pentagon Real Estate, City Express Bank",
-    ],
-  },
-  {
     slug: "builder-filusi-toyin-diya",
     name: "Builder Filusi Toyin Diya",
     initials: "FD",
@@ -118,5 +101,5 @@ export const TEAM: TeamMember[] = [
 ];
 
 // Featured order follows seniority/hierarchy — not photo availability
-// Dr. OA (Chairman), Mrs. IA (CEO), Mr. Ibikunle (HR Head), Builder Filusi (Projects Head)
+// Dr. OA (Chairman), Mrs. IA (CEO), Builder Filusi (Projects Head), Mr. Gabriel (Customer Exp)
 export const FEATURED_TEAM = [TEAM[0], TEAM[1], TEAM[3], TEAM[4]];

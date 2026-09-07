@@ -91,11 +91,6 @@ const teamPhotos = [
     label:    "Arc. Odunayo Lawani",
   },
   {
-    docId:    "team-ibikunle-iwalewa",
-    filePath: resolve(ROOT, "public/images/team/Mr Ibikunle Iwalewa.png"),
-    label:    "Mr. Ibikunle Iwalewa",
-  },
-  {
     docId:    "team-filusi-toyin-diya",
     filePath: resolve(ROOT, "public/images/team/toyin-filusi.jpeg"),
     label:    "Builder Filusi Toyin Diya",

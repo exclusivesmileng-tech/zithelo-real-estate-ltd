@@ -16,9 +16,8 @@ const NODE_H   = 52;
 const NODE_W   = 130;
 
 const REPORTS = [
-  { label: "HR & ADMIN",   sub: "Mr. I. Iwalewa",  cx: 85  },
-  { label: "PROJECTS",     sub: "Bldr. F. Diya",   cx: 260 },
-  { label: "CUSTOMER EXP", sub: "Mr. G. Akintayo", cx: 435 },
+  { label: "PROJECTS",     sub: "Bldr. F. Diya",   cx: 172 },
+  { label: "CUSTOMER EXP", sub: "Mr. G. Akintayo", cx: 348 },
 ];
 
 // small dot at a junction
@@ -112,7 +111,7 @@ export default function ManagementHeroVector() {
 
       {/* ── horizontal connector bar ── */}
       <motion.line
-        x1={REPORTS[0].cx} y1={H_BAR_Y} x2={REPORTS[2].cx} y2={H_BAR_Y}
+        x1={REPORTS[0].cx} y1={H_BAR_Y} x2={REPORTS[REPORTS.length - 1].cx} y2={H_BAR_Y}
         stroke={G} strokeWidth="1.3" strokeOpacity="0.45"
         initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
         transition={{ duration: 0.45, delay: 1.5, ease }}
