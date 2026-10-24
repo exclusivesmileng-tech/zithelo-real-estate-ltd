@@ -2,8 +2,8 @@ import { createHash } from "crypto";
 import { META_PIXEL_ID } from "@/lib/metaPixel";
 
 // Meta Conversions API — reports leads from the server, so campaigns still
-// see conversions from visitors who never accept the cookie banner (or block
-// the browser pixel). Needs META_CAPI_TOKEN (Events Manager → Settings →
+// see conversions from visitors whose browser blocks the pixel (ad blockers,
+// Safari tracking prevention). Needs META_CAPI_TOKEN (Events Manager → Settings →
 // Conversions API → Generate access token); without it this is a no-op.
 
 const GRAPH_VERSION = "v21.0";

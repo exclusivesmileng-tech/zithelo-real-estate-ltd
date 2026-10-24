@@ -1,5 +1,5 @@
-// Meta Pixel helpers. The base script is injected by MetaPixelLoader once the
-// visitor accepts cookies; until then `window.fbq` is undefined and calls no-op.
+// Meta Pixel helpers. The base script is injected by MetaPixelLoader on every
+// page; until it loads `window.fbq` is undefined and calls no-op.
 
 export const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "1090740333669483";
 

@@ -1,49 +1,30 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Script from "next/script";
 import { META_PIXEL_ID } from "@/lib/metaPixel";
 import { captureAttribution } from "@/lib/attribution";
 
-const STORAGE_KEY = "zithelo-cookie-consent";
-
+// Loads for every visitor — not gated on the cookie banner (which only
+// controls Google Analytics), so ad campaigns see every PageView and Lead.
 export default function MetaPixelLoader() {
-  const [consented, setConsented] = useState(false);
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const firstView = useRef(true);
 
-  // UTM/fbclid are first-party and needed to attribute leads, so they're
-  // captured regardless of the cookie choice that gates the pixel itself.
-  useEffect(() => {
-    captureAttribution();
-  }, [pathname, searchParams]);
-
-  useEffect(() => {
-    if (localStorage.getItem(STORAGE_KEY) === "accepted") {
-      setConsented(true);
-      return;
-    }
-    function onAccept() {
-      setConsented(true);
-    }
-    window.addEventListener("zithelo:cookie-accepted", onAccept);
-    return () => window.removeEventListener("zithelo:cookie-accepted", onAccept);
-  }, []);
-
   // The base snippet tracks the initial PageView; client-side navigations
   // don't reload the page, so track those here.
   useEffect(() => {
-    if (!consented) return;
+    captureAttribution();
     if (firstView.current) {
       firstView.current = false;
       return;
     }
     window.fbq?.("track", "PageView");
-  }, [pathname, searchParams, consented]);
+  }, [pathname, searchParams]);
 
-  if (!consented || !META_PIXEL_ID) return null;
+  if (!META_PIXEL_ID) return null;
 
   return (
     <>
