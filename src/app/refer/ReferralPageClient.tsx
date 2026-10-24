@@ -6,6 +6,7 @@ import { CheckCircle2, ChevronRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import ReferHeroVector from "@/components/heroes/ReferHeroVector";
+import { trackMeta } from "@/lib/metaPixel";
 
 /* ── Constants ── */
 const ROLES = ["Realtor / Agent", "Friend / Family", "Business Partner", "Financial Advisor", "Other"];
@@ -140,6 +141,7 @@ export default function ReferralPageClient() {
         body: JSON.stringify(form),
       });
     } catch { /* fail silently */ }
+    trackMeta("Lead", { content_name: "Referral" });
     setLoading(false);
     setSubmitted(true);
   };

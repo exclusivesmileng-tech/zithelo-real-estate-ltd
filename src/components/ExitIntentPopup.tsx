@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowRight, CheckCircle2, Download } from "lucide-react";
+import { trackMeta } from "@/lib/metaPixel";
 
 export default function ExitIntentPopup() {
   const [open, setOpen] = useState(false);
@@ -62,6 +63,7 @@ export default function ExitIntentPopup() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
+      trackMeta("Lead", { content_name: "Lead Magnet" });
       setSubmitted(true);
     } finally {
       setLoading(false);

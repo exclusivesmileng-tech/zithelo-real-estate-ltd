@@ -6,6 +6,7 @@ import { ArrowRight, Handshake, Building2, Globe, Users } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import AnimatedSection from "@/components/AnimatedSection";
 import BecomeAPartnerHeroVector from "@/components/heroes/BecomeAPartnerHeroVector";
+import { trackMeta } from "@/lib/metaPixel";
 
 const partnerTypes = [
   { id: "jv", label: "Joint Venture", icon: Building2, desc: "Co-develop projects with Zithelo across prime urban corridors." },
@@ -30,6 +31,7 @@ export default function BecomeAPartnerPageClient() {
         body: JSON.stringify({ ...form, type }),
       });
     } catch { /* fail silently */ }
+    trackMeta("Lead", { content_name: "Partner Enquiry", content_category: type });
     setLoading(false);
     setSubmitted(true);
   };

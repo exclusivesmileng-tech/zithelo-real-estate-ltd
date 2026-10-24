@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, ArrowRight, CheckCircle2 } from "lucide-react";
+import { trackMeta } from "@/lib/metaPixel";
 
 interface Props {
   /** "inline" = horizontal bar (footer/section), "card" = centred card */
@@ -25,6 +26,7 @@ export default function NewsletterSignup({ variant = "inline", className = "" }:
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
+      trackMeta("Subscribe", { content_name: "Newsletter" });
       setSubmitted(true);
     } finally {
       setLoading(false);

@@ -6,6 +6,7 @@ import { ChevronRight, ChevronLeft, CheckCircle2, Globe, Building2, Users, Spark
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import DiasporaInvestorHeroVector from "@/components/heroes/DiasporaInvestorHeroVector";
+import { trackMeta } from "@/lib/metaPixel";
 
 /* ── Types ── */
 interface Step1 { country: string; nigerianState: string; ageRange: string }
@@ -248,6 +249,7 @@ export default function DiasporaInvestorPageClient() {
         body: JSON.stringify(data),
       });
     } catch { /* fail silently — still show success */ }
+    trackMeta("CompleteRegistration", { content_name: "Diaspora Investor Programme" });
     setLoading(false);
     setSubmitted(true);
   };

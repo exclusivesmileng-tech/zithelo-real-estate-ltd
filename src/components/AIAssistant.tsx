@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import BookCallbackModal from "@/components/BookCallbackModal";
 import { playSent, playReceived, soundEnabled, setSoundEnabled } from "@/lib/assistant/chat-feedback";
+import { trackMeta } from "@/lib/metaPixel";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -294,6 +295,7 @@ function LeadCaptureForm({ context, page, transcript, onDone, onDismiss }: LeadC
         setSubmitting(false);
         return;
       }
+      trackMeta("Lead", { content_name: "AI Assistant" });
       onDone(true);
     } catch {
       setFormError("Something went wrong — please try again.");

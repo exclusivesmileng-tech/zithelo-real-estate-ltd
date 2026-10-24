@@ -8,6 +8,7 @@ import AnimatedSection from "@/components/AnimatedSection";
 import AnimatedCard from "@/components/AnimatedCard";
 import PageHero from "@/components/PageHero";
 import ContactHeroVector from "@/components/heroes/ContactHeroVector";
+import { trackMeta } from "@/lib/metaPixel";
 
 const ENQUIRY_TYPES = [
   { value: "investment", label: "Investment", sub: "Opportunities & returns", icon: Building2 },
@@ -70,6 +71,7 @@ export default function ContactPageClient() {
         body: JSON.stringify(formData),
       });
       if (!res.ok) throw new Error("Failed");
+      trackMeta("Contact");
       setSubmitted(true);
     } catch {
       setError("Something went wrong. Please try again or email us directly.");

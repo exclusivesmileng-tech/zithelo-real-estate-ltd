@@ -3,6 +3,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, FileText, Calendar, CheckCircle2, Phone, ArrowRight } from "lucide-react";
+import { trackMeta } from "@/lib/metaPixel";
+import {
+  BUDGETS, ENQUIRY_TYPES, PAYMENT_PREFERENCES, PROJECT_BROCHURES, TIMELINES, VIEWING_READINESS,
+} from "@/lib/leads";
 
 // ─── Brochure Modal ──────────────────────────────────────────────────────────
 
@@ -13,19 +17,25 @@ interface BrochureModalProps {
 }
 
 export function BrochureModal({ projectName, open, onClose }: BrochureModalProps) {
-  const [form, setForm] = useState({ name: "", email: "" });
+  const downloadUrl = PROJECT_BROCHURES[projectName] ?? process.env.NEXT_PUBLIC_BROCHURE_PDF_URL;
+  const [form, setForm] = useState({
+    name: "", phone: "", email: "",
+    enquiryType: "", budget: "", timeline: "", paymentPreference: "", viewingReadiness: "",
+  });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const set = (key: keyof typeof form) => (v: string) => setForm((f) => ({ ...f, [key]: v }));
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     try {
-      await fetch("/api/brochure-request", {
+      await fetch("/api/property-lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, projectName }),
       });
+      trackMeta("Lead", { content_name: projectName, content_category: form.enquiryType });
       setSubmitted(true);
     } finally {
       setLoading(false);
@@ -48,14 +58,17 @@ export function BrochureModal({ projectName, open, onClose }: BrochureModalProps
         {submitted ? (
           <motion.div key="done" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col items-center gap-3 py-4 text-center">
             <CheckCircle2 size={36} className="text-primary" />
-            <p className="font-display font-bold text-foreground text-lg">Brochure on its way!</p>
-            <p className="text-sm text-muted-foreground font-body">Check your inbox — we&apos;ve sent the {projectName} investment brochure to {form.email}.</p>
-            {process.env.NEXT_PUBLIC_BROCHURE_PDF_URL && (
+            <p className="font-display font-bold text-foreground text-lg">Thank you, {form.name.split(" ")[0]}!</p>
+            <p className="text-sm text-muted-foreground font-body">
+              {downloadUrl
+                ? <>Your {projectName} brochure is ready below, and we&apos;ve emailed a copy to {form.email}. Our team will be in touch on WhatsApp shortly.</>
+                : <>We&apos;ve received your details for {projectName}. Our team will be in touch on WhatsApp shortly.</>}
+            </p>
+            {downloadUrl && (
               <a
-                href={process.env.NEXT_PUBLIC_BROCHURE_PDF_URL}
+                href={downloadUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                download
                 className="mt-1 inline-flex items-center gap-2 gold-gradient text-primary-foreground font-display font-bold text-xs tracking-[0.08em] uppercase px-5 py-3 rounded-2xl hover:opacity-90 transition-opacity"
               >
                 <FileText size={13} /> Download Now
@@ -65,8 +78,16 @@ export function BrochureModal({ projectName, open, onClose }: BrochureModalProps
           </motion.div>
         ) : (
           <motion.form key="form" onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <Field label="Full Name" placeholder="Your name" value={form.name} onChange={(v) => setForm((f) => ({ ...f, name: v }))} type="text" required />
-            <Field label="Email Address" placeholder="your@email.com" value={form.email} onChange={(v) => setForm((f) => ({ ...f, email: v }))} type="email" required />
+            <Field label="Full Name" placeholder="Your name" value={form.name} onChange={set("name")} type="text" required />
+            <Field label="Phone / WhatsApp" placeholder="+234 800 000 0000" value={form.phone} onChange={set("phone")} type="tel" required Icon={Phone} />
+            <Field label="Email Address" placeholder="your@email.com" value={form.email} onChange={set("email")} type="email" required />
+            <SelectField label="Enquiry Type" value={form.enquiryType} onChange={set("enquiryType")} options={ENQUIRY_TYPES} />
+            <SelectField label="Budget" value={form.budget} onChange={set("budget")} options={BUDGETS} />
+            <div className="grid grid-cols-2 gap-3">
+              <SelectField label="Purchase Timeline" value={form.timeline} onChange={set("timeline")} options={TIMELINES} />
+              <SelectField label="Payment" value={form.paymentPreference} onChange={set("paymentPreference")} options={PAYMENT_PREFERENCES} />
+            </div>
+            <SelectField label="Viewing Readiness" value={form.viewingReadiness} onChange={set("viewingReadiness")} options={VIEWING_READINESS} />
             <button type="submit" disabled={loading} className="w-full gold-gradient text-primary-foreground font-display font-bold tracking-[0.08em] uppercase rounded-2xl py-4 flex items-center justify-center gap-2 mt-2 active:scale-[0.98] transition-all">
               {loading ? "Sending…" : <><span>Send Me the Brochure</span><ArrowRight size={15} /></>}
             </button>
@@ -105,6 +126,7 @@ export function SiteVisitModal({ projectName, open, onClose }: SiteVisitModalPro
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, projectName }),
       });
+      trackMeta("Schedule", { content_name: projectName });
       setSubmitted(true);
     } finally {
       setLoading(false);
@@ -225,6 +247,29 @@ function Field({
           className={`w-full border border-border bg-background text-foreground font-body text-sm py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all ${Icon ? "pl-8 pr-3" : "px-3"}`}
         />
       </div>
+    </div>
+  );
+}
+
+function SelectField({
+  label, value, onChange, options,
+}: {
+  label: string; value: string; onChange: (v: string) => void; options: readonly string[];
+}) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <label className="text-xs font-body font-semibold text-foreground tracking-wide">
+        {label} <span className="text-primary">*</span>
+      </label>
+      <select
+        required
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className={`w-full border border-border bg-background font-body text-sm px-3 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all ${value ? "text-foreground" : "text-muted-foreground"}`}
+      >
+        <option value="" disabled>Select…</option>
+        {options.map((o) => <option key={o} value={o}>{o}</option>)}
+      </select>
     </div>
   );
 }

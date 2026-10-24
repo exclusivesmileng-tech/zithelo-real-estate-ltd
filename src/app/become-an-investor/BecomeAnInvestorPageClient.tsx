@@ -7,6 +7,7 @@ import { ArrowRight, TrendingUp, Shield, DollarSign, Globe } from "lucide-react"
 import PageHero from "@/components/PageHero";
 import AnimatedSection from "@/components/AnimatedSection";
 import BecomeAnInvestorHeroVector from "@/components/heroes/BecomeAnInvestorHeroVector";
+import { trackMeta } from "@/lib/metaPixel";
 
 const investorTypes = [
   { id: "diaspora", label: "Diaspora Investor", icon: Globe, desc: "Invest from abroad in premium Nigerian real estate with full management support." },
@@ -38,6 +39,7 @@ export default function BecomeAnInvestorPageClient() {
         body: JSON.stringify({ ...form, type }),
       });
     } catch { /* fail silently */ }
+    trackMeta("Lead", { content_name: "Investor Enquiry", content_category: type });
     setLoading(false);
     setSubmitted(true);
   };

@@ -63,3 +63,15 @@ export function emailTemplate(title: string, rows: [string, string | undefined][
   </body>
   </html>`;
 }
+
+/** Email to a lead (nurture sequence / pitch). Replies go to the sales inbox. */
+export async function sendLeadEmail(to: string, email: { subject: string; html: string; text: string }) {
+  await transporter.sendMail({
+    from: process.env.NURTURE_FROM ?? process.env.SMTP_FROM,
+    replyTo: process.env.NURTURE_REPLY_TO ?? process.env.TEAM_EMAIL,
+    to,
+    subject: email.subject,
+    html: email.html,
+    text: email.text,
+  });
+}
