@@ -3,11 +3,15 @@
 import { useState, useRef } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { MapPin, Play, ArrowLeft, ArrowRight, CheckCircle2, ZoomIn } from "lucide-react";
+import { MapPin, Play, ArrowLeft, ArrowRight, CheckCircle2, ZoomIn, Calendar, MessageCircle } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import ImageLightbox from "@/components/ImageLightbox";
 import StickyCTABar from "@/components/StickyCTABar";
 import AvailabilityCounter from "@/components/AvailabilityCounter";
+import ProjectLeadSection from "@/components/ProjectLeadSection";
+import { BrochureModal, SiteVisitModal } from "@/components/ProjectModals";
+import { trackMeta } from "@/lib/metaPixel";
+import { ANDOYI_HOUSE } from "@/lib/leads";
 
 // ─── Fallback data (used when Sanity doc not yet populated) ──────────────────
 
@@ -20,11 +24,11 @@ const INTERIOR_IMAGES = [
 ];
 
 const DEFAULT_CLIPS = [
-  { src: "/videos/drone.mp4",  thumbUrl: "/images/andoyi/5.png",           label: "Drone — Aerial View" },
-  { src: "/videos/hero1.mp4",  thumbUrl: "/images/andoyi/2.png",           label: "Overview"             },
-  { src: "/videos/hero2.mp4",  thumbUrl: "/images/andoyi/3.png",           label: "Exterior"             },
-  { src: "/videos/hero3.mp4",  thumbUrl: "/images/andoyi/4.png",           label: "Walkthrough"          },
-  { src: "/videos/hero4.mp4",  thumbUrl: "/images/andoyi/2.png",           label: "Site & Surrounds"     },
+  { src: "/videos/drone.mp4",  thumbUrl: "/images/andoyi/thumb-5.jpg",           label: "Drone — Aerial View" },
+  { src: "/videos/hero1.mp4",  thumbUrl: "/images/andoyi/thumb-2.jpg",           label: "Overview"             },
+  { src: "/videos/hero2.mp4",  thumbUrl: "/images/andoyi/thumb-3.jpg",           label: "Exterior"             },
+  { src: "/videos/hero3.mp4",  thumbUrl: "/images/andoyi/thumb-4.jpg",           label: "Walkthrough"          },
+  { src: "/videos/hero4.mp4",  thumbUrl: "/images/andoyi/thumb-2.jpg",           label: "Site & Surrounds"     },
   { src: "/videos/int1.mp4",   thumbUrl: "/images/andoyi/interior1.jpeg",  label: "Bedroom — Angle 1"   },
   { src: "/videos/int2.mp4",   thumbUrl: "/images/andoyi/interior2.jpeg",  label: "Bedroom — Angle 2"   },
 ];
@@ -42,7 +46,7 @@ const DEFAULT_HIGHLIGHTS = [
   "Located in Lagos' tech & innovation hub",
   "Contemporary design with premium finishes",
 ];
-const DEFAULT_GALLERY = ["/images/andoyi/2.png", "/images/andoyi/3.png", "/images/andoyi/4.png"];
+const DEFAULT_GALLERY = ["/images/andoyi/thumb-2.jpg", "/images/andoyi/thumb-3.jpg", "/images/andoyi/thumb-4.jpg"];
 
 // ─── Props ───────────────────────────────────────────────────────────────────
 
@@ -85,6 +89,8 @@ export default function AndoyiContent({ project }: Props) {
   const leaseNote = project?.leaseNote ?? "Lease: April 2027 – March 2052";
   const heroVideo = project?.heroVideoUrl ?? "/videos/hero.mp4";
 
+  const [brochureOpen, setBrochureOpen] = useState(false);
+  const [visitOpen, setVisitOpen] = useState(false);
   const [active, setActive] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const heroRef = useRef<HTMLElement>(null);
@@ -117,7 +123,8 @@ export default function AndoyiContent({ project }: Props) {
         <motion.div style={{ y: imgY }} className="absolute inset-0">
           <video
             src={heroVideo}
-            autoPlay muted loop playsInline preload="auto"
+            poster="/images/andoyi/hero-poster.jpg"
+            autoPlay muted loop playsInline preload="metadata"
             className="absolute inset-0 w-full h-full object-cover"
           />
         </motion.div>
@@ -145,6 +152,20 @@ export default function AndoyiContent({ project }: Props) {
                 <span className="w-1 h-1 rounded-full bg-white/40" />
                 <span>{year}</span>
               </div>
+              <div className="mt-8 flex flex-wrap gap-4">
+                <button
+                  onClick={() => setBrochureOpen(true)}
+                  className="group inline-flex items-center gap-2 px-8 py-4 gold-gradient text-primary-foreground font-body font-semibold text-sm tracking-wide rounded-sm hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20"
+                >
+                  Get Investment Details <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+                </button>
+                <button
+                  onClick={() => setVisitOpen(true)}
+                  className="inline-flex items-center gap-2 px-8 py-4 border border-white/30 text-white font-body font-semibold text-sm tracking-wide rounded-sm hover:bg-white/10 hover:border-white/60 transition-all duration-300 backdrop-blur-sm"
+                >
+                  <Calendar size={14} /> Book a Site Visit
+                </button>
+              </div>
             </motion.div>
           </div>
         </motion.div>
@@ -155,7 +176,7 @@ export default function AndoyiContent({ project }: Props) {
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-14 items-start">
           <AnimatedSection>
             <div className="relative aspect-video overflow-hidden rounded-sm bg-black">
-              <video ref={videoRef} key={clips[active].src} src={clips[active].src} autoPlay muted loop playsInline preload="auto" className="w-full h-full object-cover" />
+              <video ref={videoRef} key={clips[active].src} src={clips[active].src} poster={clips[active].thumbUrl} autoPlay muted loop playsInline preload="metadata" className="w-full h-full object-cover" />
               <span className="absolute top-0 left-0 w-10 h-10 border-t-2 border-l-2 border-primary pointer-events-none" />
               <span className="absolute top-0 right-0 w-10 h-10 border-t-2 border-r-2 border-primary pointer-events-none" />
               <span className="absolute bottom-0 left-0 w-10 h-10 border-b-2 border-l-2 border-primary pointer-events-none" />
@@ -200,9 +221,12 @@ export default function AndoyiContent({ project }: Props) {
             <div className="mt-5">
               <AvailabilityCounter total={88} remaining={24} />
             </div>
-            <Link href="/contact" className="group mt-8 inline-flex items-center gap-2 px-7 py-3.5 gold-gradient text-primary-foreground font-body font-semibold text-sm tracking-wide rounded-sm hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20">
+            <button
+              onClick={() => setBrochureOpen(true)}
+              className="group mt-8 inline-flex items-center gap-2 px-7 py-3.5 gold-gradient text-primary-foreground font-body font-semibold text-sm tracking-wide rounded-sm hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20"
+            >
               Enquire Now <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
+            </button>
           </AnimatedSection>
         </div>
       </section>
@@ -367,7 +391,20 @@ export default function AndoyiContent({ project }: Props) {
         onSelect={setIntLbIdx}
         title="Andoyi House — Interiors"
       />
-      <StickyCTABar projectName="Andoyi House" />
+      <StickyCTABar projectName={ANDOYI_HOUSE} />
+
+      <ProjectLeadSection
+        projectName={ANDOYI_HOUSE}
+        eyebrow="Enquire"
+        title="Is Andoyi House Right for You?"
+        intro="Answer six quick questions and our team will follow up on WhatsApp with pricing, the investment structure and payment options."
+        points={[
+          "Fibre-ready smart apartments in Yaba, Lagos",
+          "25-year lease with rental income rights and resale flexibility",
+          "Short-let and long-let strategies, managed by Zithelo",
+          "Limited units remaining",
+        ]}
+      />
       {/* ── CTA ──────────────────────────────────────────────────────────── */}
       <section className="section-padding bg-foreground">
         <div className="max-w-[800px] mx-auto text-center">
@@ -378,16 +415,27 @@ export default function AndoyiContent({ project }: Props) {
               A limited number of units are available. Speak with our team to understand investment structure and returns.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-              <Link href="/contact" className="group inline-flex items-center gap-2 px-8 py-4 gold-gradient text-primary-foreground font-body font-semibold text-sm tracking-wide rounded-sm hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20">
-                Get In Touch <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-              <Link href="/projects" className="inline-flex items-center gap-2 px-8 py-4 border border-background/30 text-background font-body font-semibold text-sm tracking-wide rounded-sm hover:bg-background/10 transition-all duration-300">
-                All Projects
-              </Link>
+              <button
+                onClick={() => setVisitOpen(true)}
+                className="group inline-flex items-center gap-2 px-8 py-4 gold-gradient text-primary-foreground font-body font-semibold text-sm tracking-wide rounded-sm hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20"
+              >
+                Book a Site Visit <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+              </button>
+              <a
+                href={`https://wa.me/2349110222323?text=${encodeURIComponent(`Hi Zithelo, I'm interested in ${ANDOYI_HOUSE}.`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackMeta("Contact", { content_name: ANDOYI_HOUSE, content_category: "WhatsApp" })}
+                className="inline-flex items-center gap-2 px-8 py-4 border border-background/30 text-background font-body font-semibold text-sm tracking-wide rounded-sm hover:bg-background/10 transition-all duration-300"
+              >
+                <MessageCircle size={14} /> Chat on WhatsApp
+              </a>
             </div>
           </AnimatedSection>
         </div>
       </section>
+      <BrochureModal projectName={ANDOYI_HOUSE} open={brochureOpen} onClose={() => setBrochureOpen(false)} />
+      <SiteVisitModal projectName={ANDOYI_HOUSE} open={visitOpen} onClose={() => setVisitOpen(false)} />
     </>
   );
 }

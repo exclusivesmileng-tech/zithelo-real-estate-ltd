@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Script from "next/script";
 import { META_PIXEL_ID } from "@/lib/metaPixel";
+import { captureAttribution } from "@/lib/attribution";
 
 const STORAGE_KEY = "zithelo-cookie-consent";
 
@@ -12,6 +13,12 @@ export default function MetaPixelLoader() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const firstView = useRef(true);
+
+  // UTM/fbclid are first-party and needed to attribute leads, so they're
+  // captured regardless of the cookie choice that gates the pixel itself.
+  useEffect(() => {
+    captureAttribution();
+  }, [pathname, searchParams]);
 
   useEffect(() => {
     if (localStorage.getItem(STORAGE_KEY) === "accepted") {

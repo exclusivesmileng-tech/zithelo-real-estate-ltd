@@ -11,8 +11,13 @@ declare global {
   }
 }
 
-/** Fire a standard Meta event (Lead, Contact, Schedule, CompleteRegistration…). */
-export function trackMeta(event: string, params?: FbqParams) {
+/**
+ * Fire a standard Meta event (Lead, Contact, Schedule, CompleteRegistration…).
+ * Pass `eventId` when the server also reports the event via the Conversions
+ * API, so Meta deduplicates the pair instead of counting it twice.
+ */
+export function trackMeta(event: string, params?: FbqParams, eventId?: string) {
   if (typeof window === "undefined" || !window.fbq) return;
-  window.fbq("track", event, params);
+  if (eventId) window.fbq("track", event, params, { eventID: eventId });
+  else window.fbq("track", event, params);
 }

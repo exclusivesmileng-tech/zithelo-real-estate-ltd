@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowRight, CheckCircle2, Download } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { trackMeta } from "@/lib/metaPixel";
 
 export default function ExitIntentPopup() {
@@ -11,8 +12,12 @@ export default function ExitIntentPopup() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const fired = useRef(false);
+  // Property pages have their own brochure/viewing offer — a generic lead
+  // magnet there competes with it for campaign traffic.
+  const onProjectPage = usePathname()?.startsWith("/projects/") ?? false;
 
   useEffect(() => {
+    if (onProjectPage) return;
     // Only show once per session
     if (sessionStorage.getItem("exit-popup-shown")) return;
 
@@ -51,7 +56,7 @@ export default function ExitIntentPopup() {
       document.removeEventListener("mouseleave", onMouseLeave);
       window.removeEventListener("scroll", onScroll);
     };
-  }, []);
+  }, [onProjectPage]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

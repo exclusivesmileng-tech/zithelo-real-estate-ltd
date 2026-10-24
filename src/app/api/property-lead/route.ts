@@ -1,12 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { sendTeamEmail, sendLeadEmail, emailTemplate } from "@/lib/mailer";
-import { airtableInsert, airtableList, airtableUpdate, formulaString, TABLE_NAMES } from "@/lib/airtable";
+import { sendTeamEmail, emailTemplate } from "@/lib/mailer";
 import {
-  BUDGETS, ENQUIRY_TYPES, PAYMENT_PREFERENCES, TIMELINES, VIEWING_READINESS,
-  SIGNATURE_HOMES, WEBSITE_SOURCE, initialStage,
+  BUDGETS, ENQUIRY_TYPES, PAYMENT_PREFERENCES, TIMELINES, VIEWING_READINESS, initialStage,
 } from "@/lib/leads";
-import { SEQUENCE, renderEmail } from "@/lib/nurture/signatureHomes";
-import { unsubscribeUrl } from "@/lib/nurture/unsubscribe";
+import { attributionSummary, recordPropertyLead } from "@/lib/propertyLeads";
 
 export const runtime = "nodejs";
 
@@ -18,11 +15,7 @@ function option(v: unknown, allowed: readonly string[]) {
   return typeof v === "string" && allowed.includes(v) ? v : undefined;
 }
 
-/**
- * Per-property lead qualification form. Writes to the Property Leads table,
- * notifies the team, and — for Signature Homes 1 — sends Email 1 of the nurture
- * sequence immediately (the cron at /api/cron/lead-nurture sends the rest).
- */
+/** Per-property lead qualification form (see recordPropertyLead for what happens to it). */
 export async function POST(req: NextRequest) {
   let body: Record<string, unknown>;
   try {
@@ -41,12 +34,9 @@ export async function POST(req: NextRequest) {
   }
 
   const viewingReadiness = option(body.viewingReadiness, VIEWING_READINESS);
-  const now = new Date().toISOString();
+  const stage = initialStage(viewingReadiness);
+  const attribution = typeof body.attribution === "object" && body.attribution ? (body.attribution as Record<string, unknown>) : {};
   const answers = {
-    Name: name,
-    Phone: phone,
-    Email: email,
-    Project: projectName,
     "Enquiry Type": option(body.enquiryType, ENQUIRY_TYPES),
     Budget: option(body.budget, BUDGETS),
     Timeline: option(body.timeline, TIMELINES),
@@ -54,56 +44,29 @@ export async function POST(req: NextRequest) {
     "Viewing Readiness": viewingReadiness,
   };
 
-  const teamEmail = sendTeamEmail(
-    `Property Lead — ${projectName} from ${name}`,
-    emailTemplate("New Property Lead", [
-      ["Name", name],
-      ["Phone / WhatsApp", phone],
-      ["Email", email],
-      ["Project", projectName],
-      ["Enquiry Type", answers["Enquiry Type"]],
-      ["Budget", answers.Budget],
-      ["Timeline", answers.Timeline],
-      ["Payment Preference", answers["Payment Preference"]],
-      ["Viewing Readiness", viewingReadiness],
-      ["Lead Stage", initialStage(viewingReadiness)],
-    ])
-  ).catch((err) => console.error("[/api/property-lead] team email", err));
+  await Promise.all([
+    sendTeamEmail(
+      `Property Lead — ${projectName} from ${name}`,
+      emailTemplate("New Property Lead", [
+        ["Name", name],
+        ["Phone / WhatsApp", phone],
+        ["Email", email],
+        ["Project", projectName],
+        ["Enquiry Type", answers["Enquiry Type"]],
+        ["Budget", answers.Budget],
+        ["Timeline", answers.Timeline],
+        ["Payment Preference", answers["Payment Preference"]],
+        ["Viewing Readiness", viewingReadiness],
+        ["Lead Stage", stage],
+        ["Campaign", attributionSummary(attribution)],
+      ])
+    ).catch((err) => console.error("[/api/property-lead] team email", err)),
+    recordPropertyLead(
+      req,
+      { name, phone, email, projectName, stage, answers },
+      { eventName: "Lead", eventId: str(body.eventId, 100), attribution }
+    ),
+  ]);
 
-  try {
-    // Same person enquiring again about the same project: refresh their answers
-    // rather than creating a duplicate lead or restarting their email sequence.
-    const existing = await airtableList(
-      TABLE_NAMES.propertyLeads,
-      `AND(LOWER({Email}) = ${formulaString(email)}, {Project} = ${formulaString(projectName)})`
-    );
-
-    if (existing[0]) {
-      await airtableUpdate(TABLE_NAMES.propertyLeads, existing[0].id, answers);
-    } else {
-      const hasSequence = projectName === SIGNATURE_HOMES;
-      const recordId = await airtableInsert(TABLE_NAMES.propertyLeads, {
-        ...answers,
-        "Lead Stage": initialStage(viewingReadiness),
-        Source: WEBSITE_SOURCE,
-        "Submitted At": now,
-        "Enrolled At": hasSequence ? now : undefined,
-        "Sequence Step": hasSequence ? 0 : undefined,
-      });
-
-      if (hasSequence && recordId) {
-        await sendLeadEmail(email, renderEmail(SEQUENCE[0], name, unsubscribeUrl(recordId)));
-        await airtableUpdate(TABLE_NAMES.propertyLeads, recordId, {
-          "Sequence Step": 1,
-          "Last Email At": new Date().toISOString(),
-        });
-      }
-    }
-  } catch (err) {
-    // The team email above still carries the lead, so don't fail the visitor.
-    console.error("[/api/property-lead]", err);
-  }
-
-  await teamEmail;
   return NextResponse.json({ ok: true });
 }

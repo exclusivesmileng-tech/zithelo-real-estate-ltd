@@ -5,14 +5,14 @@ import type { SanityProject } from "@/sanity/types";
 import SignatureContent from "./SignatureContent";
 
 export const metadata: Metadata = {
-  title: "Signature Homes Lagos | Premium Residences by Zithelo",
+  title: "Signature Homes 1, Ikeja | 4-Bed Semi-Detached Duplexes by Zithelo",
   description:
-    "Signature Homes Lagos is Zithelo's flagship premium residence development. Fibre-ready, managed apartments with verified title and structured investment returns.",
+    "Zithelo Signature Homes 1: 4-bedroom semi-detached duplexes with BQ in a secure gated estate off Toyin Street, Ikeja, Lagos. Only 12 units. Get the brochure or book a private viewing.",
   alternates: { canonical: "/projects/signature-homes" },
   openGraph: {
-    title: "Signature Homes Lagos | Zithelo Real Estate",
+    title: "Zithelo Signature Homes 1 — Ikeja, Lagos",
     description:
-      "Premium, fibre-ready residences in Lagos. Verified title. Structured returns. Managed for you.",
+      "4-bedroom semi-detached duplexes with BQ off Toyin Street, Ikeja. Gated, CCTV, fibre-ready, 24/7 power. Only 12 units.",
     images: [{ url: "/images/signature/exterior-front.jpg", width: 1200, height: 630, alt: "Signature Homes Lagos" }],
   },
 };
@@ -34,7 +34,7 @@ export default async function SignatureHomesPage() {
         status: raw.status,
         shortDesc: raw.shortDesc,
         galleryUrls: raw.gallery?.map((img) =>
-          urlFor(img).width(1200).url()
+          urlFor(img).width(1200).auto("format").quality(75).url()
         ) ?? [],
         stats: raw.stats,
         highlights: raw.highlights,

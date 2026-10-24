@@ -4,9 +4,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, FileText, Calendar, CheckCircle2, Phone, ArrowRight } from "lucide-react";
 import { trackMeta } from "@/lib/metaPixel";
-import {
-  BUDGETS, ENQUIRY_TYPES, PAYMENT_PREFERENCES, PROJECT_BROCHURES, TIMELINES, VIEWING_READINESS,
-} from "@/lib/leads";
+import { getAttribution, newEventId } from "@/lib/attribution";
+import PropertyLeadForm from "./PropertyLeadForm";
 
 // ─── Brochure Modal ──────────────────────────────────────────────────────────
 
@@ -17,84 +16,18 @@ interface BrochureModalProps {
 }
 
 export function BrochureModal({ projectName, open, onClose }: BrochureModalProps) {
-  const downloadUrl = PROJECT_BROCHURES[projectName] ?? process.env.NEXT_PUBLIC_BROCHURE_PDF_URL;
-  const [form, setForm] = useState({
-    name: "", phone: "", email: "",
-    enquiryType: "", budget: "", timeline: "", paymentPreference: "", viewingReadiness: "",
-  });
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const set = (key: keyof typeof form) => (v: string) => setForm((f) => ({ ...f, [key]: v }));
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      await fetch("/api/property-lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, projectName }),
-      });
-      trackMeta("Lead", { content_name: projectName, content_category: form.enquiryType });
-      setSubmitted(true);
-    } finally {
-      setLoading(false);
-    }
-  }
-
   return (
     <BottomSheet open={open} onClose={onClose}>
-      <div className="flex items-center gap-3 mb-6">
+      <div className="flex items-center gap-3 mb-5">
         <div className="w-10 h-10 rounded-2xl gold-gradient flex items-center justify-center shrink-0">
           <FileText size={18} className="text-primary-foreground" />
         </div>
         <div>
-          <h3 className="font-display text-lg font-bold text-foreground">Request Brochure</h3>
-          <p className="text-xs text-muted-foreground font-body">{projectName}</p>
+          <h3 className="font-display text-lg font-bold text-foreground">Get the Brochure</h3>
+          <p className="text-xs text-muted-foreground font-body">{projectName} · 6 quick questions</p>
         </div>
       </div>
-
-      <AnimatePresence mode="wait">
-        {submitted ? (
-          <motion.div key="done" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col items-center gap-3 py-4 text-center">
-            <CheckCircle2 size={36} className="text-primary" />
-            <p className="font-display font-bold text-foreground text-lg">Thank you, {form.name.split(" ")[0]}!</p>
-            <p className="text-sm text-muted-foreground font-body">
-              {downloadUrl
-                ? <>Your {projectName} brochure is ready below, and we&apos;ve emailed a copy to {form.email}. Our team will be in touch on WhatsApp shortly.</>
-                : <>We&apos;ve received your details for {projectName}. Our team will be in touch on WhatsApp shortly.</>}
-            </p>
-            {downloadUrl && (
-              <a
-                href={downloadUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-1 inline-flex items-center gap-2 gold-gradient text-primary-foreground font-display font-bold text-xs tracking-[0.08em] uppercase px-5 py-3 rounded-2xl hover:opacity-90 transition-opacity"
-              >
-                <FileText size={13} /> Download Now
-              </a>
-            )}
-            <button onClick={onClose} className="mt-2 px-6 py-3 rounded-2xl bg-muted text-foreground font-body font-semibold text-sm">Close</button>
-          </motion.div>
-        ) : (
-          <motion.form key="form" onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <Field label="Full Name" placeholder="Your name" value={form.name} onChange={set("name")} type="text" required />
-            <Field label="Phone / WhatsApp" placeholder="+234 800 000 0000" value={form.phone} onChange={set("phone")} type="tel" required Icon={Phone} />
-            <Field label="Email Address" placeholder="your@email.com" value={form.email} onChange={set("email")} type="email" required />
-            <SelectField label="Enquiry Type" value={form.enquiryType} onChange={set("enquiryType")} options={ENQUIRY_TYPES} />
-            <SelectField label="Budget" value={form.budget} onChange={set("budget")} options={BUDGETS} />
-            <div className="grid grid-cols-2 gap-3">
-              <SelectField label="Purchase Timeline" value={form.timeline} onChange={set("timeline")} options={TIMELINES} />
-              <SelectField label="Payment" value={form.paymentPreference} onChange={set("paymentPreference")} options={PAYMENT_PREFERENCES} />
-            </div>
-            <SelectField label="Viewing Readiness" value={form.viewingReadiness} onChange={set("viewingReadiness")} options={VIEWING_READINESS} />
-            <button type="submit" disabled={loading} className="w-full gold-gradient text-primary-foreground font-display font-bold tracking-[0.08em] uppercase rounded-2xl py-4 flex items-center justify-center gap-2 mt-2 active:scale-[0.98] transition-all">
-              {loading ? "Sending…" : <><span>Send Me the Brochure</span><ArrowRight size={15} /></>}
-            </button>
-            <p className="text-center text-[11px] text-muted-foreground font-body">We&apos;ll email your brochure immediately. No spam.</p>
-          </motion.form>
-        )}
-      </AnimatePresence>
+      <PropertyLeadForm projectName={projectName} onClose={onClose} />
     </BottomSheet>
   );
 }
@@ -111,6 +44,7 @@ export function SiteVisitModal({ projectName, open, onClose }: SiteVisitModalPro
   const [form, setForm] = useState({ name: "", email: "", phone: "", date: "", notes: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   // Min date = tomorrow
   const tomorrow = new Date();
@@ -120,14 +54,19 @@ export function SiteVisitModal({ projectName, open, onClose }: SiteVisitModalPro
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
+    setError("");
+    const eventId = newEventId();
     try {
-      await fetch("/api/site-visit", {
+      const res = await fetch("/api/site-visit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, projectName }),
+        body: JSON.stringify({ ...form, projectName, eventId, attribution: getAttribution() }),
       });
-      trackMeta("Schedule", { content_name: projectName });
+      if (!res.ok) throw new Error("Failed");
+      trackMeta("Schedule", { content_name: projectName }, eventId);
       setSubmitted(true);
+    } catch {
+      setError("Something went wrong — please try again, or call +234 9110 222 323.");
     } finally {
       setLoading(false);
     }
@@ -181,6 +120,7 @@ export function SiteVisitModal({ projectName, open, onClose }: SiteVisitModalPro
                 className="w-full border border-border bg-background text-foreground font-body text-sm px-3 py-2.5 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all"
               />
             </div>
+            {error && <p className="text-xs text-red-500 font-body">{error}</p>}
             <button type="submit" disabled={loading} className="w-full gold-gradient text-primary-foreground font-display font-bold tracking-[0.08em] uppercase rounded-2xl py-4 flex items-center justify-center gap-2 mt-2 active:scale-[0.98] transition-all">
               {loading ? "Booking…" : <><span>Confirm Site Visit</span><ArrowRight size={15} /></>}
             </button>
@@ -247,29 +187,6 @@ function Field({
           className={`w-full border border-border bg-background text-foreground font-body text-sm py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all ${Icon ? "pl-8 pr-3" : "px-3"}`}
         />
       </div>
-    </div>
-  );
-}
-
-function SelectField({
-  label, value, onChange, options,
-}: {
-  label: string; value: string; onChange: (v: string) => void; options: readonly string[];
-}) {
-  return (
-    <div className="flex flex-col gap-1.5">
-      <label className="text-xs font-body font-semibold text-foreground tracking-wide">
-        {label} <span className="text-primary">*</span>
-      </label>
-      <select
-        required
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className={`w-full border border-border bg-background font-body text-sm px-3 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all ${value ? "text-foreground" : "text-muted-foreground"}`}
-      >
-        <option value="" disabled>Select…</option>
-        {options.map((o) => <option key={o} value={o}>{o}</option>)}
-      </select>
     </div>
   );
 }

@@ -5,12 +5,16 @@ import Link from "next/link";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import {
   MapPin, ArrowLeft, ArrowRight,
-  Check, Home, ZoomIn,
+  Check, Home, ZoomIn, MessageCircle, Phone, Calendar,
 } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import ImageLightbox from "@/components/ImageLightbox";
 import StickyCTABar from "@/components/StickyCTABar";
 import AvailabilityCounter from "@/components/AvailabilityCounter";
+import ProjectLeadSection from "@/components/ProjectLeadSection";
+import { BrochureModal, SiteVisitModal } from "@/components/ProjectModals";
+import { trackMeta } from "@/lib/metaPixel";
+import { SIGNATURE_HOMES } from "@/lib/leads";
 
 // ─── Hero backdrop — exterior renders ───────────────────────────────────────
 
@@ -125,6 +129,8 @@ export default function SignatureContent({ project }: Props) {
     project?.shortDesc ??
     "Where Luxury Meets Legacy. Spacious 4-bedroom semi-detached duplexes with BQ, designed for returning professionals and diaspora investors seeking quality, space, and connectivity in the heart of Ikeja.";
 
+  const [brochureOpen, setBrochureOpen] = useState(false);
+  const [visitOpen, setVisitOpen] = useState(false);
   const [heroCycle, setHeroCycle] = useState(0);
   const [activeView, setActiveView] = useState(0);
   const heroRef = useRef<HTMLDivElement>(null);
@@ -220,14 +226,17 @@ export default function SignatureContent({ project }: Props) {
                 <span>{year}</span>
               </div>
               <div className="mt-8 flex flex-wrap gap-4">
-                <Link href="/contact" className="group inline-flex items-center gap-2 px-8 py-4 gold-gradient text-primary-foreground font-body font-semibold text-sm tracking-wide rounded-sm hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20">
-                  Enquire Now <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
                 <button
-                  onClick={() => document.getElementById("gallery")?.scrollIntoView({ behavior: "smooth" })}
+                  onClick={() => setBrochureOpen(true)}
+                  className="group inline-flex items-center gap-2 px-8 py-4 gold-gradient text-primary-foreground font-body font-semibold text-sm tracking-wide rounded-sm hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20"
+                >
+                  Get the Brochure <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+                </button>
+                <button
+                  onClick={() => setVisitOpen(true)}
                   className="inline-flex items-center gap-2 px-8 py-4 border border-white/30 text-white font-body font-semibold text-sm tracking-wide rounded-sm hover:bg-white/10 hover:border-white/60 transition-all duration-300 backdrop-blur-sm"
                 >
-                  View Gallery
+                  <Calendar size={14} /> Book a Private Viewing
                 </button>
               </div>
             </motion.div>
@@ -342,17 +351,33 @@ export default function SignatureContent({ project }: Props) {
             {/* Private viewing contact */}
             <div className="mt-5 border border-primary/25 rounded-sm p-5 bg-primary/5">
               <p className="text-[9px] tracking-[0.2em] uppercase text-primary font-body font-semibold mb-2">Private Viewing &amp; Enquiries</p>
-              <a href="tel:+2349110222323" className="flex items-center gap-2 text-sm font-body text-foreground hover:text-primary transition-colors mb-1.5">
-                <span className="text-primary">📞</span> +234 9110 222 323
+              <a
+                href="tel:+2349110222323"
+                onClick={() => trackMeta("Contact", { content_name: SIGNATURE_HOMES, content_category: "Call" })}
+                className="flex items-center gap-2 text-sm font-body text-foreground hover:text-primary transition-colors mb-1.5"
+              >
+                <Phone size={13} className="text-primary" /> +234 9110 222 323
+              </a>
+              <a
+                href={`https://wa.me/2349110222323?text=${encodeURIComponent(`Hi Zithelo, I'm interested in ${SIGNATURE_HOMES}.`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackMeta("Contact", { content_name: SIGNATURE_HOMES, content_category: "WhatsApp" })}
+                className="flex items-center gap-2 text-sm font-body text-foreground hover:text-primary transition-colors mb-1.5"
+              >
+                <MessageCircle size={13} className="text-primary" /> Chat on WhatsApp
               </a>
               <a href="https://instagram.com/zithelohomes" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-body text-foreground hover:text-primary transition-colors">
                 <span className="text-primary">📸</span> @zithelohomes
               </a>
             </div>
 
-            <Link href="/contact" className="group mt-6 inline-flex items-center gap-2 px-7 py-3.5 gold-gradient text-primary-foreground font-body font-semibold text-sm tracking-wide rounded-sm hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20">
-              Enquire Now <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
+            <button
+              onClick={() => setBrochureOpen(true)}
+              className="group mt-6 inline-flex items-center gap-2 px-7 py-3.5 gold-gradient text-primary-foreground font-body font-semibold text-sm tracking-wide rounded-sm hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20"
+            >
+              Get the Brochure <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+            </button>
           </AnimatedSection>
         </div>
       </section>
@@ -396,7 +421,7 @@ export default function SignatureContent({ project }: Props) {
           {/* 4 feature cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
-              { num: "01", title: "Prime Ikeja Address", desc: "Off Toyin Street — one of Lagos' most prestigious residential and commercial addresses.", detail: "Toyin Street · Ikeja GRA" },
+              { num: "01", title: "Prime Ikeja Address", desc: "Off Toyin Street — one of Lagos' most prestigious residential and commercial addresses.", detail: "Toyin Street · Ikeja" },
               { num: "02", title: "Superior Construction", desc: "Premium imported finishes, quality fittings, and an attention to detail that sets a new benchmark.", detail: "Premium finishes · Built to last" },
               { num: "03", title: "Fibre-Ready Living", desc: "Every unit is wired for gigabit-speed internet from day one — no retrofitting, no compromises.", detail: "Fibre optic · Smart-ready" },
               { num: "04", title: "Diaspora Designed", desc: "Conceived for returning professionals and diaspora investors who know what quality looks like.", detail: "Remote purchase · Verified title" },
@@ -569,7 +594,20 @@ export default function SignatureContent({ project }: Props) {
         title={title}
       />
 
-      <StickyCTABar projectName="Signature Homes 1" />
+      <StickyCTABar projectName={SIGNATURE_HOMES} />
+
+      <ProjectLeadSection
+        projectName={SIGNATURE_HOMES}
+        eyebrow="Get the Brochure"
+        title="See If Signature Homes 1 Is Right for You"
+        intro="Answer six quick questions and we'll send the full brochure straight away. A member of our team will then follow up on WhatsApp with pricing, payment options and viewing times that suit you."
+        points={[
+          "4-bedroom semi-detached duplexes with BQ",
+          "Secure gated estate off Toyin Street, Ikeja",
+          "Only 12 units, with 5 still available",
+          "Private viewings, or a live video walkthrough if you're abroad",
+        ]}
+      />
 
       {/* ══════════════════════════════════════════
           CTA — DARK
@@ -583,16 +621,28 @@ export default function SignatureContent({ project }: Props) {
               A limited number of units are available. Speak with our team about current availability, pricing, and viewing appointments.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-              <Link href="/contact" className="group inline-flex items-center gap-2 px-8 py-4 gold-gradient text-primary-foreground font-body font-bold text-sm tracking-wide rounded-sm hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20">
-                Get In Touch <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-              <Link href="/projects" className="inline-flex items-center gap-2 px-8 py-4 border border-background/30 text-background font-body font-semibold text-sm tracking-wide rounded-sm hover:bg-background/10 transition-all duration-300">
-                All Projects
-              </Link>
+              <button
+                onClick={() => setVisitOpen(true)}
+                className="group inline-flex items-center gap-2 px-8 py-4 gold-gradient text-primary-foreground font-body font-bold text-sm tracking-wide rounded-sm hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20"
+              >
+                Book a Private Viewing <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+              </button>
+              <a
+                href={`https://wa.me/2349110222323?text=${encodeURIComponent(`Hi Zithelo, I'm interested in ${SIGNATURE_HOMES}.`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackMeta("Contact", { content_name: SIGNATURE_HOMES, content_category: "WhatsApp" })}
+                className="inline-flex items-center gap-2 px-8 py-4 border border-background/30 text-background font-body font-semibold text-sm tracking-wide rounded-sm hover:bg-background/10 transition-all duration-300"
+              >
+                <MessageCircle size={14} /> Chat on WhatsApp
+              </a>
             </div>
           </AnimatedSection>
         </div>
       </section>
+
+      <BrochureModal projectName={SIGNATURE_HOMES} open={brochureOpen} onClose={() => setBrochureOpen(false)} />
+      <SiteVisitModal projectName={SIGNATURE_HOMES} open={visitOpen} onClose={() => setVisitOpen(false)} />
     </>
   );
 }

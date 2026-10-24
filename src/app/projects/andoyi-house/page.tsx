@@ -36,12 +36,12 @@ export default async function AndoyiHousePage() {
         leaseNote: raw.leaseNote,
         heroVideoUrl: raw.heroVideo ?? undefined,
         galleryUrls: raw.gallery?.map((img) =>
-          urlFor(img).width(1200).url()
+          urlFor(img).width(1200).auto("format").quality(75).url()
         ) ?? [],
         videoClips: raw.videoClips?.map((c) => ({
           label: c.label,
           src: c.src,
-          thumbUrl: c.thumb ? urlFor(c.thumb).width(400).url() : "/images/andoyi/2.png",
+          thumbUrl: c.thumb ? urlFor(c.thumb).width(400).auto("format").quality(75).url() : "/images/andoyi/thumb-2.jpg",
         })) ?? [],
         stats: raw.stats,
         highlights: raw.highlights,
