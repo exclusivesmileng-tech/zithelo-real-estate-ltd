@@ -58,7 +58,12 @@ const QUESTIONS: Question[] = [
   },
 ];
 
-const TOTAL_STEPS = QUESTIONS.length + 1;
+type ContactKey = "name" | "phone" | "email";
+
+/** Contact details come last, one field per screen, so no screen feels like a form. */
+const CONTACT_STEPS: ContactKey[] = ["name", "phone", "email"];
+
+const TOTAL_STEPS = QUESTIONS.length + CONTACT_STEPS.length;
 
 interface Props {
   projectName: string;
@@ -152,6 +157,30 @@ export default function PropertyLeadForm({ projectName, onClose }: Props) {
   }
 
   const question = QUESTIONS[step];
+  const contactKey = CONTACT_STEPS[step - QUESTIONS.length];
+  const isLastStep = step === TOTAL_STEPS - 1;
+  const firstName = contact.name.trim().split(/\s+/)[0];
+
+  function next(e: React.FormEvent) {
+    e.preventDefault();
+    if (isLastStep) submit(e);
+    else setStep((s) => s + 1);
+  }
+
+  const contactScreens: Record<ContactKey, { title: string; field: React.ReactNode }> = {
+    name: {
+      title: "Almost done — what’s your name?",
+      field: <Input label="Full Name" placeholder="Your name" value={contact.name} onChange={(v) => setContact((c) => ({ ...c, name: v }))} type="text" autoComplete="name" />,
+    },
+    phone: {
+      title: `Thanks${firstName ? `, ${firstName}` : ""}! What’s your WhatsApp number?`,
+      field: <Input label="Phone / WhatsApp" placeholder="+234 800 000 0000" value={contact.phone} onChange={(v) => setContact((c) => ({ ...c, phone: v }))} type="tel" autoComplete="tel" Icon={Phone} />,
+    },
+    email: {
+      title: downloadUrl ? "Last one — where should we email your brochure?" : "Last one — what’s your email address?",
+      field: <Input label="Email Address" placeholder="your@email.com" value={contact.email} onChange={(v) => setContact((c) => ({ ...c, email: v }))} type="email" autoComplete="email" />,
+    },
+  };
 
   return (
     <div>
@@ -214,27 +243,25 @@ export default function PropertyLeadForm({ projectName, onClose }: Props) {
           </motion.div>
         ) : (
           <motion.form
-            key="contact"
-            onSubmit={submit}
+            key={contactKey}
+            onSubmit={next}
             initial={{ opacity: 0, x: 24 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -24 }}
             transition={{ duration: 0.2 }}
             className="flex flex-col gap-4"
           >
-            <p className="font-display text-lg font-bold text-foreground">
-              {downloadUrl ? "Last step — where should we send your brochure?" : "Last step — how can we reach you?"}
-            </p>
-            <Input label="Full Name" placeholder="Your name" value={contact.name} onChange={(v) => setContact((c) => ({ ...c, name: v }))} type="text" autoComplete="name" />
-            <Input label="Phone / WhatsApp" placeholder="+234 800 000 0000" value={contact.phone} onChange={(v) => setContact((c) => ({ ...c, phone: v }))} type="tel" autoComplete="tel" Icon={Phone} />
-            <Input label="Email Address" placeholder="your@email.com" value={contact.email} onChange={(v) => setContact((c) => ({ ...c, email: v }))} type="email" autoComplete="email" />
+            <p className="font-display text-lg font-bold text-foreground">{contactScreens[contactKey].title}</p>
+            {contactScreens[contactKey].field}
             {error && <p className="text-xs text-red-500 font-body">{error}</p>}
             <button
               type="submit"
               disabled={loading}
               className="w-full gold-gradient text-primary-foreground font-display font-bold tracking-[0.08em] uppercase rounded-2xl py-4 flex items-center justify-center gap-2 mt-1 active:scale-[0.98] transition-all disabled:opacity-70"
             >
-              {loading ? "Sending…" : <><span>{downloadUrl ? "Get the Brochure" : "Submit"}</span><ArrowRight size={15} /></>}
+              {loading
+                ? "Sending…"
+                : <><span>{isLastStep ? (downloadUrl ? "Get the Brochure" : "Submit") : "Next"}</span><ArrowRight size={15} /></>}
             </button>
             <p className="text-center text-[11px] text-muted-foreground font-body">Your details stay with Zithelo. No spam.</p>
           </motion.form>
@@ -260,6 +287,7 @@ function Input({
         <input
           type={type}
           required
+          autoFocus
           autoComplete={autoComplete}
           placeholder={placeholder}
           value={value}

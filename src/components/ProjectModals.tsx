@@ -24,7 +24,7 @@ export function BrochureModal({ projectName, open, onClose }: BrochureModalProps
         </div>
         <div>
           <h3 className="font-display text-lg font-bold text-foreground">Get the Brochure</h3>
-          <p className="text-xs text-muted-foreground font-body">{projectName} · 6 quick questions</p>
+          <p className="text-xs text-muted-foreground font-body">{projectName} · takes under a minute</p>
         </div>
       </div>
       <PropertyLeadForm projectName={projectName} onClose={onClose} />

@@ -397,7 +397,7 @@ export default function AndoyiContent({ project }: Props) {
         projectName={ANDOYI_HOUSE}
         eyebrow="Enquire"
         title="Is Andoyi House Right for You?"
-        intro="Answer six quick questions and our team will follow up on WhatsApp with pricing, the investment structure and payment options."
+        intro="Answer a few quick questions and our team will follow up on WhatsApp with pricing, the investment structure and payment options."
         points={[
           "Fibre-ready smart apartments in Yaba, Lagos",
           "25-year lease with rental income rights and resale flexibility",

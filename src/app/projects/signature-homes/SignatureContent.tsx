@@ -600,7 +600,7 @@ export default function SignatureContent({ project }: Props) {
         projectName={SIGNATURE_HOMES}
         eyebrow="Get the Brochure"
         title="See If Signature Homes 1 Is Right for You"
-        intro="Answer six quick questions and we'll send the full brochure straight away. A member of our team will then follow up on WhatsApp with pricing, payment options and viewing times that suit you."
+        intro="Answer a few quick questions and we'll send the full brochure straight away. A member of our team will then follow up on WhatsApp with pricing, payment options and viewing times that suit you."
         points={[
           "4-bedroom semi-detached duplexes with BQ",
           "Secure gated estate off Toyin Street, Ikeja",

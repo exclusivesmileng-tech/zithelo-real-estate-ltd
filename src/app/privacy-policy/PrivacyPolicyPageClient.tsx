@@ -24,7 +24,7 @@ const SECTIONS = [
       "Personal identifiers: full name, email address, phone number",
       "Property interests, investment preferences, and enquiry details",
       "Technical data: IP addresses, browser type, device identifiers",
-      "Cookies and usage analytics",
+      "Cookies, usage analytics, and advertising measurement data (Meta Pixel)",
     ],
   },
   {
@@ -52,7 +52,7 @@ const SECTIONS = [
     num: "05",
     icon: ArrowRight,
     title: "Data Sharing",
-    body: "Your information may be shared with agents, developers, contractors, and trusted third-party service providers necessary for service delivery. We do not sell your personal data. All third parties are bound by confidentiality obligations.",
+    body: "Your information may be shared with agents, developers, contractors, and trusted third-party service providers necessary for service delivery. We do not sell your personal data. All third parties are bound by confidentiality obligations. We also use advertising and analytics tools, including the Meta Pixel and Meta Conversions API (Meta Platforms) and Google Analytics. These collect device and browsing information on our website and, when you submit an enquiry form, hashed (encrypted) contact details, so we can measure and improve our advertising. You can manage how Meta uses this information in your Facebook or Instagram ad settings.",
   },
   {
     id: "communication-consent",
