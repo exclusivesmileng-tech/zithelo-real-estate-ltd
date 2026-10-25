@@ -4,9 +4,9 @@
 export const SIGNATURE_HOMES = "Signature Homes 1";
 export const ANDOYI_HOUSE = "Andoyi House";
 
+/** Site-relative brochure PDFs (compressed from the Drive originals for mobile). */
 export const PROJECT_BROCHURES: Record<string, string | undefined> = {
-  [SIGNATURE_HOMES]:
-    "https://drive.google.com/file/d/1wSphI-kYfdqCg7uVfy1k-yogJ0Z2vpWQ/view?usp=sharing",
+  [SIGNATURE_HOMES]: "/brochures/zithelo-signature-homes-ikeja-brochure.pdf",
 };
 
 export const ENQUIRY_TYPES = [

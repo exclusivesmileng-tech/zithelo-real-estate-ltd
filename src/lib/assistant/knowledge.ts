@@ -60,7 +60,7 @@ full in-house property management with transparent investor reporting.
   appreciation (illustrative, not guaranteed)
 - Audience: diaspora returnees wanting a family home, and premium investors
 - Page: ${SITE_URL}/projects/signature-homes
-- Brochure (PDF): https://drive.google.com/file/d/1wSphI-kYfdqCg7uVfy1k-yogJ0Z2vpWQ/view?usp=sharing
+- Brochure (PDF): ${SITE_URL}/brochures/zithelo-signature-homes-ikeja-brochure.pdf
 
 ## Services
 

@@ -12,7 +12,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.zithelo.com";
 export function links() {
   const meeting = process.env.NURTURE_MEETING_URL ?? `${SITE_URL}/contact?type=investment`;
   return {
-    BROCHURE: PROJECT_BROCHURES[SIGNATURE_HOMES]!,
+    BROCHURE: `${SITE_URL}${PROJECT_BROCHURES[SIGNATURE_HOMES]}`,
     WHATSAPP: process.env.NURTURE_WHATSAPP_URL ?? "https://wa.me/2349110222323",
     MEETING: meeting,
     VIEWING: process.env.NURTURE_VIEWING_URL ?? meeting,
