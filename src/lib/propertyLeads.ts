@@ -89,10 +89,15 @@ export async function recordPropertyLead(req: NextRequest, lead: PropertyLead, t
   }).catch((err) => console.error("[propertyLeads] CAPI", err));
 
   try {
+    // Dedupe lookup is best-effort: if the token can't read records, still
+    // save the lead rather than lose it.
     const existing = await airtableList(
       TABLE_NAMES.propertyLeads,
       `AND(LOWER({Email}) = ${formulaString(lead.email)}, {Project} = ${formulaString(lead.projectName)})`
-    );
+    ).catch((err) => {
+      console.error("[propertyLeads] dedupe lookup failed — inserting", err);
+      return [];
+    });
 
     const core: Fields = {
       Name: lead.name,
